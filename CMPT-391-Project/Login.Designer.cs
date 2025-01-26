@@ -89,7 +89,7 @@ namespace CMPT_391_Project
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Log In";
             this.ResumeLayout(false);
             this.PerformLayout();
 
