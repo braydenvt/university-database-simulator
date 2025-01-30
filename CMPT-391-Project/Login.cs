@@ -30,12 +30,13 @@ namespace CMPT_391_Project
             try { 
                 //accessing db to sign in
             }
-            catch (Exception){}
+            catch (Exception){
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Register registrationWindow = new Register();
+            Registration_System registrationWindow = new Registration_System();
             registrationWindow.Show();
             this.Hide();
         }

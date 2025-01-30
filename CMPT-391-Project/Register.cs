@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CMPT_391_Project
 {
-    public partial class Register : Form
+    public partial class Registration_System : Form
     {
-        public Register()
+        public Registration_System()
         {
             InitializeComponent();
         }
