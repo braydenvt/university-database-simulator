@@ -17,6 +17,10 @@ namespace CMPT_391_Project
             InitializeComponent();
         }
 
+        public string SIDText = "";
+        public string LNameText = "";
+
+
         private void QueryButton_Click(object sender, EventArgs e)
         {
             // Shows courses in the database, based upon the entered fields
@@ -36,16 +40,35 @@ namespace CMPT_391_Project
         private void VerifyButton_Click(object sender, EventArgs e)
         {
             // Checks if the student exists in the database and can therefore add the courses to their cart.
-            var SIDText = ID.Text;
-            var PassText = Pass.Text;
+            // First we reset the data entered.
+
+            SIDText = "";
+            LNameText = "";
+
+            SIDText = SID.Text;
+            LNameText = LName.Text;
 
             // Cannot access student if either field is blank.
-            if (SIDText.Length == 0 || PassText.Length == 0)
+            if (SIDText.Length == 0 || LNameText.Length == 0)
             {
-                MessageBox.Show("ID or password is not entered.");
-            } else
+                MessageBox.Show("ID or name is not entered.");
+            }
+            else
             {
-                // Perform queries...
+                // Perform queries to verify that the student exists.
+
+                try
+                {
+                    // Try to find if the ID and last name are valid.
+
+
+                    MessageBox.Show($@"Successfully verified!{Environment.NewLine}Student ID: {SIDText}{Environment.NewLine}Last Name: {LNameText}");
+                }
+                catch (Exception e2)
+                {
+                    MessageBox.Show(e2.ToString(), "Error");
+                }
+
 
             }
         }
@@ -55,51 +78,109 @@ namespace CMPT_391_Project
 
         }
 
+        private void CourseSearchGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // To test area of selection
+            MessageBox.Show(String.Format("Row: {0}, Column: {1}",
+                    CourseSearchGrid.CurrentCell.RowIndex,
+                    CourseSearchGrid.CurrentCell.ColumnIndex), "Current Cell");
+
+            // Check what column was clicked to add a course to the cart.
+            if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd" && e.RowIndex != -1)
+            {
+
+                if (SIDText.Length == 0 || LNameText.Length == 0)
+                {
+                    MessageBox.Show("ID or name is not entered.");
+                }
+                else
+                {
+                    if (MessageBox.Show("Are you sure want to add this course to your cart ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // Adds the course to the cart
+                        try
+                        {
+                            
+                        }
+                        catch (Exception e2)
+                        {
+                            MessageBox.Show(e2.ToString(), "Error");
+                        }
+                    }
+                }
+            }
+
+        }
+
         private void CartDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Check what column was clicked, to enroll in a course or delete a course from the cart
-            if (CartDataGrid.Columns[e.ColumnIndex].Name== "CartEnroll")
+            if (CartDataGrid.Columns[e.ColumnIndex].Name== "CartEnroll" && e.RowIndex != -1)
             {
-                if (MessageBox.Show("Are you sure want to enroll in this course ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (SIDText.Length == 0 || LNameText.Length == 0)
                 {
-                    // Enrolls the course into the students' page
-                    return;
+                    MessageBox.Show("ID or name is not entered.");
+                }
+                else
+                {
+                    // Confirmation to enroll in the course
+                    if (MessageBox.Show("Are you sure want to enroll in this course ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // Enrolls the course into the students' page
+                        try
+                        {
+
+                        }
+                        catch (Exception e2)
+                        {
+                            MessageBox.Show(e2.ToString(), "Error");
+                        }
+                    }
                 }
             }
 
-            if (CartDataGrid.Columns[e.ColumnIndex].Name == "CartDelete")
+            if (CartDataGrid.Columns[e.ColumnIndex].Name == "CartDelete" && e.RowIndex != -1)
             {
-                if (MessageBox.Show("Are you sure want to remove this course from your cart ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (SIDText.Length == 0 || LNameText.Length == 0)
                 {
-                    // Removes the course from the cart
-                    return;
+                    MessageBox.Show("ID or name is not entered.");
+                }
+                else
+                {
+                    // Confirmation to remove the course from the cart
+                    if (MessageBox.Show("Are you sure want to remove this course from your cart ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // Removes the course from the cart
+                        try
+                        {
+
+                        }
+                        catch (Exception e2)
+                        {
+                            MessageBox.Show(e2.ToString(), "Error");
+                        }
+                    }
                 }
             }
-        }
-
-        private void CourseSearchGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Check what column was clicked to add a course to the cart.
-            if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd")
-            {
-                if (MessageBox.Show("Are you sure want to add this course to your cart ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    // Removes the course from the cart
-                    return;
-                }
-            }
-
         }
 
         private void EnrollDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Check what column was clicked to unenroll from a course.
-            if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd")
+            if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd" && e.RowIndex != -1)
             {
+                // Confirmation to unenroll the course from the cart
                 if (MessageBox.Show("Are you sure want to unenroll in this course ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     // Removes the course from the cart
-                    return;
+                    try
+                    {
+
+                    }
+                    catch (Exception e2)
+                    {
+                        MessageBox.Show(e2.ToString(), "Error");
+                    }
                 }
             }
         }
