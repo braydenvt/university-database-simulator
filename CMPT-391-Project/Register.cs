@@ -75,7 +75,31 @@ namespace CMPT_391_Project
 
         private void Refresh_Click(object sender, EventArgs e)
         {
+            // Refreshes the application to see if a course still has availability
 
+            // Cannot access student if either field is blank.
+            if (SIDText.Length == 0 || LNameText.Length == 0)
+            {
+                MessageBox.Show("ID or name is not entered.");
+            }
+            else
+            {
+                // Perform queries to verify that the student exists.
+
+                try
+                {
+                    // Try to find if the ID and last name are valid.
+
+
+                    MessageBox.Show($@"Successfully verified!{Environment.NewLine}Student ID: {SIDText}{Environment.NewLine}Last Name: {LNameText}");
+                }
+                catch (Exception e2)
+                {
+                    MessageBox.Show(e2.ToString(), "Error");
+                }
+
+
+            }
         }
 
         private void CourseSearchGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
