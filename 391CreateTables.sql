@@ -13,7 +13,7 @@ CREATE TABLE Student (
 SID INT IDENTITY(1,1) PRIMARY KEY,
 FirstName VARCHAR(50),
 LastName VARCHAR(50),
-Active VARCHAR(21),
+Active VARCHAR(1),
 CONSTRAINT chk_Active CHECK (Active IN ('Y', 'N'))
 );
  
