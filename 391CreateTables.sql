@@ -12,7 +12,9 @@ DROP TABLE IF EXISTS Department;
 CREATE TABLE Student (
 SID INT IDENTITY(1,1) PRIMARY KEY,
 FirstName VARCHAR(50),
-LastName VARCHAR(50)
+LastName VARCHAR(50),
+Active VARCHAR(21),
+CONSTRAINT chk_Active CHECK (Active IN ('Y', 'N'))
 );
  
 CREATE TABLE Department (
@@ -47,6 +49,7 @@ TimeBlock VARCHAR(2),
 RoomNumber VARCHAR(5),
 CID VARCHAR(8),
 IID INT,
+NumEnrolled INT,
 FOREIGN KEY (CID) REFERENCES Course(CID),
 FOREIGN KEY (IID) REFERENCES Instructor(IID)
 );
