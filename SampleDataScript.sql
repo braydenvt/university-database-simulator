@@ -4,30 +4,35 @@ USE [391Project]
 GO
 INSERT INTO [dbo].[Student]
 VALUES
-	('Bryan', 'Hudson'),
-	('Caleb', 'Ferguson'),
-	('Tim','Hill'),
-	('Nick', 'Mears'),
-	('Ian', 'Hamilton'),
-	('Sophia', 'Williams'),
-	('Oliver', 'Johnson'),
-	('Lily', 'Smith'),
-	('James', 'Brown'),
-	('Emma', 'Jones'),
-	('Lucas', 'Davis'),
-	('Mia', 'Garcia'),
-	('William', 'Martinez'),
-	('Charlotte', 'Rodriguez'),
-	('Benjamin', 'Wilson'),
-	('Amelia', 'Anderson'),
-	('Elijah', 'Taylor'),
-	('Zoe', 'Thomas'),
-	('Ethan', 'Moore'),
-	('Harper', 'Jackson'),
-	('Alexander', 'White'),
-	('Isabella', 'Harris'),
-	('Michael', 'Clark'),
-	('Avery', 'Lewis') -- #24
+	('Bryan', 'Hudson', 'Y'),
+	('Caleb', 'Ferguson', 'Y'),
+	('Tim','Hill', 'Y'),
+	('Nick', 'Mears', 'Y'),
+	('Ian', 'Hamilton', 'Y'),
+	('Sophia', 'Williams', 'Y'),
+	('Oliver', 'Johnson', 'Y'),
+	('Lily', 'Smith', 'Y'),
+	('James', 'Brown', 'Y'),
+	('Emma', 'Jones', 'Y'),
+	('Lucas', 'Davis', 'Y'),
+	('Mia', 'Garcia', 'Y'),
+	('William', 'Martinez', 'Y'),
+	('Charlotte', 'Rodriguez', 'Y'),
+	('Benjamin', 'Wilson', 'Y'),
+	('Amelia', 'Anderson', 'Y'),
+	('Elijah', 'Taylor', 'Y'),
+	('Zoe', 'Thomas', 'Y'),
+	('Ethan', 'Moore', 'Y'),
+	('Harper', 'Jackson', 'Y'),
+	('Alexander', 'White', 'Y'),
+	('Isabella', 'Harris', 'Y'),
+	('Michael', 'Clark', 'Y'),
+	('Avery', 'Lewis', 'Y'), -- #24
+	('Avern', 'Lewis', 'N'),
+	('Dannn', 'Young', 'N'),
+	('Emiln', 'Clark', 'N'),
+	('Sydnn', 'Martin', 'N'),
+	('Tonin', 'Bennett', 'N')
 GO
 
 -- INSERTING DEPARTMENTS 
@@ -92,23 +97,23 @@ GO
 INSERT INTO [dbo].Section
 VALUES
 	-- CMPT 101
-	('Fall 2021', 30, 'F', '6-285','CMPT-101', 4), -- #1
-	('Fall 2023', 30, 'F', '6-285','CMPT-101', 4),  
-	('Fall 2023', 30, 'M', '5-213', 'CMPT-103', 2), -- #3
-	('Winter 2024', 30, 'C', '5-121', 'CMPT-103', 1),
-	('Winter 2022', 30, 'C', '5-121', 'CMPT-103', 1), -- #5
-	('Fall 2024', 30, 'L', '5-215', 'CMPT-200', 1),
-	('Fall 2022', 30, 'A', '5-167', 'CMPT-200', 4), -- #7
-	('Winter 2024', 30, 'C', '5-121', 'CMPT-250', 1),
-	('Winter 2023', 30, 'L', '5-215', 'CMPT-201', 1), -- #9
-	('Winter 2023', 30, 'A', '5-263', 'CMPT-305', 1), 
-	('Winter 2023', 30, 'K', '5-321', 'CMPT-291', 3), -- #11
-	('Winter 2023', 30, 'M', '5-213', 'CMPT-103', 2),
-	('Fall 2024', 30, 'A', '5-213', 'CMPT-200', 1), -- #13
-	('Wimter 2023', 30, 'B', '6-123', 'ENGL-102',7),
-	('Winter 2025', 30, 'C', '6-144', 'ENGL-102',7), -- #15
+	('Fall 2021', 30, 'F', '6-285','CMPT-101', 4, 9), -- #1
+	('Fall 2023', 30, 'F', '6-285','CMPT-101', 4, 9),  
+	('Fall 2023', 30, 'M', '5-213', 'CMPT-103', 2,0), -- #3
+	('Winter 2024', 30, 'C', '5-121', 'CMPT-103', 1,9),
+	('Winter 2022', 30, 'C', '5-121', 'CMPT-103', 1, 9), -- #5
+	('Fall 2024', 30, 'L', '5-215', 'CMPT-200', 1,0),
+	('Fall 2022', 30, 'A', '5-167', 'CMPT-200', 4, 9), -- #7
+	('Winter 2024', 30, 'C', '5-121', 'CMPT-250', 1,9),
+	('Winter 2023', 30, 'L', '5-215', 'CMPT-201', 1,9), -- #9
+	('Winter 2023', 30, 'A', '5-263', 'CMPT-305', 1,9), 
+	('Winter 2023', 30, 'K', '5-321', 'CMPT-291', 3,6), -- #11
+	('Winter 2023', 30, 'M', '5-213', 'CMPT-103', 2,0),
+	('Fall 2024', 30, 'A', '5-213', 'CMPT-200', 1,0), -- #13
+	('Winter 2023', 30, 'B', '6-123', 'ENGL-102',7,9),
+	('Winter 2025', 30, 'C', '6-144', 'ENGL-102',7,0), -- #15
 	-- TEST MAX
-	('Fall 2025', 5, 'A', '5-123', 'ENGL-102',7)
+	('Fall 2025', 5, 'A', '5-123', 'ENGL-102',7,5)
 GO
 
 -- INSERTING ENROLLMENT
@@ -224,6 +229,7 @@ VALUES
 	(23,16),
 	(24,16)
 GO
+
 
 
 
