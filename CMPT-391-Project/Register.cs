@@ -19,7 +19,7 @@ namespace CMPT_391_Project
 
         public string SIDText = "";
         public string LNameText = "";
-
+        public string Verified = "N";
 
         private void QueryButton_Click(object sender, EventArgs e)
         {
@@ -31,10 +31,19 @@ namespace CMPT_391_Project
             if (DeptText.Length == 0 || IDText.Length == 0 || SemText.Length == 0)
             {
                 
-            } else
+            } 
+            else
             {
-
+                try
+                {
+                    // CourseSearchGrid.Rows.Add("CID1", "CTITle", "SecIaeafeD", "Semmememe", Col_CartAdd);
+                }
+                catch (Exception e2)
+                {
+                    MessageBox.Show(e2.ToString(), "Error");
+                }
             }
+
         }
 
         private void VerifyButton_Click(object sender, EventArgs e)
@@ -44,6 +53,7 @@ namespace CMPT_391_Project
 
             SIDText = "";
             LNameText = "";
+            Verified = "N";
 
             SIDText = SID.Text;
             LNameText = LName.Text;
@@ -62,35 +72,7 @@ namespace CMPT_391_Project
                     // Try to find if the ID and last name are valid.
 
 
-                    MessageBox.Show($@"Successfully verified!{Environment.NewLine}Student ID: {SIDText}{Environment.NewLine}Last Name: {LNameText}");
-                }
-                catch (Exception e2)
-                {
-                    MessageBox.Show(e2.ToString(), "Error");
-                }
-
-
-            }
-        }
-
-        private void Refresh_Click(object sender, EventArgs e)
-        {
-            // Refreshes the application to see if a course still has availability
-
-            // Cannot access student if either field is blank.
-            if (SIDText.Length == 0 || LNameText.Length == 0)
-            {
-                MessageBox.Show("ID or name is not entered.");
-            }
-            else
-            {
-                // Perform queries to verify that the student exists.
-
-                try
-                {
-                    // Try to find if the ID and last name are valid.
-
-
+                    Verified = "Y";
                     MessageBox.Show($@"Successfully verified!{Environment.NewLine}Student ID: {SIDText}{Environment.NewLine}Last Name: {LNameText}");
                 }
                 catch (Exception e2)
@@ -110,12 +92,12 @@ namespace CMPT_391_Project
                     CourseSearchGrid.CurrentCell.ColumnIndex), "Current Cell");
 
             // Check what column was clicked to add a course to the cart.
-            if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd" && e.RowIndex != -1)
+            if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd" && e.RowIndex >= 0)
             {
 
-                if (SIDText.Length == 0 || LNameText.Length == 0)
+                if (Verified == "N")
                 {
-                    MessageBox.Show("ID or name is not entered.");
+                    MessageBox.Show("Student is not logged in.", "Error.");
                 }
                 else
                 {
@@ -124,7 +106,14 @@ namespace CMPT_391_Project
                         // Adds the course to the cart
                         try
                         {
-                            
+
+                            var addedCID = CourseSearchGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            var addedTitle = CourseSearchGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            var addedSecID = CourseSearchGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            var addedSem = CourseSearchGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
+
+                            CartDataGrid.Rows.Add(addedCID, addedTitle,
+                                addedSecID, addedSem, EnrollUnenroll);
                         }
                         catch (Exception e2)
                         {
@@ -138,12 +127,15 @@ namespace CMPT_391_Project
 
         private void CartDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             // Check what column was clicked, to enroll in a course or delete a course from the cart
-            if (CartDataGrid.Columns[e.ColumnIndex].Name== "CartEnroll" && e.RowIndex != -1)
+            if (CartDataGrid.Columns[e.ColumnIndex].Name== "CartEnroll" && e.RowIndex >= 0)
             {
-                if (SIDText.Length == 0 || LNameText.Length == 0)
+
+
+                if (Verified == "N")
                 {
-                    MessageBox.Show("ID or name is not entered.");
+                    MessageBox.Show("Student is not logged in.", "Error.");
                 }
                 else
                 {
@@ -154,6 +146,13 @@ namespace CMPT_391_Project
                         try
                         {
 
+                            var addedCID = CartDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            var addedTitle = CartDataGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            var addedSecID = CartDataGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            var addedSem = CartDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
+
+                            EnrollDataGrid.Rows.Add(addedCID, addedTitle,
+                                addedSecID, addedSem, EnrollUnenroll);
                         }
                         catch (Exception e2)
                         {
@@ -163,11 +162,11 @@ namespace CMPT_391_Project
                 }
             }
 
-            if (CartDataGrid.Columns[e.ColumnIndex].Name == "CartDelete" && e.RowIndex != -1)
+            if (CartDataGrid.Columns[e.ColumnIndex].Name == "CartDelete" && e.RowIndex >= 0)
             {
-                if (SIDText.Length == 0 || LNameText.Length == 0)
+                if (Verified == "N")
                 {
-                    MessageBox.Show("ID or name is not entered.");
+                    MessageBox.Show("Student is not logged in.", "Error.");
                 }
                 else
                 {
@@ -178,6 +177,17 @@ namespace CMPT_391_Project
                         try
                         {
 
+                            var removedCID = CartDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            var removedSecID = CartDataGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            var removedSem = CartDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
+
+                            MessageBox.Show($@"Removed the following course from your cart: {Environment.NewLine
+                                }Course ID: {removedCID}{Environment.NewLine
+                                }Section ID: {removedSecID}{Environment.NewLine
+                                }Semester: {removedSem}{Environment.NewLine}", 
+                                "Successfully removed!");
+
+                            CartDataGrid.Rows.RemoveAt(e.RowIndex);
                         }
                         catch (Exception e2)
                         {
@@ -190,20 +200,40 @@ namespace CMPT_391_Project
 
         private void EnrollDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Check what column was clicked to unenroll from a course.
-            if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd" && e.RowIndex != -1)
-            {
-                // Confirmation to unenroll the course from the cart
-                if (MessageBox.Show("Are you sure want to unenroll in this course ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    // Removes the course from the cart
-                    try
-                    {
 
-                    }
-                    catch (Exception e2)
+            // Check what column was clicked to unenroll from a course.
+            if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd" && e.RowIndex >= 0)
+            {
+
+                if (Verified == "N")
+                {
+                    MessageBox.Show("Student is not logged in.", "Error.");
+                }
+                else
+                {
+                    // Confirmation to unenroll from the course
+                    if (MessageBox.Show("Are you sure want to unenroll in this course ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        MessageBox.Show(e2.ToString(), "Error");
+                        // Removes the course from the enrolled.
+                        try
+                        { 
+
+                            var removedCID = EnrollDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            var removedSecID = EnrollDataGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            var removedSem = EnrollDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
+
+                            MessageBox.Show($@"Unenrolled from the following course: {Environment.NewLine
+                                }Course ID: {removedCID}{Environment.NewLine
+                                }Section ID: {removedSecID}{Environment.NewLine
+                                }Semester: {removedSem}{Environment.NewLine}", 
+                                "Successfully unenrolled!");
+
+                            EnrollDataGrid.Rows.RemoveAt(e.RowIndex);
+                        }
+                        catch (Exception e2)
+                        {
+                            MessageBox.Show(e2.ToString(), "Error");
+                        }
                     }
                 }
             }
