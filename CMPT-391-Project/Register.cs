@@ -12,9 +12,12 @@ namespace CMPT_391_Project
 {
     public partial class Registration_System : Form
     {
+        public DatabaseHelper dbHelper;
+        public string EnrollmentSemester = "Fall 2025";
         public Registration_System()
         {
             InitializeComponent();
+            dbHelper = new DatabaseHelper();
         }
 
         public string SIDText = "";
@@ -23,27 +26,22 @@ namespace CMPT_391_Project
 
         private void QueryButton_Click(object sender, EventArgs e)
         {
+            // Clear table
+            CourseSearchGrid.Rows.Clear();
+
             // Shows courses in the database, based upon the entered fields
             var DeptText = Dept.Text;
             var IDText = ID.Text;
             var SemText = Sem.Text;
 
-            if (DeptText.Length == 0 || IDText.Length == 0 || SemText.Length == 0)
+            // Read in Data
+            dbHelper.FillSearch(EnrollmentSemester,DeptText,IDText);
+            while (dbHelper.myDataReader.Read()) 
             {
-                
-            } 
-            else
-            {
-                try
-                {
-                    // CourseSearchGrid.Rows.Add("CID1", "CTITle", "SecIaeafeD", "Semmememe", Col_CartAdd);
-                }
-                catch (Exception e2)
-                {
-                    MessageBox.Show(e2.ToString(), "Error");
-                }
+                CourseSearchGrid.Rows.Add(dbHelper.myDataReader["CID"].ToString(), dbHelper.myDataReader["Title"], dbHelper.myDataReader["SecID"].ToString(),
+                dbHelper.myDataReader["Semester"].ToString());
             }
-
+            dbHelper.myDataReader.Close();
         }
 
         private void VerifyButton_Click(object sender, EventArgs e)

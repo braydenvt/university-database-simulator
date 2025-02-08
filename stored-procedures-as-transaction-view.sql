@@ -24,35 +24,28 @@ CREATE PROC checkPrereq
     @Semester VARCHAR(15)
 AS
 BEGIN
-	BEGIN Try
-		BEGIN Transaction
-			WITH Pr AS (
-				SELECT PrereqID
-				FROM Prereq
-				WHERE CID = @CID
-			),
-			Course AS (
-				SELECT CID
-				FROM ActiveEnrollment
-				WHERE SID = @SID AND Semester != @Semester
-			),
-			Intersection AS (
-				SELECT *
-				FROM Pr
-				INTERSECT
-				SELECT *
-				FROM Course
-			)
-			SELECT 
-				CASE
-				WHEN (SELECT COUNT(*) FROM Pr) = (SELECT COUNT(*) FROM Intersection)
-				THEN 1 
-				ELSE 0 END AS PrereqMet
-		COMMIT Transaction
-	END Try
-	BEGIN Catch
-		Rollback Transaction
-	END Catch
+	WITH Pr AS (
+		SELECT PrereqID
+		FROM Prereq
+		WHERE CID = @CID
+		),
+	Course AS (
+		SELECT CID
+		FROM ActiveEnrollment
+		WHERE SID = @SID AND Semester != @Semester
+		),
+	Intersection AS (
+		SELECT *
+		FROM Pr
+		INTERSECT
+		SELECT *
+		FROM Course
+		)
+	SELECT 
+		CASE
+		WHEN (SELECT COUNT(*) FROM Pr) = (SELECT COUNT(*) FROM Intersection)
+		THEN 1 
+		ELSE 0 END AS PrereqMet
 END
 GO
 ---------------------------------
@@ -105,5 +98,22 @@ BEGIN
 	BEGIN Catch
 		Rollback Transaction
 	END Catch
+END
+GO
+
+-----------------------------------------------
+GO
+CREATE PROC FillSearch
+	@Semester VARCHAR(15),
+	@DepartmentID VARCHAR(4) = NULL,
+	@CID VARCHAR(8) = NULL
+AS
+BEGIN
+	SELECT * 
+	FROM Section as S, Course as C
+	WHERE S.CID = C.CID AND 
+	(@CID IS NULL OR S.CID = @CID) AND
+	(@DepartmentID IS NULL OR C.DID = @DepartmentID) AND
+	S.Semester = @Semester
 END
 GO
