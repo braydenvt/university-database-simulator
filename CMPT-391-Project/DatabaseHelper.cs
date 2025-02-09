@@ -21,14 +21,14 @@ namespace CMPT_391_Project
             connectionStrings = new List<string>
             {
                 "Server = DESKTOP-2A78GKN; Database = 391Project; Trusted_Connection = yes;", // Brayden - 0
-                "Server = ; Database = 391Project; Trusted_Connection = yes;",
+                "Server = DAXS-COMP-RIG; Database = 391Project; Trusted_Connection = yes;", // Daxton - 1
                 "Server = ; Database = 391Project; Trusted_Connection = yes;",
                 "Server = ; Database = 391Project; Trusted_Connection = yes;",
                 "Server = ; Database = 391Project; Trusted_Connection = yes;",
                 "Server = ; Database = 391Project; Trusted_Connection = yes;"
             };
         
-            myConnection = new SqlConnection(connectionStrings[0]);
+            myConnection = new SqlConnection(connectionStrings[1]);
 
             try {
                 myConnection.Open();
@@ -38,7 +38,7 @@ namespace CMPT_391_Project
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.ToString(), "Error");
             }
         }
 

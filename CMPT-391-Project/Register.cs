@@ -13,7 +13,6 @@ namespace CMPT_391_Project
     public partial class Registration_System : Form
     {
         public DatabaseHelper dbHelper;
-        public string EnrollmentSemester = "Fall 2025";
         public Registration_System()
         {
             InitializeComponent();
@@ -23,6 +22,10 @@ namespace CMPT_391_Project
         public string SIDText = "";
         public string LNameText = "";
         public string Verified = "N";
+
+        public List<string> cartSecIDs = new List<string>();
+        public List<string> enrollSecIDs = new List<string>();
+
 
         private void QueryButton_Click(object sender, EventArgs e)
         {
@@ -35,7 +38,7 @@ namespace CMPT_391_Project
             var SemText = Sem.Text;
 
             // Read in Data
-            dbHelper.FillSearch(EnrollmentSemester,DeptText,IDText);
+            dbHelper.FillSearch(SemText,DeptText,IDText);
             while (dbHelper.myDataReader.Read()) 
             {
                 CourseSearchGrid.Rows.Add(dbHelper.myDataReader["CID"].ToString(), dbHelper.myDataReader["Title"], dbHelper.myDataReader["SecID"].ToString(),
@@ -51,7 +54,7 @@ namespace CMPT_391_Project
 
             SIDText = "";
             LNameText = "";
-            Verified = "N";
+            Verified = "Y";     // Need to change  to N if verify is to be an added feature.
 
             SIDText = SID.Text;
             LNameText = LName.Text;
@@ -63,15 +66,13 @@ namespace CMPT_391_Project
             }
             else
             {
-                // Perform queries to verify that the student exists.
+                // Perform queries to verify that the student exists, based on the ID and last name (validity checks).
 
                 try
                 {
-                    // Try to find if the ID and last name are valid.
 
-
-                    Verified = "Y";
-                    MessageBox.Show($@"Successfully verified!{Environment.NewLine}Student ID: {SIDText}{Environment.NewLine}Last Name: {LNameText}");
+                    //Verified = "Y";   // Need to change if verify is to be an added feature.
+                    MessageBox.Show($@"{Environment.NewLine}Student ID: {SIDText}{Environment.NewLine}Last Name: {LNameText}", "Successfully verified!");
                 }
                 catch (Exception e2)
                 {
@@ -85,9 +86,9 @@ namespace CMPT_391_Project
         private void CourseSearchGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // To test area of selection
-            MessageBox.Show(String.Format("Row: {0}, Column: {1}",
-                    CourseSearchGrid.CurrentCell.RowIndex,
-                    CourseSearchGrid.CurrentCell.ColumnIndex), "Current Cell");
+            //MessageBox.Show(String.Format("Row: {0}, Column: {1}",
+            //        CourseSearchGrid.CurrentCell.RowIndex,
+            //        CourseSearchGrid.CurrentCell.ColumnIndex), "Current Cell");
 
             // Check what column was clicked to add a course to the cart.
             if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd" && e.RowIndex >= 0)
@@ -110,8 +111,19 @@ namespace CMPT_391_Project
                             var addedSecID = CourseSearchGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
                             var addedSem = CourseSearchGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
 
-                            CartDataGrid.Rows.Add(addedCID, addedTitle,
+
+                            if (cartSecIDs.Contains(addedSecID) == false)
+                            {
+                                CartDataGrid.Rows.Add(addedCID, addedTitle,
                                 addedSecID, addedSem, EnrollUnenroll);
+
+                                cartSecIDs.Add(addedSecID);
+                            }
+                            else
+                            {
+                                MessageBox.Show("That course is already in your cart.", "Not Added");
+                            }
+                            
                         }
                         catch (Exception e2)
                         {
@@ -149,8 +161,21 @@ namespace CMPT_391_Project
                             var addedSecID = CartDataGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
                             var addedSem = CartDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
 
-                            EnrollDataGrid.Rows.Add(addedCID, addedTitle,
+                            if (enrollSecIDs.Contains(addedSecID) == false)
+                            {
+
+                                EnrollDataGrid.Rows.Add(addedCID, addedTitle,
                                 addedSecID, addedSem, EnrollUnenroll);
+
+                                CartDataGrid.Rows.RemoveAt(e.RowIndex);
+
+                                enrollSecIDs.Add(addedSecID);
+                            }
+                            else
+                            {
+                                MessageBox.Show("You are already enrolled in that course.", "Not Added");
+                            }
+
                         }
                         catch (Exception e2)
                         {
