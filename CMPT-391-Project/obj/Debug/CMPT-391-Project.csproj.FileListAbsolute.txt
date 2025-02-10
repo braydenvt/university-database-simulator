@@ -35,7 +35,6 @@ C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\bin\Debug\CMPT-391
 C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\bin\Debug\CMPT-391-Project.exe
 C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\bin\Debug\CMPT-391-Project.pdb
 C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.csproj.AssemblyReference.cache
-C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT_391_Project.Login.resources
 C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT_391_Project.Properties.Resources.resources
 C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT_391_Project.Registration_System.resources
 C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.csproj.GenerateResource.cache

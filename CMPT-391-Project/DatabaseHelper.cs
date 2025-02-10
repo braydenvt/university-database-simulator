@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Security.Cryptography;
 
 namespace CMPT_391_Project
 {
@@ -28,7 +29,7 @@ namespace CMPT_391_Project
                 "Server = ; Database = 391Project; Trusted_Connection = yes;"
             };
         
-            myConnection = new SqlConnection(connectionStrings[1]);
+            myConnection = new SqlConnection(connectionStrings[0]);
 
             try {
                 myConnection.Open();
@@ -63,6 +64,66 @@ namespace CMPT_391_Project
                 command.Parameters.Add(new SqlParameter("@CID", System.Data.SqlDbType.NVarChar, 8));
                 command.Parameters["@CID"].Value = (object)CID ?? DBNull.Value;
 
+                myDataReader = command.ExecuteReader();
+            }
+        }
+
+        public void AddToCart(int SID, int SecID) {
+            using (SqlCommand command = new SqlCommand("addToCart", myConnection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // Student Id (Required)
+                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+                // Course ID (Required)
+                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+
+                myDataReader = command.ExecuteReader();
+                myDataReader.Close();
+            }
+        }
+
+        public void DeleteFromCart(int SID, int SecID) {
+            using (SqlCommand command = new SqlCommand("deleteFromCart", myConnection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // Student Id (Required)
+                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+                // Section ID (Required)
+                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+
+                myDataReader = command.ExecuteReader();
+                myDataReader.Close();
+            }
+        }
+
+        public void CheckPrereq(int SID, string CID, string Semester) {
+            using (SqlCommand command = new SqlCommand("checkPrereq", myConnection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // Student Id (Required)
+                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+                // Course ID (Required)
+                command.Parameters.Add(new SqlParameter("@CID", System.Data.SqlDbType.NVarChar,8) { Value = CID });
+                // Course ID (Required)
+                command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
+
+                myDataReader = command.ExecuteReader();
+            }
+        }
+
+        public void FillStudentEnrollment(string Semester, int SID) {
+            using (SqlCommand command = new SqlCommand("FillStudentEnrollment", myConnection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                
+                // Course ID (Required)
+                command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
+                // Student Id (Required)
+                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+               
                 myDataReader = command.ExecuteReader();
             }
         }

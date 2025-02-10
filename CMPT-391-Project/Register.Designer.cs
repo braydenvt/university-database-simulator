@@ -101,7 +101,6 @@
             // CourseSelect
             // 
             this.CourseSelect.BackColor = System.Drawing.Color.DarkSalmon;
-            this.CourseSelect.Controls.Add(this.InfoLB);
             this.CourseSelect.Controls.Add(this.VerifyButton);
             this.CourseSelect.Controls.Add(this.QueryButton);
             this.CourseSelect.Controls.Add(this.LNameLB);
@@ -115,6 +114,7 @@
             this.CourseSelect.Controls.Add(this.SemLB);
             this.CourseSelect.Controls.Add(this.Sem);
             this.CourseSelect.Controls.Add(this.CourseSearchGrid);
+            this.CourseSelect.Controls.Add(this.InfoLB);
             this.CourseSelect.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.CourseSelect.Location = new System.Drawing.Point(4, 34);
             this.CourseSelect.Margin = new System.Windows.Forms.Padding(2);
@@ -147,6 +147,7 @@
             this.VerifyButton.TabIndex = 14;
             this.VerifyButton.Text = "Verify ID";
             this.VerifyButton.UseVisualStyleBackColor = false;
+            this.VerifyButton.Visible = false;
             this.VerifyButton.Click += new System.EventHandler(this.VerifyButton_Click);
             // 
             // QueryButton
@@ -169,7 +170,7 @@
             // 
             this.LNameLB.AutoSize = true;
             this.LNameLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.LNameLB.Location = new System.Drawing.Point(359, 156);
+            this.LNameLB.Location = new System.Drawing.Point(524, 132);
             this.LNameLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LNameLB.Name = "LNameLB";
             this.LNameLB.Size = new System.Drawing.Size(94, 21);
@@ -178,7 +179,8 @@
             // 
             // LName
             // 
-            this.LName.Location = new System.Drawing.Point(458, 153);
+            this.LName.Enabled = false;
+            this.LName.Location = new System.Drawing.Point(622, 129);
             this.LName.Margin = new System.Windows.Forms.Padding(2);
             this.LName.Name = "LName";
             this.LName.ReadOnly = true;
@@ -209,7 +211,7 @@
             // 
             this.SIDLB.AutoSize = true;
             this.SIDLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.SIDLB.Location = new System.Drawing.Point(359, 114);
+            this.SIDLB.Location = new System.Drawing.Point(297, 132);
             this.SIDLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SIDLB.Name = "SIDLB";
             this.SIDLB.Size = new System.Drawing.Size(95, 21);
@@ -218,7 +220,8 @@
             // 
             // SID
             // 
-            this.SID.Location = new System.Drawing.Point(458, 111);
+            this.SID.Enabled = false;
+            this.SID.Location = new System.Drawing.Point(396, 129);
             this.SID.Margin = new System.Windows.Forms.Padding(2);
             this.SID.Name = "SID";
             this.SID.ReadOnly = true;
@@ -258,6 +261,7 @@
             // 
             // Sem
             // 
+            this.Sem.Enabled = false;
             this.Sem.Location = new System.Drawing.Point(122, 116);
             this.Sem.Margin = new System.Windows.Forms.Padding(2);
             this.Sem.Name = "Sem";

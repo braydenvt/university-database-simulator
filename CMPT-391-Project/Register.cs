@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,14 +18,17 @@ namespace CMPT_391_Project
         {
             InitializeComponent();
             dbHelper = new DatabaseHelper();
+            QueryButton_Click(null, EventArgs.Empty);
+            FillStudentEnrollment();
         }
 
         public string SIDText = "";
         public string LNameText = "";
-        public string Verified = "N";
+        public string Verified = "Y";
 
         public List<string> cartSecIDs = new List<string>();
         public List<string> enrollSecIDs = new List<string>();
+        public List<int> prereqsMet = new List<int> ();
 
 
         private void QueryButton_Click(object sender, EventArgs e)
@@ -54,7 +58,7 @@ namespace CMPT_391_Project
 
             SIDText = "";
             LNameText = "";
-            Verified = "Y";     // Need to change  to N if verify is to be an added feature.
+            Verified = "Y";     // Need to change to N if verify is to be an added feature.
 
             SIDText = SID.Text;
             LNameText = LName.Text;
@@ -114,10 +118,36 @@ namespace CMPT_391_Project
 
                             if (cartSecIDs.Contains(addedSecID) == false)
                             {
-                                CartDataGrid.Rows.Add(addedCID, addedTitle,
-                                addedSecID, addedSem, EnrollUnenroll);
+                                // Call database to add class to cart
+                                try
+                                {
+                                    dbHelper.AddToCart(Int32.Parse(SID.Text), Int32.Parse(addedSecID));
 
-                                cartSecIDs.Add(addedSecID);
+                                    CartDataGrid.Rows.Add(addedCID, addedTitle,
+                                    addedSecID, addedSem, EnrollUnenroll);
+
+                                    cartSecIDs.Add(addedSecID);
+
+                                    dbHelper.CheckPrereq(Int32.Parse(SID.Text), addedCID, Sem.Text);
+                                    while (dbHelper.myDataReader.Read())
+                                    {
+                                        if (Int32.Parse(dbHelper.myDataReader["PrereqMet"].ToString()) == 1)
+                                        {
+                                            prereqsMet.Add(1);
+
+                                        }
+                                        else
+                                        {
+                                            CartDataGrid.Rows[cartSecIDs.Count - 1].HeaderCell.Style.BackColor = Color.Red;
+                                            CartDataGrid.Rows[cartSecIDs.Count - 1].HeaderCell.ToolTipText = "The Prerequisites for this class are not met";
+                                            CartDataGrid.EnableHeadersVisualStyles = false;
+                                            prereqsMet.Add(0);
+                                        }
+                                    }
+                                    dbHelper.myDataReader.Close();
+
+                                }
+                                catch (SqlException ex) { MessageBox.Show("Error adding course to cart.");} //+ ex.ToString()); }
                             }
                             else
                             {
@@ -149,37 +179,44 @@ namespace CMPT_391_Project
                 }
                 else
                 {
-                    // Confirmation to enroll in the course
-                    if (MessageBox.Show("Are you sure want to enroll in this course ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (prereqsMet[e.RowIndex] == 0)
                     {
-                        // Enrolls the course into the students' page
-                        try
+                        MessageBox.Show("Course Prerequisites are not met.", "Error");
+                    }
+                    else
+                    {
+                        // Confirmation to enroll in the course
+                        if (MessageBox.Show("Are you sure want to enroll in this course ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-
-                            var addedCID = CartDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
-                            var addedTitle = CartDataGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
-                            var addedSecID = CartDataGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
-                            var addedSem = CartDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
-
-                            if (enrollSecIDs.Contains(addedSecID) == false)
+                            // Enrolls the course into the students' page
+                            try
                             {
 
-                                EnrollDataGrid.Rows.Add(addedCID, addedTitle,
-                                addedSecID, addedSem, EnrollUnenroll);
+                                var addedCID = CartDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                                var addedTitle = CartDataGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+                                var addedSecID = CartDataGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+                                var addedSem = CartDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
 
-                                CartDataGrid.Rows.RemoveAt(e.RowIndex);
+                                if (enrollSecIDs.Contains(addedSecID) == false)
+                                {
 
-                                enrollSecIDs.Add(addedSecID);
+                                    EnrollDataGrid.Rows.Add(addedCID, addedTitle,
+                                    addedSecID, addedSem, EnrollUnenroll);
+
+                                    CartDataGrid.Rows.RemoveAt(e.RowIndex);
+
+                                    enrollSecIDs.Add(addedSecID);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("You are already enrolled in that course.", "Not Added");
+                                }
+
                             }
-                            else
+                            catch (Exception e2)
                             {
-                                MessageBox.Show("You are already enrolled in that course.", "Not Added");
+                                MessageBox.Show(e2.ToString(), "Error");
                             }
-
-                        }
-                        catch (Exception e2)
-                        {
-                            MessageBox.Show(e2.ToString(), "Error");
                         }
                     }
                 }
@@ -199,10 +236,11 @@ namespace CMPT_391_Project
                         // Removes the course from the cart
                         try
                         {
-
                             var removedCID = CartDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
                             var removedSecID = CartDataGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
                             var removedSem = CartDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
+
+                            dbHelper.DeleteFromCart(Int32.Parse(SID.Text), Int32.Parse(removedSecID));
 
                             MessageBox.Show($@"Removed the following course from your cart: {Environment.NewLine
                                 }Course ID: {removedCID}{Environment.NewLine
@@ -210,11 +248,17 @@ namespace CMPT_391_Project
                                 }Semester: {removedSem}{Environment.NewLine}", 
                                 "Successfully removed!");
 
+                            prereqsMet.RemoveAt(e.RowIndex);
+                            MessageBox.Show(string.Join(", ", prereqsMet));
+
                             CartDataGrid.Rows.RemoveAt(e.RowIndex);
+
+                            cartSecIDs.Remove(removedSecID);
+
                         }
                         catch (Exception e2)
                         {
-                            MessageBox.Show(e2.ToString(), "Error");
+                            MessageBox.Show(e2.ToString(), "Error removing course from cart.");
                         }
                     }
                 }
@@ -252,6 +296,8 @@ namespace CMPT_391_Project
                                 "Successfully unenrolled!");
 
                             EnrollDataGrid.Rows.RemoveAt(e.RowIndex);
+
+                          
                         }
                         catch (Exception e2)
                         {
@@ -259,6 +305,23 @@ namespace CMPT_391_Project
                         }
                     }
                 }
+            }
+        }
+
+        public void FillStudentEnrollment() {
+            try
+            {
+                dbHelper.FillStudentEnrollment(Sem.Text, Int32.Parse(SID.Text));
+                while (dbHelper.myDataReader.Read())
+                {
+                    EnrollDataGrid.Rows.Add(dbHelper.myDataReader["CID"].ToString(), dbHelper.myDataReader["Title"], dbHelper.myDataReader["SecID"].ToString(),
+                    dbHelper.myDataReader["Semester"].ToString());
+                }
+                dbHelper.myDataReader.Close();
+
+            }
+            catch(SqlException ex) {
+                MessageBox.Show(ex.ToString());
             }
         }
     }
