@@ -19,43 +19,66 @@ AS
     JOIN dbo.Section AS S ON E.SecID = S.SecID
     WHERE Stu.Active = 'Y'
 GO
-
 -- Create an index on the view.
 CREATE UNIQUE CLUSTERED INDEX IDX_V1
    ON ActiveEnrollment(SID,SecID);
 
+
+
+GO
+CREATE VIEW  CourseOfferings
+WITH SCHEMABINDING
+AS 
+	SELECT C.CID, C.Title, S.SecID, S.Semester, C.DID
+	FROM dbo.Section as S, dbo.Course as C
+	WHERE S.CID = C.CID AND S.Semester = 'Fall 2025'
+GO
+
+-- Create an index on the view.
+CREATE UNIQUE CLUSTERED INDEX IDX_CourseOfferings
+   ON CourseOfferings(SecID);
 -------------------------------------------------
 GO
 CREATE PROC checkPrereq
     @SID INT,
-    @CID INT,
+    @CID VARCHAR(8),
     @Semester VARCHAR(15)
 AS
 BEGIN
-	WITH Pr AS (
-		SELECT PrereqID
-		FROM Prereq
-		WHERE CID = @CID
-		),
-	Course AS (
-		SELECT CID
-		FROM ActiveEnrollment
-		WHERE SID = @SID AND Semester != @Semester
-		),
-	Intersection AS (
-		SELECT *
-		FROM Pr
-		INTERSECT
-		SELECT *
-		FROM Course
-		)
-	SELECT 
-		CASE
-		WHEN (SELECT COUNT(*) FROM Pr) = (SELECT COUNT(*) FROM Intersection)
-		THEN 1 
-		ELSE 0 END AS PrereqMet
+    BEGIN TRY
+        BEGIN TRANSACTION;
+        WITH Pr AS (
+            SELECT PrereqID
+            FROM Prereq
+            WHERE CID = @CID
+        ),
+        Course AS (
+            SELECT CID
+            FROM ActiveEnrollment
+            WHERE SID = @SID AND Semester != @Semester
+        ),
+        Intersection AS (
+            SELECT *
+            FROM Pr
+            INTERSECT
+            SELECT *
+            FROM Course
+        )
+       
+        SELECT 
+        CASE
+            WHEN (SELECT COUNT(*) FROM Pr) = (SELECT COUNT(*) FROM Intersection)
+            THEN 1 
+            ELSE 0 
+        END AS PrereqMet;
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+           ROLLBACK TRANSACTION;
+    END CATCH
 END
 GO
+
 ---------------------------------
 GO
 CREATE PROCEDURE checkTimeConflict
@@ -118,14 +141,20 @@ CREATE PROC FillSearch
 	@CID VARCHAR(8) = NULL
 AS
 BEGIN
-	SELECT * 
-	FROM Section as S, Course as C
-	WHERE S.CID = C.CID AND 
-	(@CID IS NULL OR S.CID = @CID) AND
-	(@DepartmentID IS NULL OR C.DID = @DepartmentID) AND
-	S.Semester = @Semester
+	BEGIN TRY
+		BEGIN TRANSACTION
+			SELECT * 
+			FROM CourseOfferings
+			WHERE (@CID IS NULL OR CID = @CID) AND
+			(@DepartmentID IS NULL OR DID = @DepartmentID)
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN Catch
+		Rollback Transaction
+	END Catch
 END
 GO
+
 
 --------------------------------------------
 
@@ -178,4 +207,63 @@ end
 go
 
 ----------------------------------------------------
+
+
+-----------------------------------------------------
+GO
+CREATE PROC FillStudentEnrollment
+	@Semester VARCHAR(15),
+	@SID INT
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRANSACTION
+			SELECT * 
+			FROM ActiveEnrollment as A, CourseOfferings as C 
+			WHERE A.SecID = C.SecID AND SID = @SID AND A.Semester = @Semester
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN Catch
+		Rollback Transaction
+	END Catch
+END
+GO
+-----------------------------------------------------
+GO
+CREATE PROCEDURE checkTimeConflictNew
+    @SID INT,
+    @SecID INT,
+    @TimeBlock VARCHAR(50),
+    @Semester VARCHAR(15)
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+            IF EXISTS (
+                SELECT 1 
+                FROM ActiveEnrollment AS AE 
+                WHERE AE.SID = @SID 
+                  AND AE.Semester = @Semester 
+                  AND AE.TimeBlock = @TimeBlock
+            )
+            BEGIN
+                SELECT AE.SID AS ConflictSID 
+                FROM ActiveEnrollment AS AE 
+                WHERE AE.SID = @SID 
+                  AND AE.Semester = @Semester 
+                  AND AE.TimeBlock = @TimeBlock;
+            END
+            ELSE
+            BEGIN
+                SELECT NULL AS ConflictSID;
+            END
+        COMMIT TRANSACTION
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        THROW;
+    END CATCH
+END;
+GO
 

@@ -91,17 +91,16 @@
             this.SystemTabs.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SystemTabs.ItemSize = new System.Drawing.Size(160, 30);
             this.SystemTabs.Location = new System.Drawing.Point(0, 1);
-            this.SystemTabs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SystemTabs.Margin = new System.Windows.Forms.Padding(2);
             this.SystemTabs.Name = "SystemTabs";
             this.SystemTabs.SelectedIndex = 0;
-            this.SystemTabs.Size = new System.Drawing.Size(1055, 542);
+            this.SystemTabs.Size = new System.Drawing.Size(791, 440);
             this.SystemTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.SystemTabs.TabIndex = 0;
             // 
             // CourseSelect
             // 
             this.CourseSelect.BackColor = System.Drawing.Color.DarkSalmon;
-            this.CourseSelect.Controls.Add(this.InfoLB);
             this.CourseSelect.Controls.Add(this.VerifyButton);
             this.CourseSelect.Controls.Add(this.QueryButton);
             this.CourseSelect.Controls.Add(this.LNameLB);
@@ -115,11 +114,12 @@
             this.CourseSelect.Controls.Add(this.SemLB);
             this.CourseSelect.Controls.Add(this.Sem);
             this.CourseSelect.Controls.Add(this.CourseSearchGrid);
+            this.CourseSelect.Controls.Add(this.InfoLB);
             this.CourseSelect.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.CourseSelect.Location = new System.Drawing.Point(4, 34);
-            this.CourseSelect.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CourseSelect.Margin = new System.Windows.Forms.Padding(2);
             this.CourseSelect.Name = "CourseSelect";
-            this.CourseSelect.Size = new System.Drawing.Size(1047, 504);
+            this.CourseSelect.Size = new System.Drawing.Size(783, 402);
             this.CourseSelect.TabIndex = 0;
             this.CourseSelect.Text = "Course Selection";
             // 
@@ -127,10 +127,9 @@
             // 
             this.InfoLB.AutoSize = true;
             this.InfoLB.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.InfoLB.Location = new System.Drawing.Point(353, 11);
-            this.InfoLB.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.InfoLB.Location = new System.Drawing.Point(265, 9);
             this.InfoLB.Name = "InfoLB";
-            this.InfoLB.Size = new System.Drawing.Size(634, 112);
+            this.InfoLB.Size = new System.Drawing.Size(505, 84);
             this.InfoLB.TabIndex = 15;
             this.InfoLB.Text = "Enter your student id and password to be able to select available \r\ncourses, base" +
     "d upon the search fields you enter.\r\n\r\n\r\n";
@@ -141,13 +140,14 @@
             this.VerifyButton.FlatAppearance.BorderSize = 0;
             this.VerifyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VerifyButton.ForeColor = System.Drawing.Color.MintCream;
-            this.VerifyButton.Location = new System.Drawing.Point(829, 185);
+            this.VerifyButton.Location = new System.Drawing.Point(622, 150);
             this.VerifyButton.Margin = new System.Windows.Forms.Padding(0);
             this.VerifyButton.Name = "VerifyButton";
-            this.VerifyButton.Size = new System.Drawing.Size(151, 39);
+            this.VerifyButton.Size = new System.Drawing.Size(113, 32);
             this.VerifyButton.TabIndex = 14;
             this.VerifyButton.Text = "Verify ID";
             this.VerifyButton.UseVisualStyleBackColor = false;
+            this.VerifyButton.Visible = false;
             this.VerifyButton.Click += new System.EventHandler(this.VerifyButton_Click);
             // 
             // QueryButton
@@ -157,10 +157,10 @@
             this.QueryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
             this.QueryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.QueryButton.ForeColor = System.Drawing.Color.Teal;
-            this.QueryButton.Location = new System.Drawing.Point(163, 185);
+            this.QueryButton.Location = new System.Drawing.Point(122, 150);
             this.QueryButton.Margin = new System.Windows.Forms.Padding(0);
             this.QueryButton.Name = "QueryButton";
-            this.QueryButton.Size = new System.Drawing.Size(151, 38);
+            this.QueryButton.Size = new System.Drawing.Size(113, 31);
             this.QueryButton.TabIndex = 13;
             this.QueryButton.Text = "Query";
             this.QueryButton.UseVisualStyleBackColor = false;
@@ -170,91 +170,105 @@
             // 
             this.LNameLB.AutoSize = true;
             this.LNameLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.LNameLB.Location = new System.Drawing.Point(479, 192);
+            this.LNameLB.Location = new System.Drawing.Point(524, 132);
+            this.LNameLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LNameLB.Name = "LNameLB";
-            this.LNameLB.Size = new System.Drawing.Size(117, 28);
+            this.LNameLB.Size = new System.Drawing.Size(94, 21);
             this.LNameLB.TabIndex = 12;
             this.LNameLB.Text = "Last Name:";
             // 
             // LName
             // 
-            this.LName.Location = new System.Drawing.Point(611, 188);
-            this.LName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LName.Enabled = false;
+            this.LName.Location = new System.Drawing.Point(622, 129);
+            this.LName.Margin = new System.Windows.Forms.Padding(2);
             this.LName.Name = "LName";
-            this.LName.Size = new System.Drawing.Size(149, 34);
+            this.LName.ReadOnly = true;
+            this.LName.Size = new System.Drawing.Size(113, 29);
             this.LName.TabIndex = 11;
+            this.LName.Text = "Hudson";
             // 
             // IDLB
             // 
             this.IDLB.AutoSize = true;
             this.IDLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.IDLB.Location = new System.Drawing.Point(41, 82);
+            this.IDLB.Location = new System.Drawing.Point(31, 67);
+            this.IDLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.IDLB.Name = "IDLB";
-            this.IDLB.Size = new System.Drawing.Size(108, 28);
+            this.IDLB.Size = new System.Drawing.Size(87, 21);
             this.IDLB.TabIndex = 10;
             this.IDLB.Text = "Course ID:";
             // 
             // ID
             // 
-            this.ID.Location = new System.Drawing.Point(163, 76);
-            this.ID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ID.Location = new System.Drawing.Point(122, 62);
+            this.ID.Margin = new System.Windows.Forms.Padding(2);
             this.ID.Name = "ID";
-            this.ID.Size = new System.Drawing.Size(149, 34);
+            this.ID.Size = new System.Drawing.Size(113, 29);
             this.ID.TabIndex = 9;
             // 
             // SIDLB
             // 
             this.SIDLB.AutoSize = true;
             this.SIDLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.SIDLB.Location = new System.Drawing.Point(479, 140);
+            this.SIDLB.Location = new System.Drawing.Point(297, 132);
+            this.SIDLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SIDLB.Name = "SIDLB";
-            this.SIDLB.Size = new System.Drawing.Size(118, 28);
+            this.SIDLB.Size = new System.Drawing.Size(95, 21);
             this.SIDLB.TabIndex = 8;
             this.SIDLB.Text = "Student ID:";
             // 
             // SID
             // 
-            this.SID.Location = new System.Drawing.Point(611, 137);
-            this.SID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SID.Enabled = false;
+            this.SID.Location = new System.Drawing.Point(396, 129);
+            this.SID.Margin = new System.Windows.Forms.Padding(2);
             this.SID.Name = "SID";
-            this.SID.Size = new System.Drawing.Size(149, 34);
+            this.SID.ReadOnly = true;
+            this.SID.Size = new System.Drawing.Size(113, 29);
             this.SID.TabIndex = 7;
+            this.SID.Text = "1";
             // 
             // DeptLB
             // 
             this.DeptLB.AutoSize = true;
             this.DeptLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.DeptLB.Location = new System.Drawing.Point(16, 20);
+            this.DeptLB.Location = new System.Drawing.Point(12, 16);
+            this.DeptLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.DeptLB.Name = "DeptLB";
-            this.DeptLB.Size = new System.Drawing.Size(132, 28);
+            this.DeptLB.Size = new System.Drawing.Size(106, 21);
             this.DeptLB.TabIndex = 4;
             this.DeptLB.Text = "Department:";
             // 
             // Dept
             // 
-            this.Dept.Location = new System.Drawing.Point(163, 16);
-            this.Dept.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Dept.Location = new System.Drawing.Point(122, 13);
+            this.Dept.Margin = new System.Windows.Forms.Padding(2);
             this.Dept.Name = "Dept";
-            this.Dept.Size = new System.Drawing.Size(149, 34);
+            this.Dept.Size = new System.Drawing.Size(113, 29);
             this.Dept.TabIndex = 3;
             // 
             // SemLB
             // 
             this.SemLB.AutoSize = true;
             this.SemLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SemLB.Location = new System.Drawing.Point(44, 146);
+            this.SemLB.Location = new System.Drawing.Point(33, 119);
+            this.SemLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SemLB.Name = "SemLB";
-            this.SemLB.Size = new System.Drawing.Size(105, 28);
+            this.SemLB.Size = new System.Drawing.Size(85, 21);
             this.SemLB.TabIndex = 2;
             this.SemLB.Text = "Semester:";
             // 
             // Sem
             // 
-            this.Sem.Location = new System.Drawing.Point(163, 143);
-            this.Sem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Sem.Enabled = false;
+            this.Sem.Location = new System.Drawing.Point(122, 116);
+            this.Sem.Margin = new System.Windows.Forms.Padding(2);
             this.Sem.Name = "Sem";
-            this.Sem.Size = new System.Drawing.Size(149, 34);
+            this.Sem.ReadOnly = true;
+            this.Sem.Size = new System.Drawing.Size(113, 29);
             this.Sem.TabIndex = 1;
+            this.Sem.Text = "Fall 2025";
             // 
             // CourseSearchGrid
             // 
@@ -275,12 +289,12 @@
             this.Col_SecID,
             this.Col_Sem,
             this.Col_CartAdd});
-            this.CourseSearchGrid.Location = new System.Drawing.Point(3, 233);
-            this.CourseSearchGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CourseSearchGrid.Location = new System.Drawing.Point(2, 189);
+            this.CourseSearchGrid.Margin = new System.Windows.Forms.Padding(2);
             this.CourseSearchGrid.Name = "CourseSearchGrid";
             this.CourseSearchGrid.RowHeadersWidth = 51;
             this.CourseSearchGrid.RowTemplate.Height = 24;
-            this.CourseSearchGrid.Size = new System.Drawing.Size(1039, 260);
+            this.CourseSearchGrid.Size = new System.Drawing.Size(779, 211);
             this.CourseSearchGrid.TabIndex = 0;
             this.CourseSearchGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseSearchGrid_CellContentClick);
             // 
@@ -338,10 +352,10 @@
             this.Cart.Controls.Add(this.CARTInfo);
             this.Cart.Controls.Add(this.CartDataGrid);
             this.Cart.Location = new System.Drawing.Point(4, 34);
-            this.Cart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Cart.Margin = new System.Windows.Forms.Padding(2);
             this.Cart.Name = "Cart";
-            this.Cart.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Cart.Size = new System.Drawing.Size(1047, 504);
+            this.Cart.Padding = new System.Windows.Forms.Padding(2);
+            this.Cart.Size = new System.Drawing.Size(783, 402);
             this.Cart.TabIndex = 1;
             this.Cart.Text = "User Cart";
             // 
@@ -350,10 +364,9 @@
             this.CARTInfo.AutoSize = true;
             this.CARTInfo.BackColor = System.Drawing.Color.MediumAquamarine;
             this.CARTInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.CARTInfo.Location = new System.Drawing.Point(244, 12);
-            this.CARTInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CARTInfo.Location = new System.Drawing.Point(183, 10);
             this.CARTInfo.Name = "CARTInfo";
-            this.CARTInfo.Size = new System.Drawing.Size(513, 56);
+            this.CARTInfo.Size = new System.Drawing.Size(409, 42);
             this.CARTInfo.TabIndex = 17;
             this.CARTInfo.Text = "This page contains information on all of the courses \r\nyou\'ve added to your cart " +
     "this semester.\r\n";
@@ -378,12 +391,12 @@
             this.CartSem,
             this.CartEnroll,
             this.CartDelete});
-            this.CartDataGrid.Location = new System.Drawing.Point(3, 233);
-            this.CartDataGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CartDataGrid.Location = new System.Drawing.Point(2, 189);
+            this.CartDataGrid.Margin = new System.Windows.Forms.Padding(2);
             this.CartDataGrid.Name = "CartDataGrid";
             this.CartDataGrid.RowHeadersWidth = 51;
             this.CartDataGrid.RowTemplate.Height = 24;
-            this.CartDataGrid.Size = new System.Drawing.Size(1039, 260);
+            this.CartDataGrid.Size = new System.Drawing.Size(779, 211);
             this.CartDataGrid.TabIndex = 16;
             this.CartDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CartDataGrid_CellContentClick);
             // 
@@ -454,9 +467,9 @@
             this.EnrollPage.Controls.Add(this.EnrollDataGrid);
             this.EnrollPage.Cursor = System.Windows.Forms.Cursors.Default;
             this.EnrollPage.Location = new System.Drawing.Point(4, 34);
-            this.EnrollPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.EnrollPage.Margin = new System.Windows.Forms.Padding(2);
             this.EnrollPage.Name = "EnrollPage";
-            this.EnrollPage.Size = new System.Drawing.Size(1047, 504);
+            this.EnrollPage.Size = new System.Drawing.Size(783, 402);
             this.EnrollPage.TabIndex = 2;
             this.EnrollPage.Text = "Enrollment Page";
             // 
@@ -465,10 +478,9 @@
             this.ENRInfo.AutoSize = true;
             this.ENRInfo.BackColor = System.Drawing.Color.MediumAquamarine;
             this.ENRInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.ENRInfo.Location = new System.Drawing.Point(113, 11);
-            this.ENRInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ENRInfo.Location = new System.Drawing.Point(85, 9);
             this.ENRInfo.Name = "ENRInfo";
-            this.ENRInfo.Size = new System.Drawing.Size(818, 28);
+            this.ENRInfo.Size = new System.Drawing.Size(654, 21);
             this.ENRInfo.TabIndex = 2;
             this.ENRInfo.Text = "This page contains information on all of the courses you\'ve enrolled in this seme" +
     "ster.";
@@ -492,14 +504,14 @@
             this.EnrollSID,
             this.EnrollSem,
             this.EnrollUnenroll});
-            this.EnrollDataGrid.Location = new System.Drawing.Point(3, 233);
-            this.EnrollDataGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.EnrollDataGrid.Location = new System.Drawing.Point(2, 189);
+            this.EnrollDataGrid.Margin = new System.Windows.Forms.Padding(2);
             this.EnrollDataGrid.Name = "EnrollDataGrid";
             this.EnrollDataGrid.RowHeadersWidth = 51;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EnrollDataGrid.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.EnrollDataGrid.RowTemplate.Height = 24;
-            this.EnrollDataGrid.Size = new System.Drawing.Size(1039, 260);
+            this.EnrollDataGrid.Size = new System.Drawing.Size(779, 211);
             this.EnrollDataGrid.TabIndex = 1;
             this.EnrollDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EnrollDataGrid_CellContentClick);
             // 
@@ -549,11 +561,10 @@
             // 
             // Registration_System
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.SystemTabs);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Registration_System";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "School Registration System";
