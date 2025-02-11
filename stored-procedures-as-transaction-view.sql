@@ -164,3 +164,41 @@ BEGIN
 	END Catch
 END
 GO
+-----------------------------------------------------
+GO
+CREATE PROCEDURE checkTimeConflictNew
+    @SID INT,
+    @SecID INT,
+    @TimeBlock VARCHAR(50),
+    @Semester VARCHAR(15)
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+            IF EXISTS (
+                SELECT 1 
+                FROM ActiveEnrollment AS AE 
+                WHERE AE.SID = @SID 
+                  AND AE.Semester = @Semester 
+                  AND AE.TimeBlock = @TimeBlock
+            )
+            BEGIN
+                SELECT AE.SID AS ConflictSID 
+                FROM ActiveEnrollment AS AE 
+                WHERE AE.SID = @SID 
+                  AND AE.Semester = @Semester 
+                  AND AE.TimeBlock = @TimeBlock;
+            END
+            ELSE
+            BEGIN
+                SELECT NULL AS ConflictSID;
+            END
+        COMMIT TRANSACTION
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        THROW;
+    END CATCH
+END;
+GO
