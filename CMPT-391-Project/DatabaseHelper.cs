@@ -25,11 +25,11 @@ namespace CMPT_391_Project
                 "Server = DAXS-COMP-RIG; Database = 391Project; Trusted_Connection = yes;", // Daxton - 1
                 "Server = ; Database = 391Project; Trusted_Connection = yes;",
                 "Server = ; Database = 391Project; Trusted_Connection = yes;",
-                "Server = ; Database = 391Project; Trusted_Connection = yes;",
+                "Server = LAPTOP-ORGILO7V; Database = 391Project; Trusted_Connection = yes;", //cole 4
                 "Server = ; Database = 391Project; Trusted_Connection = yes;"
             };
         
-            myConnection = new SqlConnection(connectionStrings[0]);
+            myConnection = new SqlConnection(connectionStrings[4]);
 
             try {
                 myConnection.Open();

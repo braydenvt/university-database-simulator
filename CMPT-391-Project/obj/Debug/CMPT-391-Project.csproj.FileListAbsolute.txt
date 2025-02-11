@@ -41,6 +41,19 @@ C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391
 C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.csproj.CoreCompileInputs.cache
 C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.exe
 C:\Users\brayd\source\repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.pdb
+<<<<<<< HEAD
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\bin\Debug\CMPT-391-Project.exe.config
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\bin\Debug\CMPT-391-Project.exe
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\bin\Debug\CMPT-391-Project.pdb
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.csproj.AssemblyReference.cache
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT_391_Project.Login.resources
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT_391_Project.Properties.Resources.resources
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT_391_Project.Registration_System.resources
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.csproj.GenerateResource.cache
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.csproj.CoreCompileInputs.cache
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.exe
+C:\Users\coddo\Source\Repos\CMPT-391-Project\CMPT-391-Project\obj\Debug\CMPT-391-Project.pdb
+=======
 C:\Users\cdcro\Desktop\University\MacEwan\Year 3\Winter\CMPT 391\Project\CMPT-391-Project-master\CMPT-391-Project\bin\Debug\CMPT-391-Project.exe.config
 C:\Users\cdcro\Desktop\University\MacEwan\Year 3\Winter\CMPT 391\Project\CMPT-391-Project-master\CMPT-391-Project\bin\Debug\CMPT-391-Project.exe
 C:\Users\cdcro\Desktop\University\MacEwan\Year 3\Winter\CMPT 391\Project\CMPT-391-Project-master\CMPT-391-Project\bin\Debug\CMPT-391-Project.pdb
@@ -51,3 +64,4 @@ C:\Users\cdcro\Desktop\University\MacEwan\Year 3\Winter\CMPT 391\Project\CMPT-39
 C:\Users\cdcro\Desktop\University\MacEwan\Year 3\Winter\CMPT 391\Project\CMPT-391-Project-master\CMPT-391-Project\obj\Debug\CMPT-391-Project.csproj.CoreCompileInputs.cache
 C:\Users\cdcro\Desktop\University\MacEwan\Year 3\Winter\CMPT 391\Project\CMPT-391-Project-master\CMPT-391-Project\obj\Debug\CMPT-391-Project.exe
 C:\Users\cdcro\Desktop\University\MacEwan\Year 3\Winter\CMPT 391\Project\CMPT-391-Project-master\CMPT-391-Project\obj\Debug\CMPT-391-Project.pdb
+>>>>>>> master

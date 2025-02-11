@@ -1,5 +1,13 @@
 USE [391Project]
 
+drop view if exists ActiveEnrollment
+drop procedure if exists UpdateEnrollmentCount
+drop procedure if exists checkPrereq
+drop procedure if exists checkTimeConflict
+drop procedure if exists IsSectionOpen
+drop procedure if exists FillSearch
+drop procedure if exists EnrolFromCart
+
 GO
 CREATE VIEW ActiveEnrollment
 WITH SCHEMABINDING
@@ -104,15 +112,16 @@ GO
 GO
 CREATE PROCEDURE IsSectionOpen
     @SecID INT,
-    @CurrentSemester VARCHAR(50)
+    @CurrentSemester VARCHAR(50),
+	@RETURNVALUE bit output
 AS
 BEGIN
 	BEGIN Try
 		BEGIN Transaction
-			SELECT CASE WHEN EXISTS(
+			SELECT @RETURNVALUE = CASE WHEN EXISTS( --took me too long to realize i need to insert an output variable here
 			SELECT *
 			FROM Section AS S
-			WHERE S.SecID = @SecID AND S.Semester = @CurrentSemester AND 
+			WHERE S.SecID = @SecID AND S.Semester = @CurrentSemester AND --should not be necessary to specify semester. SecID for cmpt101fall '23 should not be the same as for cmpt101 win '24, for instance. -cole
 			S.NumEnrolled >= S.MaxCapacity)
 			THEN CAST(0 AS BIT)
 			ELSE CAST(1 AS BIT) END
@@ -145,6 +154,61 @@ BEGIN
 	END Catch
 END
 GO
+
+
+--------------------------------------------
+
+go
+create procedure UpdateEnrollmentCount
+	@SecID INT
+as
+begin
+	begin try
+		begin transaction
+			update Section set NumEnrolled = (select count(*) from Enrollment where SecID = @SecID)
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+	end catch
+end
+go
+
+--------------------------------------------
+
+go 
+create proc EnrolFromCart
+	@SecID INT,
+	@CurrentSemester VARCHAR(50),
+	@SID INT
+as 
+begin
+	begin try 
+		begin transaction
+			declare @result bit;
+			exec IsSectionOpen @SecID = @SecID, @CurrentSemester = @CurrentSemester, @RETURNVALUE = @result OUTPUT;
+			--nightmare nightmare nightmare nightmare nightmare nightmare nightmare nightmare nightmare nightmare 
+			if (@result = 1) begin
+				insert into enrollment (SID, SecID) values (@SID, @SecID)
+				delete from cart where SID = @SID and SecID = @SecID
+				exec UpdateEnrollmentCount @SecID = @SecID
+				--print 'success';
+			end
+
+
+		commit transaction
+	end try 
+	begin catch
+	
+		Rollback Transaction
+
+	end catch
+end
+go
+
+----------------------------------------------------
+
+
 -----------------------------------------------------
 GO
 CREATE PROC FillStudentEnrollment
@@ -202,3 +266,4 @@ BEGIN
     END CATCH
 END;
 GO
+
