@@ -1,13 +1,21 @@
 USE [391Project]
 
+drop view if exists ActiveEnrollment
+drop procedure if exists checkPrereq
+drop procedure if exists checkTimeConflict
+drop procedure if exists IsSectionOpen
+drop procedure if exists FillSearch
+drop procedure if exists EnrolFromCart
+
 DROP TABLE IF EXISTS Cart;
 DROP TABLE IF EXISTS Enrollment;
-DROP TABLE IF EXISTS Prereq;
 DROP TABLE IF EXISTS Section;
+DROP TABLE IF EXISTS Student;
+DROP TABLE IF EXISTS Prereq;
 DROP TABLE IF EXISTS Instructor;
 DROP TABLE IF EXISTS Course;
-DROP TABLE IF EXISTS Student;
 DROP TABLE IF EXISTS Department;
+
 
 CREATE TABLE Student (
 SID INT IDENTITY(1,1) PRIMARY KEY,
