@@ -29,7 +29,7 @@ namespace CMPT_391_Project
                 "Server = ; Database = 391Project; Trusted_Connection = yes;"
             };
         
-            myConnection = new SqlConnection(connectionStrings[4]);
+            myConnection = new SqlConnection(connectionStrings[0]);
 
             try {
                 myConnection.Open();
@@ -107,7 +107,7 @@ namespace CMPT_391_Project
                 command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
                 // Course ID (Required)
                 command.Parameters.Add(new SqlParameter("@CID", System.Data.SqlDbType.NVarChar,8) { Value = CID });
-                // Course ID (Required)
+                // Semester (Required)
                 command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
 
                 myDataReader = command.ExecuteReader();
@@ -119,7 +119,7 @@ namespace CMPT_391_Project
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 
-                // Course ID (Required)
+                // Semester (Required)
                 command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
                 // Student Id (Required)
                 command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
@@ -127,5 +127,55 @@ namespace CMPT_391_Project
                 myDataReader = command.ExecuteReader();
             }
         }
+
+        public void CheckTimeConflict(int SID, int SecID, string TimeBlock, string Semester) {
+            using (SqlCommand command = new SqlCommand("checkTimeConflict", myConnection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // Student Id (Required)
+                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+                // Section ID (Required)
+                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+                //  TimeBlock (Required)
+                command.Parameters.Add(new SqlParameter("@TimeBlock", System.Data.SqlDbType.NVarChar, 15) { Value = TimeBlock });
+                // Semester ID (Required)
+                command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
+
+                myDataReader = command.ExecuteReader();
+            }
+        }
+
+        public void Enroll(int SecID, string Semester, int SID) {
+            using (SqlCommand command = new SqlCommand("EnrolFromCart", myConnection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // Section ID (Required)
+                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+                // Semester ID (Required)
+                command.Parameters.Add(new SqlParameter("@CurrentSemester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
+                // Student Id (Required)
+                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+
+                myDataReader = command.ExecuteReader();
+            }
+        }
+
+        public void Unenroll(int SecID, int SID) {
+            using (SqlCommand command = new SqlCommand("Unenroll", myConnection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // Student Id (Required)
+                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+                // Section ID (Required)
+                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+
+                myDataReader = command.ExecuteReader();
+                myDataReader.Close();
+            }
+        }
+
     }
 }

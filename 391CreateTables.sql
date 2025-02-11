@@ -1,6 +1,7 @@
 USE [391Project]
 
 drop view if exists ActiveEnrollment
+drop view if exists CourseOfferings
 drop procedure if exists checkPrereq
 drop procedure if exists checkTimeConflict
 drop procedure if exists IsSectionOpen

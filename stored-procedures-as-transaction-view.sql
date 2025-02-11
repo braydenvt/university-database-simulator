@@ -1,13 +1,19 @@
 USE [391Project]
 
 drop view if exists ActiveEnrollment
+drop view if exists CourseOfferings
 drop procedure if exists UpdateEnrollmentCount
 drop procedure if exists checkPrereq
 drop procedure if exists checkTimeConflict
 drop procedure if exists IsSectionOpen
 drop procedure if exists FillSearch
 drop procedure if exists EnrolFromCart
+drop procedure if exists FillStudentEnrollment
+drop procedure if exists addToCart
+drop procedure if exists deleteFromCart
+drop procedure if exists Unenroll
 
+------------------- ACTIVE ENROLLMENT -------------------
 GO
 CREATE VIEW ActiveEnrollment
 WITH SCHEMABINDING
@@ -24,12 +30,12 @@ CREATE UNIQUE CLUSTERED INDEX IDX_V1
    ON ActiveEnrollment(SID,SecID);
 
 
-
+------------------- COURSE OFFERINGS -------------------
 GO
 CREATE VIEW  CourseOfferings
 WITH SCHEMABINDING
 AS 
-	SELECT C.CID, C.Title, S.SecID, S.Semester, C.DID
+	SELECT C.CID, C.Title, S.SecID, S.Semester, C.DID, S.TimeBlock
 	FROM dbo.Section as S, dbo.Course as C
 	WHERE S.CID = C.CID AND S.Semester = 'Fall 2025'
 GO
@@ -37,7 +43,9 @@ GO
 -- Create an index on the view.
 CREATE UNIQUE CLUSTERED INDEX IDX_CourseOfferings
    ON CourseOfferings(SecID);
--------------------------------------------------
+
+
+------------------- CHECK PREREQS -------------------
 GO
 CREATE PROC checkPrereq
     @SID INT,
@@ -79,36 +87,7 @@ BEGIN
 END
 GO
 
----------------------------------
-GO
-CREATE PROCEDURE checkTimeConflict
-    @SID INT,
-    @SecID INT,
-    @TimeBlock VARCHAR(50),
-    @Semester VARCHAR(15)
-AS
-BEGIN
-	BEGIN Try
-		BEGIN Transaction
-			IF EXISTS (SELECT *
-					   FROM ActiveEnrollment as AE 
-					   WHERE AE.SID = @SID AND AE.Semester = @Semester AND 
-					   AE.TimeBlock  = @TimeBlock)
-			BEGIN 
-			SELECT 1 AS Conflict;
-			END
-			ELSE
-			BEGIN
-			SELECT 0 AS NoConflict;
-			END
-		COMMIT Transaction
-	END Try
-	BEGIN Catch
-		Rollback Transaction
-	END Catch
-END;
-GO
----------------------------------
+------------------- IS SECTION OPEN -------------------
 GO
 CREATE PROCEDURE IsSectionOpen
     @SecID INT,
@@ -133,7 +112,7 @@ BEGIN
 END
 GO
 
------------------------------------------------
+------------------- FILL SEARCH -------------------
 GO
 CREATE PROC FillSearch
 	@Semester VARCHAR(15),
@@ -156,8 +135,7 @@ END
 GO
 
 
---------------------------------------------
-
+------------------- UPDATE SECTION COUNT -------------------
 go
 create procedure UpdateEnrollmentCount
 	@SecID INT
@@ -165,7 +143,7 @@ as
 begin
 	begin try
 		begin transaction
-			update Section set NumEnrolled = (select count(*) from Enrollment where SecID = @SecID)
+			update Section set NumEnrolled = (select count(*) from Enrollment where SecID = @SecID) WHERE SecID = @SecID
 		commit transaction
 	end try
 	begin catch
@@ -174,8 +152,7 @@ begin
 end
 go
 
---------------------------------------------
-
+ ------------------- ENROLL STUDENT -------------------
 go 
 create proc EnrolFromCart
 	@SecID INT,
@@ -192,10 +169,12 @@ begin
 				insert into enrollment (SID, SecID) values (@SID, @SecID)
 				delete from cart where SID = @SID and SecID = @SecID
 				exec UpdateEnrollmentCount @SecID = @SecID
-				--print 'success';
+				Select 1 as Result;
 			end
-
-
+			ELSE
+			BEGIN
+				Select 0 AS Result;
+			END
 		commit transaction
 	end try 
 	begin catch
@@ -205,11 +184,32 @@ begin
 	end catch
 end
 go
+------------------- UN ENROLL -------------------
+GO
+CREATE PROC Unenroll
+	@SecID INT,
+	@SID INT
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRANSACTION; 
+			
+			DELETE FROM Enrollment
+			WHERE SID = @SID AND SecID = @SecID;
+			
+			UPDATE Section 
+			SET NumEnrolled = (select count(*) from Enrollment where SecID = @SecID) 
+			WHERE SecID = @SecID;
+			
+		COMMIT TRANSACTION;
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION;
+	END CATCH
+END
+GO
 
-----------------------------------------------------
-
-
------------------------------------------------------
+------------------- FILL STUDENT ENROLLMENT -------------------
 GO
 CREATE PROC FillStudentEnrollment
 	@Semester VARCHAR(15),
@@ -228,42 +228,71 @@ BEGIN
 	END Catch
 END
 GO
------------------------------------------------------
+
+------------------- CHECK TIME CONFLICT -------------------
 GO
-CREATE PROCEDURE checkTimeConflictNew
+CREATE PROCEDURE checkTimeConflict
     @SID INT,
     @SecID INT,
-    @TimeBlock VARCHAR(50),
+    @TimeBlock VARCHAR(1),
     @Semester VARCHAR(15)
 AS
 BEGIN
     BEGIN TRY
         BEGIN TRANSACTION
-            IF EXISTS (
-                SELECT 1 
-                FROM ActiveEnrollment AS AE 
-                WHERE AE.SID = @SID 
-                  AND AE.Semester = @Semester 
-                  AND AE.TimeBlock = @TimeBlock
-            )
-            BEGIN
-                SELECT AE.SID AS ConflictSID 
-                FROM ActiveEnrollment AS AE 
-                WHERE AE.SID = @SID 
-                  AND AE.Semester = @Semester 
-                  AND AE.TimeBlock = @TimeBlock;
-            END
-            ELSE
-            BEGIN
-                SELECT NULL AS ConflictSID;
-            END
-        COMMIT TRANSACTION
+
+        SELECT COALESCE(
+		(SELECT S.SecID AS ConflictSecID
+        FROM Enrollment AS E
+        JOIN Section AS S ON E.SecID = S.SecID
+        WHERE E.SID = @SID
+          AND S.Semester = @Semester
+          AND S.TimeBlock = @TimeBlock), 0) AS ConflictSecID
+        COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
+        -- Rollback on error
         ROLLBACK TRANSACTION;
-
         THROW;
     END CATCH
 END;
 GO
+ ------------------- ADD TO CART -------------------
+GO
+CREATE PROC addToCart
+    @SID INT,
+    @SecID INT
+AS
+BEGIN
+	BEGIN Try
+		BEGIN Transaction
+			INSERT INTO Cart (SID, SecID) 
+			VALUES (@SID, @SecID)
+		COMMIT Transaction
+	END Try
+	BEGIN Catch
+		Rollback Transaction
+	END Catch
+END
+GO
 
+------------------- DELETE FROM CART -------------------
+GO
+CREATE PROC deleteFromCart
+    @SID INT,
+    @SecID INT
+AS
+BEGIN
+	BEGIN Try
+		BEGIN Transaction
+			IF EXISTS(SELECT 1 FROM Cart WHERE SID = @SID AND SecID = @SecID)
+			BEGIN
+				DELETE FROM Cart WHERE SID = @SID AND SecID = @SecID
+			END
+		COMMIT Transaction
+	END Try
+	BEGIN Catch
+		Rollback Transaction
+	END Catch
+END
+GO

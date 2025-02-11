@@ -29,16 +29,15 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.SystemTabs = new System.Windows.Forms.TabControl();
             this.CourseSelect = new System.Windows.Forms.TabPage();
-            this.InfoLB = new System.Windows.Forms.Label();
             this.VerifyButton = new System.Windows.Forms.Button();
             this.QueryButton = new System.Windows.Forms.Button();
             this.LNameLB = new System.Windows.Forms.Label();
@@ -52,23 +51,27 @@
             this.SemLB = new System.Windows.Forms.Label();
             this.Sem = new System.Windows.Forms.TextBox();
             this.CourseSearchGrid = new System.Windows.Forms.DataGridView();
+            this.InfoLB = new System.Windows.Forms.Label();
+            this.Cart = new System.Windows.Forms.TabPage();
+            this.CARTInfo = new System.Windows.Forms.Label();
+            this.CartDataGrid = new System.Windows.Forms.DataGridView();
+            this.EnrollPage = new System.Windows.Forms.TabPage();
+            this.ENRInfo = new System.Windows.Forms.Label();
+            this.EnrollDataGrid = new System.Windows.Forms.DataGridView();
+            this.TimeBlock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_CID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_SecID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Sem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_CartAdd = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Cart = new System.Windows.Forms.TabPage();
-            this.CARTInfo = new System.Windows.Forms.Label();
-            this.CartDataGrid = new System.Windows.Forms.DataGridView();
+            this.TimeBlockCart = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CartCID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CartTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CartSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CartSem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CartEnroll = new System.Windows.Forms.DataGridViewButtonColumn();
             this.CartDelete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.EnrollPage = new System.Windows.Forms.TabPage();
-            this.ENRInfo = new System.Windows.Forms.Label();
-            this.EnrollDataGrid = new System.Windows.Forms.DataGridView();
+            this.TimeBlockEnroll = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EnrollCID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EnrollTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EnrollSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -122,17 +125,6 @@
             this.CourseSelect.Size = new System.Drawing.Size(783, 402);
             this.CourseSelect.TabIndex = 0;
             this.CourseSelect.Text = "Course Selection";
-            // 
-            // InfoLB
-            // 
-            this.InfoLB.AutoSize = true;
-            this.InfoLB.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.InfoLB.Location = new System.Drawing.Point(265, 9);
-            this.InfoLB.Name = "InfoLB";
-            this.InfoLB.Size = new System.Drawing.Size(505, 84);
-            this.InfoLB.TabIndex = 15;
-            this.InfoLB.Text = "Enter your student id and password to be able to select available \r\ncourses, base" +
-    "d upon the search fields you enter.\r\n\r\n\r\n";
             // 
             // VerifyButton
             // 
@@ -284,6 +276,7 @@
             this.CourseSearchGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.CourseSearchGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CourseSearchGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TimeBlock,
             this.Col_CID,
             this.Col_Title,
             this.Col_SecID,
@@ -297,6 +290,134 @@
             this.CourseSearchGrid.Size = new System.Drawing.Size(779, 211);
             this.CourseSearchGrid.TabIndex = 0;
             this.CourseSearchGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseSearchGrid_CellContentClick);
+            // 
+            // InfoLB
+            // 
+            this.InfoLB.AutoSize = true;
+            this.InfoLB.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.InfoLB.Location = new System.Drawing.Point(265, 9);
+            this.InfoLB.Name = "InfoLB";
+            this.InfoLB.Size = new System.Drawing.Size(505, 84);
+            this.InfoLB.TabIndex = 15;
+            this.InfoLB.Text = "Enter your student id and password to be able to select available \r\ncourses, base" +
+    "d upon the search fields you enter.\r\n\r\n\r\n";
+            // 
+            // Cart
+            // 
+            this.Cart.BackColor = System.Drawing.Color.DarkSalmon;
+            this.Cart.Controls.Add(this.CARTInfo);
+            this.Cart.Controls.Add(this.CartDataGrid);
+            this.Cart.Location = new System.Drawing.Point(4, 34);
+            this.Cart.Margin = new System.Windows.Forms.Padding(2);
+            this.Cart.Name = "Cart";
+            this.Cart.Padding = new System.Windows.Forms.Padding(2);
+            this.Cart.Size = new System.Drawing.Size(783, 402);
+            this.Cart.TabIndex = 1;
+            this.Cart.Text = "User Cart";
+            // 
+            // CARTInfo
+            // 
+            this.CARTInfo.AutoSize = true;
+            this.CARTInfo.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.CARTInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.CARTInfo.Location = new System.Drawing.Point(183, 10);
+            this.CARTInfo.Name = "CARTInfo";
+            this.CARTInfo.Size = new System.Drawing.Size(409, 42);
+            this.CARTInfo.TabIndex = 17;
+            this.CARTInfo.Text = "This page contains information on all of the courses \r\nyou\'ve added to your cart " +
+    "this semester.\r\n";
+            // 
+            // CartDataGrid
+            // 
+            this.CartDataGrid.AllowUserToAddRows = false;
+            this.CartDataGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CartDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.CartDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CartDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TimeBlockCart,
+            this.CartCID,
+            this.CartTitle,
+            this.CartSID,
+            this.CartSem,
+            this.CartEnroll,
+            this.CartDelete});
+            this.CartDataGrid.Location = new System.Drawing.Point(2, 189);
+            this.CartDataGrid.Margin = new System.Windows.Forms.Padding(2);
+            this.CartDataGrid.Name = "CartDataGrid";
+            this.CartDataGrid.RowHeadersWidth = 51;
+            this.CartDataGrid.RowTemplate.Height = 24;
+            this.CartDataGrid.Size = new System.Drawing.Size(779, 211);
+            this.CartDataGrid.TabIndex = 16;
+            this.CartDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CartDataGrid_CellContentClick);
+            // 
+            // EnrollPage
+            // 
+            this.EnrollPage.BackColor = System.Drawing.Color.DarkSalmon;
+            this.EnrollPage.Controls.Add(this.ENRInfo);
+            this.EnrollPage.Controls.Add(this.EnrollDataGrid);
+            this.EnrollPage.Cursor = System.Windows.Forms.Cursors.Default;
+            this.EnrollPage.Location = new System.Drawing.Point(4, 34);
+            this.EnrollPage.Margin = new System.Windows.Forms.Padding(2);
+            this.EnrollPage.Name = "EnrollPage";
+            this.EnrollPage.Size = new System.Drawing.Size(783, 402);
+            this.EnrollPage.TabIndex = 2;
+            this.EnrollPage.Text = "Enrollment Page";
+            // 
+            // ENRInfo
+            // 
+            this.ENRInfo.AutoSize = true;
+            this.ENRInfo.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.ENRInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.ENRInfo.Location = new System.Drawing.Point(85, 9);
+            this.ENRInfo.Name = "ENRInfo";
+            this.ENRInfo.Size = new System.Drawing.Size(654, 21);
+            this.ENRInfo.TabIndex = 2;
+            this.ENRInfo.Text = "This page contains information on all of the courses you\'ve enrolled in this seme" +
+    "ster.";
+            // 
+            // EnrollDataGrid
+            // 
+            this.EnrollDataGrid.AllowUserToAddRows = false;
+            this.EnrollDataGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.EnrollDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.EnrollDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.EnrollDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TimeBlockEnroll,
+            this.EnrollCID,
+            this.EnrollTitle,
+            this.EnrollSID,
+            this.EnrollSem,
+            this.EnrollUnenroll});
+            this.EnrollDataGrid.Location = new System.Drawing.Point(2, 189);
+            this.EnrollDataGrid.Margin = new System.Windows.Forms.Padding(2);
+            this.EnrollDataGrid.Name = "EnrollDataGrid";
+            this.EnrollDataGrid.RowHeadersWidth = 51;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnrollDataGrid.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            this.EnrollDataGrid.RowTemplate.Height = 24;
+            this.EnrollDataGrid.Size = new System.Drawing.Size(779, 211);
+            this.EnrollDataGrid.TabIndex = 1;
+            this.EnrollDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EnrollDataGrid_CellContentClick);
+            // 
+            // TimeBlock
+            // 
+            this.TimeBlock.HeaderText = "Time Block";
+            this.TimeBlock.Name = "TimeBlock";
+            this.TimeBlock.Visible = false;
             // 
             // Col_CID
             // 
@@ -346,59 +467,11 @@
             this.Col_CartAdd.UseColumnTextForButtonValue = true;
             this.Col_CartAdd.Width = 125;
             // 
-            // Cart
+            // TimeBlockCart
             // 
-            this.Cart.BackColor = System.Drawing.Color.DarkSalmon;
-            this.Cart.Controls.Add(this.CARTInfo);
-            this.Cart.Controls.Add(this.CartDataGrid);
-            this.Cart.Location = new System.Drawing.Point(4, 34);
-            this.Cart.Margin = new System.Windows.Forms.Padding(2);
-            this.Cart.Name = "Cart";
-            this.Cart.Padding = new System.Windows.Forms.Padding(2);
-            this.Cart.Size = new System.Drawing.Size(783, 402);
-            this.Cart.TabIndex = 1;
-            this.Cart.Text = "User Cart";
-            // 
-            // CARTInfo
-            // 
-            this.CARTInfo.AutoSize = true;
-            this.CARTInfo.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.CARTInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.CARTInfo.Location = new System.Drawing.Point(183, 10);
-            this.CARTInfo.Name = "CARTInfo";
-            this.CARTInfo.Size = new System.Drawing.Size(409, 42);
-            this.CARTInfo.TabIndex = 17;
-            this.CARTInfo.Text = "This page contains information on all of the courses \r\nyou\'ve added to your cart " +
-    "this semester.\r\n";
-            // 
-            // CartDataGrid
-            // 
-            this.CartDataGrid.AllowUserToAddRows = false;
-            this.CartDataGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CartDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.CartDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.CartDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CartCID,
-            this.CartTitle,
-            this.CartSID,
-            this.CartSem,
-            this.CartEnroll,
-            this.CartDelete});
-            this.CartDataGrid.Location = new System.Drawing.Point(2, 189);
-            this.CartDataGrid.Margin = new System.Windows.Forms.Padding(2);
-            this.CartDataGrid.Name = "CartDataGrid";
-            this.CartDataGrid.RowHeadersWidth = 51;
-            this.CartDataGrid.RowTemplate.Height = 24;
-            this.CartDataGrid.Size = new System.Drawing.Size(779, 211);
-            this.CartDataGrid.TabIndex = 16;
-            this.CartDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CartDataGrid_CellContentClick);
+            this.TimeBlockCart.HeaderText = "Time Block";
+            this.TimeBlockCart.Name = "TimeBlockCart";
+            this.TimeBlockCart.Visible = false;
             // 
             // CartCID
             // 
@@ -460,60 +533,11 @@
             this.CartDelete.UseColumnTextForButtonValue = true;
             this.CartDelete.Width = 80;
             // 
-            // EnrollPage
+            // TimeBlockEnroll
             // 
-            this.EnrollPage.BackColor = System.Drawing.Color.DarkSalmon;
-            this.EnrollPage.Controls.Add(this.ENRInfo);
-            this.EnrollPage.Controls.Add(this.EnrollDataGrid);
-            this.EnrollPage.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EnrollPage.Location = new System.Drawing.Point(4, 34);
-            this.EnrollPage.Margin = new System.Windows.Forms.Padding(2);
-            this.EnrollPage.Name = "EnrollPage";
-            this.EnrollPage.Size = new System.Drawing.Size(783, 402);
-            this.EnrollPage.TabIndex = 2;
-            this.EnrollPage.Text = "Enrollment Page";
-            // 
-            // ENRInfo
-            // 
-            this.ENRInfo.AutoSize = true;
-            this.ENRInfo.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.ENRInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.ENRInfo.Location = new System.Drawing.Point(85, 9);
-            this.ENRInfo.Name = "ENRInfo";
-            this.ENRInfo.Size = new System.Drawing.Size(654, 21);
-            this.ENRInfo.TabIndex = 2;
-            this.ENRInfo.Text = "This page contains information on all of the courses you\'ve enrolled in this seme" +
-    "ster.";
-            // 
-            // EnrollDataGrid
-            // 
-            this.EnrollDataGrid.AllowUserToAddRows = false;
-            this.EnrollDataGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.EnrollDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.EnrollDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.EnrollDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.EnrollCID,
-            this.EnrollTitle,
-            this.EnrollSID,
-            this.EnrollSem,
-            this.EnrollUnenroll});
-            this.EnrollDataGrid.Location = new System.Drawing.Point(2, 189);
-            this.EnrollDataGrid.Margin = new System.Windows.Forms.Padding(2);
-            this.EnrollDataGrid.Name = "EnrollDataGrid";
-            this.EnrollDataGrid.RowHeadersWidth = 51;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnrollDataGrid.RowsDefaultCellStyle = dataGridViewCellStyle8;
-            this.EnrollDataGrid.RowTemplate.Height = 24;
-            this.EnrollDataGrid.Size = new System.Drawing.Size(779, 211);
-            this.EnrollDataGrid.TabIndex = 1;
-            this.EnrollDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EnrollDataGrid_CellContentClick);
+            this.TimeBlockEnroll.HeaderText = "Time Block";
+            this.TimeBlockEnroll.Name = "TimeBlockEnroll";
+            this.TimeBlockEnroll.Visible = false;
             // 
             // EnrollCID
             // 
@@ -602,24 +626,27 @@
         private System.Windows.Forms.Button VerifyButton;
         private System.Windows.Forms.Label InfoLB;
         private System.Windows.Forms.DataGridView CartDataGrid;
+        private System.Windows.Forms.DataGridView EnrollDataGrid;
+        private System.Windows.Forms.Label ENRInfo;
+        private System.Windows.Forms.Label CARTInfo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TimeBlock;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_CID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Title;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_SecID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Sem;
         private System.Windows.Forms.DataGridViewButtonColumn Col_CartAdd;
-        private System.Windows.Forms.DataGridView EnrollDataGrid;
-        private System.Windows.Forms.Label ENRInfo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TimeBlockCart;
         private System.Windows.Forms.DataGridViewTextBoxColumn CartCID;
         private System.Windows.Forms.DataGridViewTextBoxColumn CartTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn CartSID;
         private System.Windows.Forms.DataGridViewTextBoxColumn CartSem;
         private System.Windows.Forms.DataGridViewButtonColumn CartEnroll;
         private System.Windows.Forms.DataGridViewButtonColumn CartDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TimeBlockEnroll;
         private System.Windows.Forms.DataGridViewTextBoxColumn EnrollCID;
         private System.Windows.Forms.DataGridViewTextBoxColumn EnrollTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn EnrollSID;
         private System.Windows.Forms.DataGridViewTextBoxColumn EnrollSem;
         private System.Windows.Forms.DataGridViewButtonColumn EnrollUnenroll;
-        private System.Windows.Forms.Label CARTInfo;
     }
 }
