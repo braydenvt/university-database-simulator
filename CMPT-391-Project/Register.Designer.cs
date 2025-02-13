@@ -132,7 +132,7 @@
             this.VerifyButton.FlatAppearance.BorderSize = 0;
             this.VerifyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VerifyButton.ForeColor = System.Drawing.Color.MintCream;
-            this.VerifyButton.Location = new System.Drawing.Point(683, 150);
+            this.VerifyButton.Location = new System.Drawing.Point(683, 160);
             this.VerifyButton.Margin = new System.Windows.Forms.Padding(0);
             this.VerifyButton.Name = "VerifyButton";
             this.VerifyButton.Size = new System.Drawing.Size(113, 32);
@@ -162,7 +162,7 @@
             // 
             this.LNameLB.AutoSize = true;
             this.LNameLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.LNameLB.Location = new System.Drawing.Point(585, 132);
+            this.LNameLB.Location = new System.Drawing.Point(585, 119);
             this.LNameLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LNameLB.Name = "LNameLB";
             this.LNameLB.Size = new System.Drawing.Size(94, 21);
@@ -172,7 +172,7 @@
             // LName
             // 
             this.LName.Enabled = false;
-            this.LName.Location = new System.Drawing.Point(683, 129);
+            this.LName.Location = new System.Drawing.Point(683, 116);
             this.LName.Margin = new System.Windows.Forms.Padding(2);
             this.LName.Name = "LName";
             this.LName.ReadOnly = true;
@@ -203,7 +203,7 @@
             // 
             this.SIDLB.AutoSize = true;
             this.SIDLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.SIDLB.Location = new System.Drawing.Point(358, 132);
+            this.SIDLB.Location = new System.Drawing.Point(358, 119);
             this.SIDLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SIDLB.Name = "SIDLB";
             this.SIDLB.Size = new System.Drawing.Size(95, 21);
@@ -213,7 +213,7 @@
             // SID
             // 
             this.SID.Enabled = false;
-            this.SID.Location = new System.Drawing.Point(457, 129);
+            this.SID.Location = new System.Drawing.Point(457, 116);
             this.SID.Margin = new System.Windows.Forms.Padding(2);
             this.SID.Name = "SID";
             this.SID.ReadOnly = true;
