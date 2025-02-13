@@ -51,13 +51,13 @@ GO
 INSERT INTO [dbo].[Instructor]
 VALUES
 	('Tobias', 'Reider', 'Head', 'CMPT'),
-	('Alex', 'Vlasic', 'Sessional', 'CMPT'),
+	('Alex', 'Vlasic', 'Sessional', 'CMPT'),	--2
 	('Alex', 'Wennberg', 'Associate','CMPT'),
-	('Jake','Walman', 'Sessional', 'CMPT'),
+	('Jake','Walman', 'Sessional', 'CMPT'),		--4
 	('Thomas', 'Harley', 'Associate', 'CMPT'),
-	('Jack', 'Quinn', 'Associate', 'STAT'),
-	('Trent', 'Fredric', 'Head', 'STAT'),
-	('Nicholas', 'Paul', 'Head', 'ENGL')
+	('Jack', 'Quinn', 'Associate', 'STAT'),		--6
+	('Trent', 'Fredric', 'Head', 'STAT'),		
+	('Nicholas', 'Paul', 'Head', 'ENGL')		--8
 GO
 
 -- INSERTING COURSE
@@ -74,7 +74,8 @@ VALUES
 	('CMPT-291', 'Introduction to Database Management', 'CMPT'),
 	('CMPT-104', 'Fluency with Information Technology','CMPT'),
 	('CMPT-230', 'Introduction to Computer Games','CMPT'),
-	('ENGL-102', 'Analysis and Argument', 'ENGL')
+	('ENGL-102', 'Analysis and Argument', 'ENGL'),
+	('STAT-999', 'Introduction to Randomly Guessing', 'STAT')
 GO
 
 -- INSERTING PREREQ
@@ -113,19 +114,22 @@ VALUES
 	('Winter 2023', 30, 'B', '6-123', 'ENGL-102',7,9),
 	('Winter 2025', 30, 'C', '6-144', 'ENGL-102',7,0), -- #15
 	-- TEST MAX
-	('Fall 2025', 5, 'A', '5-123', 'ENGL-102',7,5),
+	('Fall 2025', 5, 'A', '5-123', 'ENGL-102',7,5), -- #16 
 	-- Current Semester 
-	('Fall 2025', 5, 'E', '7-101', 'CMPT-101', 1, 0),
+	('Fall 2025', 5, 'E', '7-101', 'CMPT-101', 1, 0), --#17
     ('Fall 2025', 5, 'F', '6-102', 'CMPT-103', 2, 0),
-    ('Fall 2025', 4, 'T', '5-201', 'CMPT-200', 3, 0),
+    ('Fall 2025', 4, 'T', '5-201', 'CMPT-200', 3, 0), -- #19
     ('Fall 2025', 4, 'V', '9-202', 'CMPT-201', 4, 0),
-    ('Fall 2025', 5, 'W', '8-301', 'CMPT-250', 5, 5),
+    ('Fall 2025', 5, 'W', '8-301', 'CMPT-250', 5, 5), -- #21
     ('Fall 2025', 5, 'C', '8-302', 'CMPT-305', 6, 0),
-    ('Fall 2025', 5, 'D', '7-303', 'CMPT-315', 1, 0),
+    ('Fall 2025', 5, 'D', '7-303', 'CMPT-315', 1, 0), -- #23
     ('Fall 2025', 4, 'G', '7-304', 'CMPT-291', 2, 0),
-    ('Fall 2025', 6, 'E', '6-305', 'CMPT-104', 3, 0),
-    ('Fall 2025', 5, 'H', '5-306', 'CMPT-230', 4, 0),
-    ('Fall 2025', 5, 'H', '8-101', 'ENGL-102', 5, 1)
+    ('Fall 2025', 6, 'E', '6-305', 'CMPT-104', 3, 0), -- #25
+    ('Fall 2025', 5, 'H', '5-306', 'CMPT-230', 4, 0), -- TEST CASE FOR LACK OF PREREQS
+    ('Fall 2025', 5, 'H', '8-101', 'ENGL-102', 5, 1),	-- #27
+	('Fall 2025', 9, 'F', '1-234', 'STAT-999', 6, 6),	--TEST CASE FOR OVERLAPPING TIME BLOCKS - CONFLICT WITH #18, CMPT 103
+	('Fall 2025', 9, 'S', '1-999', 'CMPT-101', 1, 0)	--# 29 TEST CASE FOR ENROLLING TWO DIFF SECTIONS SAME COURSE (ENROL IN #17)
+
 GO
 
 -- INSERTING ENROLLMENT
@@ -240,7 +244,7 @@ VALUES
 	(22,16),
 	(23,16),
 	(24,16),
-	-------
+	------- A DIFFERENT ENGL 102
 	(1,27)
 GO
 
