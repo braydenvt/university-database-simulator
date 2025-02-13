@@ -17,8 +17,10 @@ namespace CMPT_391_Project
         public Registration_System()
         {
             InitializeComponent();
+            CourseSelect.Size = new Size(885, 500);
             dbHelper = new DatabaseHelper();
             QueryButton_Click(null, EventArgs.Empty);
+            FillStudentCart();
             FillStudentEnrollment();
         }
 
@@ -28,6 +30,7 @@ namespace CMPT_391_Project
 
         public List<string> cartSecIDs = new List<string>();
         public List<string> enrollSecIDs = new List<string>();
+        public List<string> enrolledCIDs = new List<string>();
         public List<int> prereqsMet = new List<int> ();
 
 
@@ -148,7 +151,7 @@ namespace CMPT_391_Project
                                     dbHelper.myDataReader.Close();
 
                                 }
-                                catch (SqlException ex) { MessageBox.Show("Error adding course to cart.");} //+ ex.ToString()); }
+                                catch{ MessageBox.Show("Error adding course to cart.");} //+ ex.ToString()); }
                             }
                             else
                             {
@@ -198,7 +201,9 @@ namespace CMPT_391_Project
                                 var addedSem = CartDataGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
                                 var addedTimeBlock = CartDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-                                if (enrollSecIDs.Contains(addedSecID) == false  )
+                         
+
+                                if (enrollSecIDs.Contains(addedSecID) == false && enrolledCIDs.Contains(addedCID) == false)
                                 {
                                     try
                                     {
@@ -209,8 +214,7 @@ namespace CMPT_391_Project
                                             {
                                                 try {
                                                     dbHelper.myDataReader.Close();
-                                                    dbHelper.Enroll(Int32.Parse(addedSecID),addedSem,Int32.Parse(SID.Text));
-                                                    int result;
+                                                    dbHelper.Enroll(Int32.Parse(addedSecID), addedSem, Int32.Parse(SID.Text));
                                                     while (dbHelper.myDataReader.Read())
                                                     {
                                                         if (Int32.Parse(dbHelper.myDataReader["Result"].ToString()) == 1) {
@@ -221,10 +225,11 @@ namespace CMPT_391_Project
 
                                                             cartSecIDs.Remove(addedSecID);
                                                             enrollSecIDs.Add(addedSecID);
+                                                            enrolledCIDs.Add(addedCID);
 
                                                             prereqsMet.RemoveAt(e.RowIndex);
 
-                                                            MessageBox.Show($@"You have enrolled in: {Environment.NewLine}Course ID: {addedCID}{Environment.NewLine}Section ID: {addedSecID}{Environment.NewLine}Semester: {addedSem}{Environment.NewLine}","Enrollment Complete");
+                                                            MessageBox.Show($@"You have enrolled in: {Environment.NewLine}Course ID: {addedCID}{Environment.NewLine}Section ID: {addedSecID}{Environment.NewLine}Semester: {addedSem}{Environment.NewLine}", "Enrollment Complete");
                                                         }
                                                         else {
                                                             MessageBox.Show("Enrollment failed, section " + addedSecID + " is full.", "Enrollment Failed");
@@ -232,9 +237,9 @@ namespace CMPT_391_Project
                                                         dbHelper.myDataReader.Close();
                                                         break;
                                                     }
-                                                    
+
                                                 }
-                                                catch (SqlException ex) { 
+                                                catch (SqlException ex) {
                                                     MessageBox.Show(ex.ToString());
                                                 }
                                             }
@@ -245,9 +250,9 @@ namespace CMPT_391_Project
                                             }
                                             break;
                                         }
-                                        
+
                                     }
-                                    catch(SqlException ex) {
+                                    catch (SqlException ex) {
                                         MessageBox.Show(ex.ToString()); }
                                 }
                                 else
@@ -256,9 +261,9 @@ namespace CMPT_391_Project
                                 }
 
                             }
-                            catch (Exception e2)
+                            catch
                             {
-                                MessageBox.Show(e2.ToString(), "Error");
+                                MessageBox.Show("Error failed to enroll");
                             }
                         }
                     }
@@ -283,6 +288,7 @@ namespace CMPT_391_Project
                             var removedSecID = CartDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
                             var removedSem = CartDataGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
                             var removedTimeBlock = CartDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                          
 
                             dbHelper.DeleteFromCart(Int32.Parse(SID.Text), Int32.Parse(removedSecID));
 
@@ -344,6 +350,7 @@ namespace CMPT_391_Project
                             EnrollDataGrid.Rows.RemoveAt(e.RowIndex);
 
                             enrollSecIDs.Remove(removedSecID);
+                            enrolledCIDs.Remove(removedCID);
                           
                         }
                         catch (Exception e2)
@@ -358,17 +365,58 @@ namespace CMPT_391_Project
         public void FillStudentEnrollment() {
             try
             {
-                dbHelper.FillStudentEnrollment(Sem.Text, Int32.Parse(SID.Text));
+                dbHelper.FillStudentEnrollment(Int32.Parse(SID.Text));
                 while (dbHelper.myDataReader.Read())
                 {
+                    enrolledCIDs.Add(dbHelper.myDataReader["CID"].ToString());
                     EnrollDataGrid.Rows.Add(dbHelper.myDataReader["TimeBlock"].ToString(), dbHelper.myDataReader["CID"].ToString(), dbHelper.myDataReader["Title"], dbHelper.myDataReader["SecID"].ToString(),
                     dbHelper.myDataReader["Semester"].ToString());
                 }
                 dbHelper.myDataReader.Close();
 
             }
-            catch(SqlException ex) {
-                MessageBox.Show(ex.ToString());
+            catch(SqlException ex) { MessageBox.Show(ex.ToString());}
+        }
+
+        public void FillStudentCart() {
+            try
+            {
+                dbHelper.FillStudentCart(Int32.Parse(SID.Text));
+                while (dbHelper.myDataReader.Read())
+                {
+                    CartDataGrid.Rows.Add(dbHelper.myDataReader["TimeBlock"].ToString(), dbHelper.myDataReader["CID"].ToString(), dbHelper.myDataReader["Title"], dbHelper.myDataReader["SecID"].ToString(),
+                    dbHelper.myDataReader["Semester"].ToString());
+
+                    cartSecIDs.Add(dbHelper.myDataReader["SecID"].ToString());
+
+                }
+                dbHelper.myDataReader.Close();
+            }
+            catch (SqlException ex) {  MessageBox.Show(ex.ToString()); }
+            for (int i = 0; i < CartDataGrid.Rows.Count; i++)
+            {
+                try
+                {
+                    dbHelper.CheckPrereq(Int32.Parse(SID.Text), CartDataGrid.Rows[i].Cells[1].Value.ToString(), Sem.Text);
+                    while (dbHelper.myDataReader.Read())
+                    {
+                        if (Int32.Parse(dbHelper.myDataReader["PrereqMet"].ToString()) == 1)
+                        {
+                            prereqsMet.Add(1);
+
+                        }
+                        else
+                        {
+                            CartDataGrid.Rows[cartSecIDs.Count - 1].HeaderCell.Style.BackColor = Color.Red;
+                            CartDataGrid.Rows[cartSecIDs.Count - 1].HeaderCell.ToolTipText = "The Prerequisites for this class are not met";
+                            CartDataGrid.EnableHeadersVisualStyles = false;
+                            prereqsMet.Add(0);
+                        }
+                    }
+                    dbHelper.myDataReader.Close();
+
+                }
+                catch (SqlException ex) { MessageBox.Show("Error adding course to cart." + ex); }
             }
         }
     }

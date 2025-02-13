@@ -32,10 +32,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.SystemTabs = new System.Windows.Forms.TabControl();
             this.CourseSelect = new System.Windows.Forms.TabPage();
             this.VerifyButton = new System.Windows.Forms.Button();
@@ -58,6 +58,12 @@
             this.EnrollPage = new System.Windows.Forms.TabPage();
             this.ENRInfo = new System.Windows.Forms.Label();
             this.EnrollDataGrid = new System.Windows.Forms.DataGridView();
+            this.TimeBlockEnroll = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EnrollCID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EnrollTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EnrollSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EnrollSem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EnrollUnenroll = new System.Windows.Forms.DataGridViewButtonColumn();
             this.TimeBlock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_CID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,12 +77,6 @@
             this.CartSem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CartEnroll = new System.Windows.Forms.DataGridViewButtonColumn();
             this.CartDelete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.TimeBlockEnroll = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EnrollCID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EnrollTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EnrollSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EnrollSem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EnrollUnenroll = new System.Windows.Forms.DataGridViewButtonColumn();
             this.SystemTabs.SuspendLayout();
             this.CourseSelect.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CourseSearchGrid)).BeginInit();
@@ -97,7 +97,7 @@
             this.SystemTabs.Margin = new System.Windows.Forms.Padding(2);
             this.SystemTabs.Name = "SystemTabs";
             this.SystemTabs.SelectedIndex = 0;
-            this.SystemTabs.Size = new System.Drawing.Size(791, 440);
+            this.SystemTabs.Size = new System.Drawing.Size(885, 460);
             this.SystemTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.SystemTabs.TabIndex = 0;
             // 
@@ -122,9 +122,9 @@
             this.CourseSelect.Location = new System.Drawing.Point(4, 34);
             this.CourseSelect.Margin = new System.Windows.Forms.Padding(2);
             this.CourseSelect.Name = "CourseSelect";
-            this.CourseSelect.Size = new System.Drawing.Size(783, 402);
+            this.CourseSelect.Size = new System.Drawing.Size(877, 422);
             this.CourseSelect.TabIndex = 0;
-            this.CourseSelect.Text = "Course Selection";
+            this.CourseSelect.Text = " Select Course    ";
             // 
             // VerifyButton
             // 
@@ -132,7 +132,7 @@
             this.VerifyButton.FlatAppearance.BorderSize = 0;
             this.VerifyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VerifyButton.ForeColor = System.Drawing.Color.MintCream;
-            this.VerifyButton.Location = new System.Drawing.Point(622, 150);
+            this.VerifyButton.Location = new System.Drawing.Point(683, 150);
             this.VerifyButton.Margin = new System.Windows.Forms.Padding(0);
             this.VerifyButton.Name = "VerifyButton";
             this.VerifyButton.Size = new System.Drawing.Size(113, 32);
@@ -149,7 +149,7 @@
             this.QueryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
             this.QueryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.QueryButton.ForeColor = System.Drawing.Color.Teal;
-            this.QueryButton.Location = new System.Drawing.Point(122, 150);
+            this.QueryButton.Location = new System.Drawing.Point(122, 160);
             this.QueryButton.Margin = new System.Windows.Forms.Padding(0);
             this.QueryButton.Name = "QueryButton";
             this.QueryButton.Size = new System.Drawing.Size(113, 31);
@@ -162,7 +162,7 @@
             // 
             this.LNameLB.AutoSize = true;
             this.LNameLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.LNameLB.Location = new System.Drawing.Point(524, 132);
+            this.LNameLB.Location = new System.Drawing.Point(585, 132);
             this.LNameLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LNameLB.Name = "LNameLB";
             this.LNameLB.Size = new System.Drawing.Size(94, 21);
@@ -172,7 +172,7 @@
             // LName
             // 
             this.LName.Enabled = false;
-            this.LName.Location = new System.Drawing.Point(622, 129);
+            this.LName.Location = new System.Drawing.Point(683, 129);
             this.LName.Margin = new System.Windows.Forms.Padding(2);
             this.LName.Name = "LName";
             this.LName.ReadOnly = true;
@@ -203,7 +203,7 @@
             // 
             this.SIDLB.AutoSize = true;
             this.SIDLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.SIDLB.Location = new System.Drawing.Point(297, 132);
+            this.SIDLB.Location = new System.Drawing.Point(358, 132);
             this.SIDLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SIDLB.Name = "SIDLB";
             this.SIDLB.Size = new System.Drawing.Size(95, 21);
@@ -213,7 +213,7 @@
             // SID
             // 
             this.SID.Enabled = false;
-            this.SID.Location = new System.Drawing.Point(396, 129);
+            this.SID.Location = new System.Drawing.Point(457, 129);
             this.SID.Margin = new System.Windows.Forms.Padding(2);
             this.SID.Name = "SID";
             this.SID.ReadOnly = true;
@@ -282,12 +282,12 @@
             this.Col_SecID,
             this.Col_Sem,
             this.Col_CartAdd});
-            this.CourseSearchGrid.Location = new System.Drawing.Point(2, 189);
+            this.CourseSearchGrid.Location = new System.Drawing.Point(37, 198);
             this.CourseSearchGrid.Margin = new System.Windows.Forms.Padding(2);
             this.CourseSearchGrid.Name = "CourseSearchGrid";
             this.CourseSearchGrid.RowHeadersWidth = 51;
             this.CourseSearchGrid.RowTemplate.Height = 24;
-            this.CourseSearchGrid.Size = new System.Drawing.Size(779, 211);
+            this.CourseSearchGrid.Size = new System.Drawing.Size(790, 222);
             this.CourseSearchGrid.TabIndex = 0;
             this.CourseSearchGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseSearchGrid_CellContentClick);
             // 
@@ -295,7 +295,7 @@
             // 
             this.InfoLB.AutoSize = true;
             this.InfoLB.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.InfoLB.Location = new System.Drawing.Point(265, 9);
+            this.InfoLB.Location = new System.Drawing.Point(322, 7);
             this.InfoLB.Name = "InfoLB";
             this.InfoLB.Size = new System.Drawing.Size(505, 84);
             this.InfoLB.TabIndex = 15;
@@ -311,7 +311,7 @@
             this.Cart.Margin = new System.Windows.Forms.Padding(2);
             this.Cart.Name = "Cart";
             this.Cart.Padding = new System.Windows.Forms.Padding(2);
-            this.Cart.Size = new System.Drawing.Size(783, 402);
+            this.Cart.Size = new System.Drawing.Size(877, 422);
             this.Cart.TabIndex = 1;
             this.Cart.Text = "User Cart";
             // 
@@ -348,12 +348,12 @@
             this.CartSem,
             this.CartEnroll,
             this.CartDelete});
-            this.CartDataGrid.Location = new System.Drawing.Point(2, 189);
+            this.CartDataGrid.Location = new System.Drawing.Point(58, 140);
             this.CartDataGrid.Margin = new System.Windows.Forms.Padding(2);
             this.CartDataGrid.Name = "CartDataGrid";
             this.CartDataGrid.RowHeadersWidth = 51;
             this.CartDataGrid.RowTemplate.Height = 24;
-            this.CartDataGrid.Size = new System.Drawing.Size(779, 211);
+            this.CartDataGrid.Size = new System.Drawing.Size(768, 258);
             this.CartDataGrid.TabIndex = 16;
             this.CartDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CartDataGrid_CellContentClick);
             // 
@@ -366,7 +366,7 @@
             this.EnrollPage.Location = new System.Drawing.Point(4, 34);
             this.EnrollPage.Margin = new System.Windows.Forms.Padding(2);
             this.EnrollPage.Name = "EnrollPage";
-            this.EnrollPage.Size = new System.Drawing.Size(783, 402);
+            this.EnrollPage.Size = new System.Drawing.Size(877, 422);
             this.EnrollPage.TabIndex = 2;
             this.EnrollPage.Text = "Enrollment Page";
             // 
@@ -402,142 +402,21 @@
             this.EnrollSID,
             this.EnrollSem,
             this.EnrollUnenroll});
-            this.EnrollDataGrid.Location = new System.Drawing.Point(2, 189);
+            this.EnrollDataGrid.Location = new System.Drawing.Point(0, 188);
             this.EnrollDataGrid.Margin = new System.Windows.Forms.Padding(2);
             this.EnrollDataGrid.Name = "EnrollDataGrid";
             this.EnrollDataGrid.RowHeadersWidth = 51;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EnrollDataGrid.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.EnrollDataGrid.RowTemplate.Height = 24;
-            this.EnrollDataGrid.Size = new System.Drawing.Size(779, 211);
+            this.EnrollDataGrid.Size = new System.Drawing.Size(881, 232);
             this.EnrollDataGrid.TabIndex = 1;
             this.EnrollDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EnrollDataGrid_CellContentClick);
-            // 
-            // TimeBlock
-            // 
-            this.TimeBlock.HeaderText = "Time Block";
-            this.TimeBlock.Name = "TimeBlock";
-            this.TimeBlock.Visible = false;
-            // 
-            // Col_CID
-            // 
-            this.Col_CID.HeaderText = "Course ID";
-            this.Col_CID.MinimumWidth = 6;
-            this.Col_CID.Name = "Col_CID";
-            this.Col_CID.ReadOnly = true;
-            this.Col_CID.Width = 125;
-            // 
-            // Col_Title
-            // 
-            this.Col_Title.HeaderText = "Course Title";
-            this.Col_Title.MinimumWidth = 6;
-            this.Col_Title.Name = "Col_Title";
-            this.Col_Title.ReadOnly = true;
-            this.Col_Title.Width = 225;
-            // 
-            // Col_SecID
-            // 
-            this.Col_SecID.HeaderText = "Section ID";
-            this.Col_SecID.MinimumWidth = 6;
-            this.Col_SecID.Name = "Col_SecID";
-            this.Col_SecID.ReadOnly = true;
-            this.Col_SecID.Width = 125;
-            // 
-            // Col_Sem
-            // 
-            this.Col_Sem.HeaderText = "Semester";
-            this.Col_Sem.MinimumWidth = 6;
-            this.Col_Sem.Name = "Col_Sem";
-            this.Col_Sem.ReadOnly = true;
-            this.Col_Sem.Width = 125;
-            // 
-            // Col_CartAdd
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.Col_CartAdd.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Col_CartAdd.HeaderText = "Add To Cart";
-            this.Col_CartAdd.MinimumWidth = 6;
-            this.Col_CartAdd.Name = "Col_CartAdd";
-            this.Col_CartAdd.ReadOnly = true;
-            this.Col_CartAdd.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_CartAdd.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Col_CartAdd.Text = "Add";
-            this.Col_CartAdd.UseColumnTextForButtonValue = true;
-            this.Col_CartAdd.Width = 125;
-            // 
-            // TimeBlockCart
-            // 
-            this.TimeBlockCart.HeaderText = "Time Block";
-            this.TimeBlockCart.Name = "TimeBlockCart";
-            this.TimeBlockCart.Visible = false;
-            // 
-            // CartCID
-            // 
-            this.CartCID.HeaderText = "Course ID";
-            this.CartCID.MinimumWidth = 6;
-            this.CartCID.Name = "CartCID";
-            this.CartCID.ReadOnly = true;
-            this.CartCID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CartCID.Width = 125;
-            // 
-            // CartTitle
-            // 
-            this.CartTitle.HeaderText = "Course Title";
-            this.CartTitle.MinimumWidth = 6;
-            this.CartTitle.Name = "CartTitle";
-            this.CartTitle.ReadOnly = true;
-            this.CartTitle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CartTitle.Width = 215;
-            // 
-            // CartSID
-            // 
-            this.CartSID.HeaderText = "Section ID";
-            this.CartSID.MinimumWidth = 6;
-            this.CartSID.Name = "CartSID";
-            this.CartSID.ReadOnly = true;
-            this.CartSID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CartSID.Width = 125;
-            // 
-            // CartSem
-            // 
-            this.CartSem.HeaderText = "Semester";
-            this.CartSem.MinimumWidth = 6;
-            this.CartSem.Name = "CartSem";
-            this.CartSem.ReadOnly = true;
-            this.CartSem.Width = 125;
-            // 
-            // CartEnroll
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Info;
-            this.CartEnroll.DefaultCellStyle = dataGridViewCellStyle4;
-            this.CartEnroll.HeaderText = "Enroll";
-            this.CartEnroll.MinimumWidth = 6;
-            this.CartEnroll.Name = "CartEnroll";
-            this.CartEnroll.ReadOnly = true;
-            this.CartEnroll.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CartEnroll.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CartEnroll.Text = "Enroll";
-            this.CartEnroll.UseColumnTextForButtonValue = true;
-            this.CartEnroll.Width = 80;
-            // 
-            // CartDelete
-            // 
-            this.CartDelete.HeaderText = "Delete";
-            this.CartDelete.MinimumWidth = 6;
-            this.CartDelete.Name = "CartDelete";
-            this.CartDelete.ReadOnly = true;
-            this.CartDelete.Text = "Delete";
-            this.CartDelete.UseColumnTextForButtonValue = true;
-            this.CartDelete.Width = 80;
             // 
             // TimeBlockEnroll
             // 
             this.TimeBlockEnroll.HeaderText = "Time Block";
             this.TimeBlockEnroll.Name = "TimeBlockEnroll";
-            this.TimeBlockEnroll.Visible = false;
             // 
             // EnrollCID
             // 
@@ -583,11 +462,129 @@
             this.EnrollUnenroll.UseColumnTextForButtonValue = true;
             this.EnrollUnenroll.Width = 125;
             // 
+            // TimeBlock
+            // 
+            this.TimeBlock.HeaderText = "Time Block";
+            this.TimeBlock.Name = "TimeBlock";
+            this.TimeBlock.Width = 75;
+            // 
+            // Col_CID
+            // 
+            this.Col_CID.HeaderText = "Course ID";
+            this.Col_CID.MinimumWidth = 6;
+            this.Col_CID.Name = "Col_CID";
+            this.Col_CID.ReadOnly = true;
+            this.Col_CID.Width = 125;
+            // 
+            // Col_Title
+            // 
+            this.Col_Title.HeaderText = "Course Title";
+            this.Col_Title.MinimumWidth = 6;
+            this.Col_Title.Name = "Col_Title";
+            this.Col_Title.ReadOnly = true;
+            this.Col_Title.Width = 225;
+            // 
+            // Col_SecID
+            // 
+            this.Col_SecID.HeaderText = "Section ID";
+            this.Col_SecID.MinimumWidth = 6;
+            this.Col_SecID.Name = "Col_SecID";
+            this.Col_SecID.ReadOnly = true;
+            this.Col_SecID.Width = 75;
+            // 
+            // Col_Sem
+            // 
+            this.Col_Sem.HeaderText = "Semester";
+            this.Col_Sem.MinimumWidth = 6;
+            this.Col_Sem.Name = "Col_Sem";
+            this.Col_Sem.ReadOnly = true;
+            // 
+            // Col_CartAdd
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.Col_CartAdd.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Col_CartAdd.HeaderText = "Add To Cart";
+            this.Col_CartAdd.MinimumWidth = 6;
+            this.Col_CartAdd.Name = "Col_CartAdd";
+            this.Col_CartAdd.ReadOnly = true;
+            this.Col_CartAdd.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_CartAdd.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_CartAdd.Text = "Add";
+            this.Col_CartAdd.UseColumnTextForButtonValue = true;
+            this.Col_CartAdd.Width = 125;
+            // 
+            // TimeBlockCart
+            // 
+            this.TimeBlockCart.HeaderText = "Time Block";
+            this.TimeBlockCart.Name = "TimeBlockCart";
+            this.TimeBlockCart.Width = 75;
+            // 
+            // CartCID
+            // 
+            this.CartCID.HeaderText = "Course ID";
+            this.CartCID.MinimumWidth = 6;
+            this.CartCID.Name = "CartCID";
+            this.CartCID.ReadOnly = true;
+            this.CartCID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // CartTitle
+            // 
+            this.CartTitle.HeaderText = "Course Title";
+            this.CartTitle.MinimumWidth = 6;
+            this.CartTitle.Name = "CartTitle";
+            this.CartTitle.ReadOnly = true;
+            this.CartTitle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CartTitle.Width = 215;
+            // 
+            // CartSID
+            // 
+            this.CartSID.HeaderText = "Section ID";
+            this.CartSID.MinimumWidth = 6;
+            this.CartSID.Name = "CartSID";
+            this.CartSID.ReadOnly = true;
+            this.CartSID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CartSID.Width = 75;
+            // 
+            // CartSem
+            // 
+            this.CartSem.HeaderText = "Semester";
+            this.CartSem.MinimumWidth = 6;
+            this.CartSem.Name = "CartSem";
+            this.CartSem.ReadOnly = true;
+            this.CartSem.Width = 90;
+            // 
+            // CartEnroll
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Info;
+            this.CartEnroll.DefaultCellStyle = dataGridViewCellStyle4;
+            this.CartEnroll.HeaderText = "Enroll";
+            this.CartEnroll.MinimumWidth = 6;
+            this.CartEnroll.Name = "CartEnroll";
+            this.CartEnroll.ReadOnly = true;
+            this.CartEnroll.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CartEnroll.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CartEnroll.Text = "Enroll";
+            this.CartEnroll.UseColumnTextForButtonValue = true;
+            this.CartEnroll.Width = 80;
+            // 
+            // CartDelete
+            // 
+            this.CartDelete.HeaderText = "Delete";
+            this.CartDelete.MinimumWidth = 6;
+            this.CartDelete.Name = "CartDelete";
+            this.CartDelete.ReadOnly = true;
+            this.CartDelete.Text = "Delete";
+            this.CartDelete.UseColumnTextForButtonValue = true;
+            this.CartDelete.Width = 80;
+            // 
             // Registration_System
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 461);
             this.Controls.Add(this.SystemTabs);
             this.Name = "Registration_System";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -629,6 +626,12 @@
         private System.Windows.Forms.DataGridView EnrollDataGrid;
         private System.Windows.Forms.Label ENRInfo;
         private System.Windows.Forms.Label CARTInfo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TimeBlockEnroll;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EnrollCID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EnrollTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EnrollSID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EnrollSem;
+        private System.Windows.Forms.DataGridViewButtonColumn EnrollUnenroll;
         private System.Windows.Forms.DataGridViewTextBoxColumn TimeBlock;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_CID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Title;
@@ -642,11 +645,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CartSem;
         private System.Windows.Forms.DataGridViewButtonColumn CartEnroll;
         private System.Windows.Forms.DataGridViewButtonColumn CartDelete;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TimeBlockEnroll;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EnrollCID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EnrollTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EnrollSID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EnrollSem;
-        private System.Windows.Forms.DataGridViewButtonColumn EnrollUnenroll;
     }
 }

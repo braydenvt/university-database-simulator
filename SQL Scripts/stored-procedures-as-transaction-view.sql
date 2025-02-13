@@ -12,6 +12,7 @@ drop procedure if exists FillStudentEnrollment
 drop procedure if exists addToCart
 drop procedure if exists deleteFromCart
 drop procedure if exists Unenroll
+drop procedure if exists FillStudentCart
 
 ------------------- ACTIVE ENROLLMENT -------------------
 GO
@@ -32,7 +33,7 @@ CREATE UNIQUE CLUSTERED INDEX IDX_V1
 
 ------------------- COURSE OFFERINGS -------------------
 GO
-CREATE VIEW  CourseOfferings
+CREATE VIEW CourseOfferings
 WITH SCHEMABINDING
 AS 
 	SELECT C.CID, C.Title, S.SecID, S.Semester, C.DID, S.TimeBlock
@@ -212,15 +213,14 @@ GO
 ------------------- FILL STUDENT ENROLLMENT -------------------
 GO
 CREATE PROC FillStudentEnrollment
-	@Semester VARCHAR(15),
 	@SID INT
 AS
 BEGIN
 	BEGIN TRY
 		BEGIN TRANSACTION
 			SELECT * 
-			FROM ActiveEnrollment as A, CourseOfferings as C 
-			WHERE A.SecID = C.SecID AND SID = @SID AND A.Semester = @Semester
+			FROM Enrollment as E, CourseOfferings as C 
+			WHERE E.SecID = C.SecID AND SID = @SID
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN Catch
@@ -228,7 +228,6 @@ BEGIN
 	END Catch
 END
 GO
-
 ------------------- CHECK TIME CONFLICT -------------------
 GO
 CREATE PROCEDURE checkTimeConflict
@@ -296,3 +295,23 @@ BEGIN
 	END Catch
 END
 GO
+------------------- FILL STUDENT ENROLLMENT -------------------
+GO
+CREATE PROC FillStudentCart
+	@SID INT
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRANSACTION
+			SELECT *
+			FROM Cart AS C, CourseOfferings as CO
+			WHERE C.SecID = CO.SecID AND C.SID = @SID
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN Catch
+		Rollback Transaction
+	END Catch
+END
+GO
+
+

@@ -114,13 +114,11 @@ namespace CMPT_391_Project
             }
         }
 
-        public void FillStudentEnrollment(string Semester, int SID) {
+        public void FillStudentEnrollment(int SID) {
             using (SqlCommand command = new SqlCommand("FillStudentEnrollment", myConnection))
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                
-                // Semester (Required)
-                command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
+             
                 // Student Id (Required)
                 command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
                
@@ -177,5 +175,16 @@ namespace CMPT_391_Project
             }
         }
 
+        public void FillStudentCart(int SID) {
+            using (SqlCommand command = new SqlCommand("FillStudentCart", myConnection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // Student Id (Required)
+                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+
+                myDataReader = command.ExecuteReader();
+            }
+        }
     }
 }
