@@ -43,7 +43,7 @@ CREATE TABLE Enrollment (
     InstructorId INT NOT NULL,
     StudentId INT NOT NULL,
     DateId INT NOT NULL,
-    Grade VARCHAR(2)
+    Grade VARCHAR(2),
 
     -- Define Primary Key (Composite Key)
     PRIMARY KEY (CourseId, InstructorId, StudentId, DateId),
