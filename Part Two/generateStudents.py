@@ -25,13 +25,13 @@ for student_id in range(100000, num_students + 100000 + 1):
     students.append(record)
 
 # # Save the records to a file in the specified format
-# file_path = "students_data.txt"
+# file_path = "students_data.sql"
 # with open(file_path, "w") as file:
 #     file.write("INSERT INTO Student (StudentId, Major, Gender) VALUES\n")
 #     file.write(",\n".join(students) + ",\n")
 
 # Write the records to a file in batches of 1000 entries.
-output_file = "students_data.txt"
+output_file = "students_data.sql"
 batch_size = 1000
 
 with open(output_file, "w") as f:

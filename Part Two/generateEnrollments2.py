@@ -9,16 +9,31 @@ faculties = {
 }
 
 # ---------------------------
+# Grading System with Normal Distribution
+# ---------------------------
+grade_scale = {
+    4.3: "A+", 4.0: "A", 3.7: "A-",
+    3.3: "B+", 3.0: "B", 2.7: "B-",
+    2.3: "C+", 2.0: "C", 1.7: "C-"
+}
+grade_values = list(grade_scale.keys())
+
+# Parameters for normal distribution of grades
+mu_grade = 3.0  # Mean grade is B
+sigma_grade = 1.5  # Spread of grades
+
+def generate_grade():
+    """Generate a grade using a normal distribution centered around 'B'."""
+    grade_value = round(random.gauss(mu_grade, sigma_grade), 1)
+    grade_value = min(max(grade_values), max(min(grade_values), grade_value))  # Clamp value within range
+    return grade_scale.get(grade_value, "B")  # Default to 'B' if unexpected value
+
+# ---------------------------
 # Utility Functions
 # ---------------------------
 
 def extract_courses_by_university(filename):
-    """
-    Reads courses_data.txt which is assumed to have lines like:
-      (CourseId, 'Department', 'Faculty', 'University'),
-    and returns a dictionary mapping university -> list of course tuples.
-    Each course tuple is: (course_id, department, faculty, university)
-    """
+    """ Reads courses_data.sql and returns a dictionary mapping university -> list of course tuples. """
     courses_by_univ = {}
     with open(filename, "r") as f:
         for line in f:
@@ -41,11 +56,7 @@ def extract_courses_by_university(filename):
     return courses_by_univ
 
 def extract_student_data(filename):
-    """
-    Reads Students_data.txt which is assumed to have lines like:
-      (StudentId, 'Major', 'Gender'),
-    and returns a dictionary mapping student_id -> major.
-    """
+    """ Reads Students_data.sql and returns a dictionary mapping student_id -> major. """
     student_data = {}
     with open(filename, "r") as f:
         for line in f:
@@ -65,12 +76,7 @@ def extract_student_data(filename):
     return student_data
 
 def extract_instructors_by_faculty(filename):
-    """
-    Reads instructors_data.txt which is assumed to have lines like:
-      (InstructorId, 'Faculty', 'Rank', 'University'),
-    and returns a dictionary mapping faculty -> list of instructor tuples.
-    Each instructor tuple is: (instructor_id, faculty, rank, university)
-    """
+    """ Reads instructors_data.sql and returns a dictionary mapping faculty -> list of instructor tuples. """
     instructors_by_faculty = {}
     with open(filename, "r") as f:
         for line in f:
@@ -93,9 +99,7 @@ def extract_instructors_by_faculty(filename):
     return instructors_by_faculty
 
 def choose_student_id(student_ids):
-    """
-    Chooses a student ID using a normal distribution over the indices.
-    """
+    """ Chooses a student ID using a normal distribution over the indices. """
     n = len(student_ids)
     mu = n / 2
     sigma = n / 6
@@ -107,142 +111,92 @@ def choose_student_id(student_ids):
 # ---------------------------
 # Data Extraction
 # ---------------------------
-courses_by_univ = extract_courses_by_university("courses_data.txt")
-instructors_by_faculty = extract_instructors_by_faculty("instructors_data.txt")
-student_data = extract_student_data("Students_data.txt")  # student_id -> major
+courses_by_univ = extract_courses_by_university("courses_data.sql")
+instructors_by_faculty = extract_instructors_by_faculty("instructors_data.sql")
+student_data = extract_student_data("Students_data.sql")
 student_ids_list = list(student_data.keys())
 
 available_universities = list(courses_by_univ.keys())
 if not available_universities:
-    raise Exception("No courses found in courses_data.txt.")
+    raise Exception("No courses found in courses_data.sql.")
 
 # ---------------------------
-# DateId Setup (same as before)
+# DateId Setup
 # ---------------------------
-all_dates = list(range(1, 65))
-preferred = [1, 2, 5, 6, 9, 10, 13, 14, 17, 18, 21, 22, 25, 26, 29, 30, 33, 34, 37, 38, 41, 42, 45, 46, 49, 50, 53, 54, 57, 58, 61, 62]
-date_weights = [4 if d in preferred else 1 for d in all_dates]
+all_dates = list(range(1, 49))
+preferred = [1, 2, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 19, 20, 22, 23, 25, 26, 28, 29, 31, 32, 34, 35, 37, 38, 40, 41, 43, 44, 46, 47]
+date_weights = [3 if d in preferred else 1 for d in all_dates]
 
 # ---------------------------
 # Enrollment Record Generation
 # ---------------------------
-num_records = random.randint(600000, 900000)  # Adjust as needed
+num_records = random.randint(300000, 400000)
 enrollment_records = []
 
 # Tracking dictionaries:
-student_university = {}    # student_id -> university
-student_cluster = {}       # student_id -> cluster center (for DateId)
-student_date_count = {}    # (student_id, date_id) -> count
-student_enrollments = {}   # student_id -> set of course_ids already enrolled
+student_university = {}
+student_cluster = {}
+student_date_count = {}
+student_enrollments = {}
 
-sigma_cluster = 8   # For DateId clustering.
-sigma_major = 2.0   # For course selection around student's major (decreased weight effect).
+sigma_cluster = 2
+sigma_major = 2.0  
 
 for _ in range(num_records):
-    # Choose a student (normally distributed by index).
     student_id = choose_student_id(student_ids_list)
     student_major = student_data[student_id]
-    
-    # Determine the student's faculty based on their major.
-    student_faculty = None
-    student_major_index = None
-    for fac, dept_list in faculties.items():
-        if student_major in dept_list:
-            student_faculty = fac
-            student_major_index = dept_list.index(student_major)
-            break
-    
-    # Assign a university to the student if not already assigned.
+
+    # Assign university to student
     if student_id not in student_university:
         student_university[student_id] = random.choice(available_universities)
     student_univ = student_university[student_id]
-    
-    # From the courses offered at the student's university, filter to those in the student's faculty.
-    candidate_courses = []
-    if student_faculty:
-        for course in courses_by_univ.get(student_univ, []):
-            if course[2] == student_faculty:
-                candidate_courses.append(course)
-    # If no candidate courses are found in that faculty, fallback to all courses from that university.
-    if not candidate_courses:
-        candidate_courses = courses_by_univ.get(student_univ, [])
-    
-    # Weight courses based on how "close" their department is to the student's major.
-    weights = []
-    if student_faculty and candidate_courses:
-        dept_list = faculties[student_faculty]
-        for course in candidate_courses:
-            try:
-                idx = dept_list.index(course[1])
-            except ValueError:
-                idx = len(dept_list)
-            weight = math.exp(-0.5 * ((idx - student_major_index) / sigma_major) ** 2)
-            weights.append(weight)
-    else:
-        weights = [1] * len(candidate_courses)
-    
-    # Choose a course using the computed weights.
-    if candidate_courses:
-        chosen_course = random.choices(candidate_courses, weights=weights, k=1)[0]
-        course_id = chosen_course[0]
-        course_faculty = chosen_course[2]
-    else:
-        course_id = None
-        course_faculty = None
 
-    # Enforce that the student is not enrolled in the same course more than once.
+    # Select a course matching student's faculty
+    candidate_courses = [c for c in courses_by_univ.get(student_univ, [])]
+    if not candidate_courses:
+        continue  
+
+    chosen_course = random.choice(candidate_courses)
+    course_id = chosen_course[0]
+    course_faculty = chosen_course[2]
+
     if student_id not in student_enrollments:
         student_enrollments[student_id] = set()
     if course_id in student_enrollments[student_id]:
-        continue  # Skip if already enrolled in this course.
-    
-    # Choose an instructor whose faculty matches the course's faculty.
-    if course_faculty and course_faculty in instructors_by_faculty and instructors_by_faculty[course_faculty]:
-        chosen_instructor = random.choice(instructors_by_faculty[course_faculty])
-        instructor_id = chosen_instructor[0]
+        continue  
+
+    # Select an instructor matching the faculty of the course
+    instructor_list = instructors_by_faculty.get(course_faculty, [])
+    if instructor_list:
+        instructor_id = random.choice(instructor_list)[0]
     else:
-        # Fallback: if no instructor available for that faculty, choose a random instructor from all faculties.
         all_instructors = [ins[0] for fac in instructors_by_faculty for ins in instructors_by_faculty[fac]]
         instructor_id = random.choice(all_instructors) if all_instructors else None
 
-    # Generate a DateId using a normal distribution centered on a student-specific cluster.
+    # Generate DateId
     if student_id not in student_cluster:
         student_cluster[student_id] = random.randint(1, 64)
     center = student_cluster[student_id]
     date_id = int(random.gauss(center, sigma_cluster))
     while date_id < 1 or date_id > 64:
         date_id = int(random.gauss(center, sigma_cluster))
-    
-    # Ensure no student gets more than 6 courses with the same DateId.
-    key = (student_id, date_id)
-    attempt = 0
-    while student_date_count.get(key, 0) >= 6:
-        attempt += 1
-        date_id = int(random.gauss(center, sigma_cluster))
-        while date_id < 1 or date_id > 64:
-            date_id = int(random.gauss(center, sigma_cluster))
-        key = (student_id, date_id)
-        if attempt > 10:
-            break
-    student_date_count[key] = student_date_count.get(key, 0) + 1
 
-    # Record that this student has enrolled in this course.
     student_enrollments[student_id].add(course_id)
-    
-    # Format the enrollment record.
-    record = f"({course_id}, {instructor_id}, {student_id}, {date_id})"
+
+    grade = generate_grade()
+    record = f"({course_id}, {instructor_id}, {student_id}, {date_id}, '{grade}')"
     enrollment_records.append(record)
 
 # ---------------------------
-# Write to Output File in Batches of 1000
+# Write to Output File
 # ---------------------------
-output_file = "enrollments_data.txt"
+output_file = "enrollments_data.sql"
 batch_size = 1000
 
 with open(output_file, "w") as f:
     for i in range(0, len(enrollment_records), batch_size):
         batch = enrollment_records[i : i + batch_size]
-        f.write("INSERT INTO Enrollment (CourseId, InstructorId, StudentId, DateId) VALUES\n")
+        f.write("INSERT INTO Enrollment (CourseId, InstructorId, StudentId, DateId, Grade) VALUES\n")
         f.write(",\n".join(batch) + ";\n\n")
 
-print(f"Generated {len(enrollment_records)} enrollment records and saved to {output_file}.")
+print(f"Generated {len(enrollment_records)} enrollment records with normally distributed grades and saved to {output_file}.")

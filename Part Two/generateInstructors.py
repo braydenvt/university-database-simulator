@@ -16,11 +16,11 @@ universities = [
 ]
 
 # Define ranks and their probabilities (Head is rarer)
-ranks = ["Professor", "Associate Professor", "Head"]
-rank_weights = [0.45, 0.45, 0.10]  # Head appears ~10% of the time
+ranks = ["Professor", "Associate Professor", "Head", "Sessional"]
+rank_weights = [0.30, 0.30, 0.10, 0.30]  # Head appears ~10% of the time
 
 # Number of instructors to generate
-num_instructors = random.randint(100, 160) # Adjust as needed
+num_instructors = random.randint(500, 600) # Adjust as needed
 
 # Dictionary to track if a department (within a faculty) already has a Head instructor.
 # Key: (faculty, department), Value: True/False
@@ -54,7 +54,7 @@ for instructor_id in range(1, num_instructors + 1):
     instructors.append(line)
 
 # Write the records to a file in batches of 1000 entries.
-output_file = "instructors_data.txt"
+output_file = "instructors_data.sql"
 batch_size = 1000
 
 with open(output_file, "w") as f:

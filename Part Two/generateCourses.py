@@ -22,7 +22,7 @@ universities = [
 ]
 
 # Number of courses to generate
-num_courses = random.randint(4000, 10000)  # Adjust as needed
+num_courses = random.randint(5000, 10000)  # Adjust as needed
 
 # Generate course data
 courses = []
@@ -34,7 +34,7 @@ for course_id in range(1000, 1000 + num_courses + 1):
     courses.append(f"({course_id}, '{department}', '{faculty}', '{university}')")
 
 # Write the records to a file in batches of 1000 entries.
-output_file = "courses_data.txt"
+output_file = "courses_data.sql"
 batch_size = 1000
 
 with open(output_file, "w") as f:
