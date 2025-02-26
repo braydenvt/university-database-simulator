@@ -139,7 +139,7 @@ student_cluster = {}
 student_date_count = {}
 student_enrollments = {}
 
-sigma_cluster = 2
+sigma_cluster = 2.5
 sigma_major = 2.0  
 
 for _ in range(num_records):
@@ -175,10 +175,10 @@ for _ in range(num_records):
 
     # Generate DateId
     if student_id not in student_cluster:
-        student_cluster[student_id] = random.randint(1, 64)
+        student_cluster[student_id] = random.randint(1, 48)
     center = student_cluster[student_id]
     date_id = int(random.gauss(center, sigma_cluster))
-    while date_id < 1 or date_id > 64:
+    while date_id < 1 or date_id > 48:
         date_id = int(random.gauss(center, sigma_cluster))
 
     student_enrollments[student_id].add(course_id)
