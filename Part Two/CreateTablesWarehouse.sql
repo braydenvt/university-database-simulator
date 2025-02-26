@@ -34,7 +34,7 @@ CREATE TABLE Student (
 CREATE TABLE Date (
     DateId INT IDENTITY(1,1) PRIMARY KEY,
     Semester VARCHAR(20),
-    Year INT,
+    Year INT
 );
 
 -- Create Enrollment table (Fact Table)
@@ -43,6 +43,7 @@ CREATE TABLE Enrollment (
     InstructorId INT NOT NULL,
     StudentId INT NOT NULL,
     DateId INT NOT NULL,
+    Grade VARCHAR(2)
 
     -- Define Primary Key (Composite Key)
     PRIMARY KEY (CourseId, InstructorId, StudentId, DateId),
