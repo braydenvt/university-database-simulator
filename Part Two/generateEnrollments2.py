@@ -98,16 +98,6 @@ def extract_instructors_by_faculty(filename):
             instructors_by_faculty.setdefault(faculty_val, []).append(record)
     return instructors_by_faculty
 
-def choose_student_id(student_ids):
-    """ Chooses a student ID using a normal distribution over the indices. """
-    n = len(student_ids)
-    mu = n / 2
-    sigma = n / 6
-    index = int(random.gauss(mu, sigma))
-    while index < 0 or index >= n:
-        index = int(random.gauss(mu, sigma))
-    return student_ids[index]
-
 # ---------------------------
 # Data Extraction
 # ---------------------------
@@ -130,20 +120,29 @@ date_weights = [3 if d in preferred else 1 for d in all_dates]
 # ---------------------------
 # Enrollment Record Generation
 # ---------------------------
-num_records = random.randint(300000, 400000)
-enrollment_records = []
-
 # Tracking dictionaries:
 student_university = {}
 student_cluster = {}
 student_date_count = {}
 student_enrollments = {}
+student_enrollment_counts = {}
 
 sigma_cluster = 2.5
 sigma_major = 2.0  
 
-for _ in range(num_records):
-    student_id = choose_student_id(student_ids_list)
+# Generate a normal distribution of enrollments per student with reduced 1-enrollment students
+for student_id in student_ids_list:
+    enrollments = max(1, min(80, int(abs(random.gauss(40, 8)))))  # Avoid negative values by using abs()
+    
+    # Apply an exponential function to shift values away from 1-enrollment students
+    if enrollments < 5:
+        enrollments = int(5 + (enrollments - 1) * 0.5)  # Boost lower numbers slightly
+    
+    student_enrollment_counts[student_id] = enrollments
+
+enrollment_records = []
+
+for student_id in student_ids_list:
     student_major = student_data[student_id]
 
     # Assign university to student
@@ -151,45 +150,38 @@ for _ in range(num_records):
         student_university[student_id] = random.choice(available_universities)
     student_univ = student_university[student_id]
 
-    # Select a course matching student's faculty
-    candidate_courses = [c for c in courses_by_univ.get(student_univ, [])]
-    if not candidate_courses:
-        continue  
+    # Assign enrollments based on the distribution
+    for _ in range(student_enrollment_counts[student_id]):
+        candidate_courses = [c for c in courses_by_univ.get(student_univ, [])]
+        if not candidate_courses:
+            continue  
 
-    chosen_course = random.choice(candidate_courses)
-    course_id = chosen_course[0]
-    course_faculty = chosen_course[2]
+        chosen_course = random.choice(candidate_courses)
+        course_id = chosen_course[0]
+        course_faculty = chosen_course[2]
 
-    if student_id not in student_enrollments:
-        student_enrollments[student_id] = set()
-    if course_id in student_enrollments[student_id]:
-        continue  
+        if student_id not in student_enrollments:
+            student_enrollments[student_id] = set()
+        if course_id in student_enrollments[student_id]:
+            continue  
 
-    # Select an instructor matching the faculty of the course
-    instructor_list = instructors_by_faculty.get(course_faculty, [])
-    if instructor_list:
-        instructor_id = random.choice(instructor_list)[0]
-    else:
-        all_instructors = [ins[0] for fac in instructors_by_faculty for ins in instructors_by_faculty[fac]]
-        instructor_id = random.choice(all_instructors) if all_instructors else None
+        instructor_list = instructors_by_faculty.get(course_faculty, [])
+        instructor_id = random.choice(instructor_list)[0] if instructor_list else None
 
-    # Generate DateId
-    if student_id not in student_cluster:
-        student_cluster[student_id] = random.randint(1, 48)
-    center = student_cluster[student_id]
-    date_id = int(random.gauss(center, sigma_cluster))
-    while date_id < 1 or date_id > 48:
+        if student_id not in student_cluster:
+            student_cluster[student_id] = random.randint(1, 48)
+        center = student_cluster[student_id]
         date_id = int(random.gauss(center, sigma_cluster))
+        while date_id < 1 or date_id > 48:
+            date_id = int(random.gauss(center, sigma_cluster))
 
-    student_enrollments[student_id].add(course_id)
+        student_enrollments[student_id].add(course_id)
 
-    grade = generate_grade()
-    record = f"({course_id}, {instructor_id}, {student_id}, {date_id}, '{grade}')"
-    enrollment_records.append(record)
+        grade = generate_grade()
+        record = f"({course_id}, {instructor_id}, {student_id}, {date_id}, '{grade}')"
+        enrollment_records.append(record)
 
-# ---------------------------
-# Write to Output File
-# ---------------------------
+# Write to File
 output_file = "enrollments_data.sql"
 batch_size = 1000
 
@@ -199,4 +191,4 @@ with open(output_file, "w") as f:
         f.write("INSERT INTO Enrollment (CourseId, InstructorId, StudentId, DateId, Grade) VALUES\n")
         f.write(",\n".join(batch) + ";\n\n")
 
-print(f"Generated {len(enrollment_records)} enrollment records with normally distributed grades and saved to {output_file}.")
+print(f"Generated {len(enrollment_records)} enrollment records with a balanced distribution and saved to {output_file}.")
