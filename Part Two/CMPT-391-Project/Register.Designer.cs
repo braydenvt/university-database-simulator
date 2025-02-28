@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
             this.SystemTabs = new System.Windows.Forms.TabControl();
             this.CourseSelect = new System.Windows.Forms.TabPage();
             this.VerifyButton = new System.Windows.Forms.Button();
@@ -77,6 +77,28 @@
             this.EnrollSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EnrollSem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EnrollUnenroll = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CourseFac = new System.Windows.Forms.TextBox();
+            this.CourseFacLB = new System.Windows.Forms.Label();
+            this.CourseUniLB = new System.Windows.Forms.Label();
+            this.CourseUni = new System.Windows.Forms.TextBox();
+            this.TimeIDLB = new System.Windows.Forms.Label();
+            this.TimeID = new System.Windows.Forms.TextBox();
+            this.YearLB = new System.Windows.Forms.Label();
+            this.Year = new System.Windows.Forms.TextBox();
+            this.MajorLB = new System.Windows.Forms.Label();
+            this.Major = new System.Windows.Forms.TextBox();
+            this.GenderLB = new System.Windows.Forms.Label();
+            this.Gender = new System.Windows.Forms.TextBox();
+            this.InstUniLB = new System.Windows.Forms.Label();
+            this.InstUni = new System.Windows.Forms.TextBox();
+            this.InstFacLB = new System.Windows.Forms.Label();
+            this.InstLB = new System.Windows.Forms.Label();
+            this.InstFac = new System.Windows.Forms.TextBox();
+            this.Inst = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.GradeLB = new System.Windows.Forms.Label();
+            this.Grade = new System.Windows.Forms.TextBox();
             this.SystemTabs.SuspendLayout();
             this.CourseSelect.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CourseSearchGrid)).BeginInit();
@@ -104,11 +126,33 @@
             // CourseSelect
             // 
             this.CourseSelect.BackColor = System.Drawing.Color.DarkSalmon;
+            this.CourseSelect.Controls.Add(this.GradeLB);
+            this.CourseSelect.Controls.Add(this.Grade);
+            this.CourseSelect.Controls.Add(this.InstUniLB);
+            this.CourseSelect.Controls.Add(this.InstUni);
+            this.CourseSelect.Controls.Add(this.InstFacLB);
+            this.CourseSelect.Controls.Add(this.InstLB);
+            this.CourseSelect.Controls.Add(this.InstFac);
+            this.CourseSelect.Controls.Add(this.Inst);
+            this.CourseSelect.Controls.Add(this.label4);
+            this.CourseSelect.Controls.Add(this.textBox4);
+            this.CourseSelect.Controls.Add(this.MajorLB);
+            this.CourseSelect.Controls.Add(this.Major);
+            this.CourseSelect.Controls.Add(this.GenderLB);
+            this.CourseSelect.Controls.Add(this.Gender);
+            this.CourseSelect.Controls.Add(this.YearLB);
+            this.CourseSelect.Controls.Add(this.Year);
+            this.CourseSelect.Controls.Add(this.TimeIDLB);
+            this.CourseSelect.Controls.Add(this.TimeID);
+            this.CourseSelect.Controls.Add(this.CourseUniLB);
+            this.CourseSelect.Controls.Add(this.CourseUni);
             this.CourseSelect.Controls.Add(this.VerifyButton);
             this.CourseSelect.Controls.Add(this.QueryButton);
             this.CourseSelect.Controls.Add(this.LNameLB);
             this.CourseSelect.Controls.Add(this.LName);
+            this.CourseSelect.Controls.Add(this.CourseFacLB);
             this.CourseSelect.Controls.Add(this.IDLB);
+            this.CourseSelect.Controls.Add(this.CourseFac);
             this.CourseSelect.Controls.Add(this.ID);
             this.CourseSelect.Controls.Add(this.SIDLB);
             this.CourseSelect.Controls.Add(this.SID);
@@ -132,7 +176,7 @@
             this.VerifyButton.FlatAppearance.BorderSize = 0;
             this.VerifyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VerifyButton.ForeColor = System.Drawing.Color.MintCream;
-            this.VerifyButton.Location = new System.Drawing.Point(911, 197);
+            this.VerifyButton.Location = new System.Drawing.Point(550, 133);
             this.VerifyButton.Margin = new System.Windows.Forms.Padding(0);
             this.VerifyButton.Name = "VerifyButton";
             this.VerifyButton.Size = new System.Drawing.Size(151, 39);
@@ -149,7 +193,7 @@
             this.QueryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
             this.QueryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.QueryButton.ForeColor = System.Drawing.Color.Teal;
-            this.QueryButton.Location = new System.Drawing.Point(163, 197);
+            this.QueryButton.Location = new System.Drawing.Point(550, 192);
             this.QueryButton.Margin = new System.Windows.Forms.Padding(0);
             this.QueryButton.Name = "QueryButton";
             this.QueryButton.Size = new System.Drawing.Size(151, 38);
@@ -162,7 +206,7 @@
             // 
             this.LNameLB.AutoSize = true;
             this.LNameLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.LNameLB.Location = new System.Drawing.Point(780, 146);
+            this.LNameLB.Location = new System.Drawing.Point(418, 99);
             this.LNameLB.Name = "LNameLB";
             this.LNameLB.Size = new System.Drawing.Size(117, 28);
             this.LNameLB.TabIndex = 12;
@@ -170,7 +214,7 @@
             // 
             // LName
             // 
-            this.LName.Location = new System.Drawing.Point(911, 143);
+            this.LName.Location = new System.Drawing.Point(550, 93);
             this.LName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LName.Name = "LName";
             this.LName.ReadOnly = true;
@@ -180,8 +224,8 @@
             // IDLB
             // 
             this.IDLB.AutoSize = true;
-            this.IDLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.IDLB.Location = new System.Drawing.Point(41, 82);
+            this.IDLB.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.IDLB.Location = new System.Drawing.Point(859, 13);
             this.IDLB.Name = "IDLB";
             this.IDLB.Size = new System.Drawing.Size(108, 28);
             this.IDLB.TabIndex = 10;
@@ -189,7 +233,7 @@
             // 
             // ID
             // 
-            this.ID.Location = new System.Drawing.Point(163, 76);
+            this.ID.Location = new System.Drawing.Point(981, 7);
             this.ID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ID.Name = "ID";
             this.ID.Size = new System.Drawing.Size(149, 34);
@@ -198,8 +242,8 @@
             // SIDLB
             // 
             this.SIDLB.AutoSize = true;
-            this.SIDLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.SIDLB.Location = new System.Drawing.Point(477, 146);
+            this.SIDLB.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.SIDLB.Location = new System.Drawing.Point(17, 217);
             this.SIDLB.Name = "SIDLB";
             this.SIDLB.Size = new System.Drawing.Size(118, 28);
             this.SIDLB.TabIndex = 8;
@@ -207,7 +251,7 @@
             // 
             // SID
             // 
-            this.SID.Location = new System.Drawing.Point(609, 143);
+            this.SID.Location = new System.Drawing.Point(149, 214);
             this.SID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SID.Name = "SID";
             this.SID.ReadOnly = true;
@@ -218,7 +262,7 @@
             // 
             this.DeptLB.AutoSize = true;
             this.DeptLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.DeptLB.Location = new System.Drawing.Point(16, 20);
+            this.DeptLB.Location = new System.Drawing.Point(832, 73);
             this.DeptLB.Name = "DeptLB";
             this.DeptLB.Size = new System.Drawing.Size(132, 28);
             this.DeptLB.TabIndex = 4;
@@ -226,7 +270,7 @@
             // 
             // Dept
             // 
-            this.Dept.Location = new System.Drawing.Point(163, 16);
+            this.Dept.Location = new System.Drawing.Point(979, 69);
             this.Dept.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Dept.Name = "Dept";
             this.Dept.Size = new System.Drawing.Size(149, 34);
@@ -236,7 +280,7 @@
             // 
             this.SemLB.AutoSize = true;
             this.SemLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SemLB.Location = new System.Drawing.Point(44, 146);
+            this.SemLB.Location = new System.Drawing.Point(860, 309);
             this.SemLB.Name = "SemLB";
             this.SemLB.Size = new System.Drawing.Size(105, 28);
             this.SemLB.TabIndex = 2;
@@ -244,7 +288,7 @@
             // 
             // Sem
             // 
-            this.Sem.Location = new System.Drawing.Point(163, 143);
+            this.Sem.Location = new System.Drawing.Point(979, 306);
             this.Sem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Sem.Name = "Sem";
             this.Sem.ReadOnly = true;
@@ -255,14 +299,14 @@
             // 
             this.CourseSearchGrid.AllowUserToAddRows = false;
             this.CourseSearchGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CourseSearchGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CourseSearchGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.CourseSearchGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CourseSearchGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TimeBlock,
@@ -271,12 +315,12 @@
             this.Col_SecID,
             this.Col_Sem,
             this.Col_CartAdd});
-            this.CourseSearchGrid.Location = new System.Drawing.Point(49, 244);
+            this.CourseSearchGrid.Location = new System.Drawing.Point(57, 358);
             this.CourseSearchGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CourseSearchGrid.Name = "CourseSearchGrid";
             this.CourseSearchGrid.RowHeadersWidth = 51;
             this.CourseSearchGrid.RowTemplate.Height = 24;
-            this.CourseSearchGrid.Size = new System.Drawing.Size(1053, 273);
+            this.CourseSearchGrid.Size = new System.Drawing.Size(1045, 159);
             this.CourseSearchGrid.TabIndex = 0;
             this.CourseSearchGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseSearchGrid_CellContentClick);
             // 
@@ -321,10 +365,10 @@
             // 
             // Col_CartAdd
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.Col_CartAdd.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.Col_CartAdd.DefaultCellStyle = dataGridViewCellStyle18;
             this.Col_CartAdd.HeaderText = "Add To Cart";
             this.Col_CartAdd.MinimumWidth = 6;
             this.Col_CartAdd.Name = "Col_CartAdd";
@@ -339,13 +383,12 @@
             // 
             this.InfoLB.AutoSize = true;
             this.InfoLB.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.InfoLB.Location = new System.Drawing.Point(429, 9);
+            this.InfoLB.Location = new System.Drawing.Point(409, 20);
             this.InfoLB.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.InfoLB.Name = "InfoLB";
-            this.InfoLB.Size = new System.Drawing.Size(634, 112);
+            this.InfoLB.Size = new System.Drawing.Size(322, 56);
             this.InfoLB.TabIndex = 15;
-            this.InfoLB.Text = "Enter your student id and password to be able to select available \r\ncourses, base" +
-    "d upon the search fields you enter.\r\n\r\n\r\n";
+            this.InfoLB.Text = "Enter the relevant info based \r\nupon the search fields you enter.";
             // 
             // Cart
             // 
@@ -377,14 +420,14 @@
             // 
             this.CartDataGrid.AllowUserToAddRows = false;
             this.CartDataGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CartDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CartDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.CartDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CartDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TimeBlockCart,
@@ -447,9 +490,9 @@
             // 
             // CartEnroll
             // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Info;
-            this.CartEnroll.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Info;
+            this.CartEnroll.DefaultCellStyle = dataGridViewCellStyle20;
             this.CartEnroll.HeaderText = "Enroll";
             this.CartEnroll.MinimumWidth = 6;
             this.CartEnroll.Name = "CartEnroll";
@@ -500,14 +543,14 @@
             // 
             this.EnrollDataGrid.AllowUserToAddRows = false;
             this.EnrollDataGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.EnrollDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.EnrollDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
             this.EnrollDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.EnrollDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TimeBlockEnroll,
@@ -520,8 +563,8 @@
             this.EnrollDataGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.EnrollDataGrid.Name = "EnrollDataGrid";
             this.EnrollDataGrid.RowHeadersWidth = 51;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnrollDataGrid.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnrollDataGrid.RowsDefaultCellStyle = dataGridViewCellStyle24;
             this.EnrollDataGrid.RowTemplate.Height = 24;
             this.EnrollDataGrid.Size = new System.Drawing.Size(1175, 286);
             this.EnrollDataGrid.TabIndex = 1;
@@ -536,8 +579,8 @@
             // 
             // EnrollCID
             // 
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnrollCID.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnrollCID.DefaultCellStyle = dataGridViewCellStyle22;
             this.EnrollCID.HeaderText = "Course ID";
             this.EnrollCID.MinimumWidth = 6;
             this.EnrollCID.Name = "EnrollCID";
@@ -566,9 +609,9 @@
             // 
             // EnrollUnenroll
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Info;
-            this.EnrollUnenroll.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Info;
+            this.EnrollUnenroll.DefaultCellStyle = dataGridViewCellStyle23;
             this.EnrollUnenroll.HeaderText = "Unenroll";
             this.EnrollUnenroll.MinimumWidth = 6;
             this.EnrollUnenroll.Name = "EnrollUnenroll";
@@ -578,13 +621,216 @@
             this.EnrollUnenroll.UseColumnTextForButtonValue = true;
             this.EnrollUnenroll.Width = 125;
             // 
+            // CourseFac
+            // 
+            this.CourseFac.Location = new System.Drawing.Point(979, 107);
+            this.CourseFac.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CourseFac.Name = "CourseFac";
+            this.CourseFac.Size = new System.Drawing.Size(149, 34);
+            this.CourseFac.TabIndex = 9;
+            // 
+            // CourseFacLB
+            // 
+            this.CourseFacLB.AutoSize = true;
+            this.CourseFacLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.CourseFacLB.Location = new System.Drawing.Point(857, 113);
+            this.CourseFacLB.Name = "CourseFacLB";
+            this.CourseFacLB.Size = new System.Drawing.Size(84, 28);
+            this.CourseFacLB.TabIndex = 10;
+            this.CourseFacLB.Text = "Faculty:";
+            // 
+            // CourseUniLB
+            // 
+            this.CourseUniLB.AutoSize = true;
+            this.CourseUniLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.CourseUniLB.Location = new System.Drawing.Point(857, 151);
+            this.CourseUniLB.Name = "CourseUniLB";
+            this.CourseUniLB.Size = new System.Drawing.Size(49, 28);
+            this.CourseUniLB.TabIndex = 17;
+            this.CourseUniLB.Text = "Uni:";
+            // 
+            // CourseUni
+            // 
+            this.CourseUni.Location = new System.Drawing.Point(979, 145);
+            this.CourseUni.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CourseUni.Name = "CourseUni";
+            this.CourseUni.Size = new System.Drawing.Size(149, 34);
+            this.CourseUni.TabIndex = 16;
+            // 
+            // TimeIDLB
+            // 
+            this.TimeIDLB.AutoSize = true;
+            this.TimeIDLB.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeIDLB.Location = new System.Drawing.Point(860, 208);
+            this.TimeIDLB.Name = "TimeIDLB";
+            this.TimeIDLB.Size = new System.Drawing.Size(91, 28);
+            this.TimeIDLB.TabIndex = 19;
+            this.TimeIDLB.Text = "Time ID:";
+            // 
+            // TimeID
+            // 
+            this.TimeID.Location = new System.Drawing.Point(979, 205);
+            this.TimeID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.TimeID.Name = "TimeID";
+            this.TimeID.ReadOnly = true;
+            this.TimeID.Size = new System.Drawing.Size(149, 34);
+            this.TimeID.TabIndex = 18;
+            // 
+            // YearLB
+            // 
+            this.YearLB.AutoSize = true;
+            this.YearLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.YearLB.Location = new System.Drawing.Point(860, 271);
+            this.YearLB.Name = "YearLB";
+            this.YearLB.Size = new System.Drawing.Size(58, 28);
+            this.YearLB.TabIndex = 21;
+            this.YearLB.Text = "Year:";
+            // 
+            // Year
+            // 
+            this.Year.Location = new System.Drawing.Point(979, 268);
+            this.Year.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Year.Name = "Year";
+            this.Year.ReadOnly = true;
+            this.Year.Size = new System.Drawing.Size(149, 34);
+            this.Year.TabIndex = 20;
+            // 
+            // MajorLB
+            // 
+            this.MajorLB.AutoSize = true;
+            this.MajorLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MajorLB.Location = new System.Drawing.Point(30, 274);
+            this.MajorLB.Name = "MajorLB";
+            this.MajorLB.Size = new System.Drawing.Size(74, 28);
+            this.MajorLB.TabIndex = 25;
+            this.MajorLB.Text = "Major:";
+            // 
+            // Major
+            // 
+            this.Major.Location = new System.Drawing.Point(149, 271);
+            this.Major.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Major.Name = "Major";
+            this.Major.ReadOnly = true;
+            this.Major.Size = new System.Drawing.Size(149, 34);
+            this.Major.TabIndex = 24;
+            // 
+            // GenderLB
+            // 
+            this.GenderLB.AutoSize = true;
+            this.GenderLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GenderLB.Location = new System.Drawing.Point(30, 312);
+            this.GenderLB.Name = "GenderLB";
+            this.GenderLB.Size = new System.Drawing.Size(86, 28);
+            this.GenderLB.TabIndex = 23;
+            this.GenderLB.Text = "Gender:";
+            // 
+            // Gender
+            // 
+            this.Gender.Location = new System.Drawing.Point(149, 309);
+            this.Gender.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Gender.Name = "Gender";
+            this.Gender.ReadOnly = true;
+            this.Gender.Size = new System.Drawing.Size(149, 34);
+            this.Gender.TabIndex = 22;
+            // 
+            // InstUniLB
+            // 
+            this.InstUniLB.AutoSize = true;
+            this.InstUniLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.InstUniLB.Location = new System.Drawing.Point(27, 155);
+            this.InstUniLB.Name = "InstUniLB";
+            this.InstUniLB.Size = new System.Drawing.Size(49, 28);
+            this.InstUniLB.TabIndex = 33;
+            this.InstUniLB.Text = "Uni:";
+            // 
+            // InstUni
+            // 
+            this.InstUni.Location = new System.Drawing.Point(149, 149);
+            this.InstUni.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.InstUni.Name = "InstUni";
+            this.InstUni.Size = new System.Drawing.Size(149, 34);
+            this.InstUni.TabIndex = 32;
+            // 
+            // InstFacLB
+            // 
+            this.InstFacLB.AutoSize = true;
+            this.InstFacLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.InstFacLB.Location = new System.Drawing.Point(27, 117);
+            this.InstFacLB.Name = "InstFacLB";
+            this.InstFacLB.Size = new System.Drawing.Size(84, 28);
+            this.InstFacLB.TabIndex = 30;
+            this.InstFacLB.Text = "Faculty:";
+            // 
+            // InstLB
+            // 
+            this.InstLB.AutoSize = true;
+            this.InstLB.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.InstLB.Location = new System.Drawing.Point(-1, 17);
+            this.InstLB.Name = "InstLB";
+            this.InstLB.Size = new System.Drawing.Size(137, 28);
+            this.InstLB.TabIndex = 31;
+            this.InstLB.Text = "Instructor ID:";
+            // 
+            // InstFac
+            // 
+            this.InstFac.Location = new System.Drawing.Point(149, 111);
+            this.InstFac.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.InstFac.Name = "InstFac";
+            this.InstFac.Size = new System.Drawing.Size(149, 34);
+            this.InstFac.TabIndex = 28;
+            // 
+            // Inst
+            // 
+            this.Inst.Location = new System.Drawing.Point(151, 11);
+            this.Inst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Inst.Name = "Inst";
+            this.Inst.Size = new System.Drawing.Size(149, 34);
+            this.Inst.TabIndex = 29;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(2, 77);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 28);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Department:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(149, 73);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(149, 34);
+            this.textBox4.TabIndex = 26;
+            // 
+            // GradeLB
+            // 
+            this.GradeLB.AutoSize = true;
+            this.GradeLB.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.GradeLB.Location = new System.Drawing.Point(418, 296);
+            this.GradeLB.Name = "GradeLB";
+            this.GradeLB.Size = new System.Drawing.Size(73, 28);
+            this.GradeLB.TabIndex = 35;
+            this.GradeLB.Text = "Grade:";
+            // 
+            // Grade
+            // 
+            this.Grade.Location = new System.Drawing.Point(550, 290);
+            this.Grade.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Grade.Name = "Grade";
+            this.Grade.ReadOnly = true;
+            this.Grade.Size = new System.Drawing.Size(149, 34);
+            this.Grade.TabIndex = 34;
+            // 
             // Registration_System
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1179, 567);
             this.Controls.Add(this.SystemTabs);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Registration_System";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "School Registration System";
@@ -644,5 +890,27 @@
         private System.Windows.Forms.DataGridViewButtonColumn CartEnroll;
         private System.Windows.Forms.DataGridViewButtonColumn CartDelete;
         private System.Windows.Forms.TextBox SID;
+        private System.Windows.Forms.Label CourseFacLB;
+        private System.Windows.Forms.TextBox CourseFac;
+        private System.Windows.Forms.Label CourseUniLB;
+        private System.Windows.Forms.TextBox CourseUni;
+        private System.Windows.Forms.Label MajorLB;
+        private System.Windows.Forms.TextBox Major;
+        private System.Windows.Forms.Label GenderLB;
+        private System.Windows.Forms.TextBox Gender;
+        private System.Windows.Forms.Label YearLB;
+        private System.Windows.Forms.TextBox Year;
+        private System.Windows.Forms.Label TimeIDLB;
+        private System.Windows.Forms.TextBox TimeID;
+        private System.Windows.Forms.Label InstUniLB;
+        private System.Windows.Forms.TextBox InstUni;
+        private System.Windows.Forms.Label InstFacLB;
+        private System.Windows.Forms.Label InstLB;
+        private System.Windows.Forms.TextBox InstFac;
+        private System.Windows.Forms.TextBox Inst;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label GradeLB;
+        private System.Windows.Forms.TextBox Grade;
     }
 }
