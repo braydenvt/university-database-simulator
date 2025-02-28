@@ -1,5 +1,5 @@
 # Define the semesters (no weights used)
-semesters = ["Fall", "Winter", "Spring", "Summer"]
+semesters = ["Fall", "Winter", "Spring"]
 
 # Define the range of years (2009 to 2024 inclusive)
 years = list(range(2009, 2025))
@@ -11,7 +11,7 @@ for year in years:
         combinations.append(f"('{sem}', {year})")
 
 # Write the combinations to a file in the requested format
-output_file = "dates_data.txt"
+output_file = "dates_data.sql"
 with open(output_file, "w") as f:
     f.write("INSERT INTO Date (Semester, Year) VALUES\n")
     f.write(",\n".join(combinations) + ";\n\n")
