@@ -150,7 +150,6 @@
             this.Grade.Location = new System.Drawing.Point(412, 115);
             this.Grade.Margin = new System.Windows.Forms.Padding(2);
             this.Grade.Name = "Grade";
-            this.Grade.ReadOnly = true;
             this.Grade.Size = new System.Drawing.Size(113, 29);
             this.Grade.TabIndex = 34;
             // 
@@ -191,7 +190,6 @@
             this.Major.Location = new System.Drawing.Point(112, 253);
             this.Major.Margin = new System.Windows.Forms.Padding(2);
             this.Major.Name = "Major";
-            this.Major.ReadOnly = true;
             this.Major.Size = new System.Drawing.Size(113, 29);
             this.Major.TabIndex = 24;
             // 
@@ -200,7 +198,6 @@
             this.Gender.Location = new System.Drawing.Point(112, 284);
             this.Gender.Margin = new System.Windows.Forms.Padding(2);
             this.Gender.Name = "Gender";
-            this.Gender.ReadOnly = true;
             this.Gender.Size = new System.Drawing.Size(113, 29);
             this.Gender.TabIndex = 22;
             // 
@@ -209,7 +206,6 @@
             this.Year.Location = new System.Drawing.Point(734, 253);
             this.Year.Margin = new System.Windows.Forms.Padding(2);
             this.Year.Name = "Year";
-            this.Year.ReadOnly = true;
             this.Year.Size = new System.Drawing.Size(113, 29);
             this.Year.TabIndex = 20;
             // 
@@ -218,7 +214,6 @@
             this.DateID.Location = new System.Drawing.Point(734, 207);
             this.DateID.Margin = new System.Windows.Forms.Padding(2);
             this.DateID.Name = "DateID";
-            this.DateID.ReadOnly = true;
             this.DateID.Size = new System.Drawing.Size(113, 29);
             this.DateID.TabIndex = 18;
             // 
@@ -251,7 +246,6 @@
             this.SID.Location = new System.Drawing.Point(112, 207);
             this.SID.Margin = new System.Windows.Forms.Padding(2);
             this.SID.Name = "SID";
-            this.SID.ReadOnly = true;
             this.SID.Size = new System.Drawing.Size(113, 29);
             this.SID.TabIndex = 7;
             // 
@@ -268,7 +262,6 @@
             this.Sem.Location = new System.Drawing.Point(734, 284);
             this.Sem.Margin = new System.Windows.Forms.Padding(2);
             this.Sem.Name = "Sem";
-            this.Sem.ReadOnly = true;
             this.Sem.Size = new System.Drawing.Size(113, 29);
             this.Sem.TabIndex = 1;
             // 
