@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Security.Cryptography;
+using System.Runtime.Remoting.Contexts;
+using System.Diagnostics;
 
 namespace CMPT_391_Project
 {
@@ -21,12 +23,12 @@ namespace CMPT_391_Project
 
             connectionStrings = new List<string>
             {
-                "Server = DESKTOP-2A78GKN; Database = 391Project; Trusted_Connection = yes;", // Brayden - 0
-                "Server = DAXS-COMP-RIG; Database = 391Project; Trusted_Connection = yes;", // Daxton - 1
-                "Server = ; Database = 391Project; Trusted_Connection = yes;",
-                "Server = ; Database = 391Project; Trusted_Connection = yes;",
-                "Server = LAPTOP-ORGILO7V; Database = 391Project; Trusted_Connection = yes;", //cole 4
-                "Server = ; Database = 391Project; Trusted_Connection = yes;"
+                "Server = DESKTOP-2A78GKN; Database = 391Project2; Trusted_Connection = yes;", // Brayden - 0
+                "Server = DAXS-COMP-RIG; Database = 391Project2; Trusted_Connection = yes;", // Daxton - 1
+                "Server = ; Database = 391Project2; Trusted_Connection = yes;",
+                "Server = ; Database = 391Project2; Trusted_Connection = yes;",
+                "Server = LAPTOP-ORGILO7V; Database = 391Project2; Trusted_Connection = yes;", // Cole - 4
+                "Server = ; Database = 391Project2; Trusted_Connection = yes;"
             };
         
             myConnection = new SqlConnection(connectionStrings[0]);
@@ -49,142 +51,240 @@ namespace CMPT_391_Project
             myDataReader = myCommand.ExecuteReader();
         }
 
-        public void FillSearch(String semester, String dept, String CID) {
-            if (dept.Length == 0) { dept = null; }
-            if (CID.Length == 0) { CID = null; }
-            using (SqlCommand command = new SqlCommand("FillSearch", myConnection)) {
+        public void WarehouseSearch(String InstIDText, String InstRankText, String InstFacText, String InstUniText, String SIDText,
+            String MajText, String GendText, String CIDText, String DeptText, String FacText, String UniText, String DateText,
+            String YearText, String SemText, String GradeText)
+        {
+            // All parameters are optional, but at least one is required as seen in Register.cs
+            if (InstIDText.Length == 0) { InstIDText = null; } 
+            if (InstRankText.Length == 0) { InstRankText = null; }
+            if (InstFacText.Length == 0) { InstFacText = null; } 
+            if (InstUniText.Length == 0) { InstUniText = null; }
+
+            if (SIDText.Length == 0) { SIDText = null; }
+            if (MajText.Length == 0) { MajText = null; }
+            if (GendText.Length == 0) { GendText = null; }
+
+            if (CIDText.Length == 0) { CIDText = null; }
+            if (DeptText.Length == 0) { DeptText = null; }
+            if (FacText.Length == 0) { FacText = null; }
+            if (UniText.Length == 0) { UniText = null; }
+
+            if (DateText.Length == 0) { DateText = null; }
+            if (YearText.Length == 0) { YearText = null; }
+            if (SemText.Length == 0) { SemText = null; }
+
+            if (GradeText.Length == 0) { GradeText = null; }
+
+            using (SqlCommand command = new SqlCommand("GetEnrollmentSummaryCount", myConnection))
+            {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // Logic used for the stored procedure (3/02/25 12:29 pm)
+
+                //@CourseId INT = NULL,
+                //@InstructorId INT = NULL,
+                //@StudentId INT = NULL,
+                //@DateId INT = NULL,
+                //@Grade VARCHAR(2) = NULL,
+                //@Department VARCHAR(50) = NULL,
+                //@CourseFaculty VARCHAR(50) = NULL,
+                //@CourseUniversity VARCHAR(50) = NULL,
+                //@InstructorFaculty VARCHAR(50) = NULL,
+                //@InstructorRank VARCHAR(50) = NULL,
+                //@InstructorUniversity VARCHAR(50) = NULL,
+                //@Major VARCHAR(50) = NULL,
+                //@Gender VARCHAR(10) = NULL,
+                //@Semester VARCHAR(20) = NULL,
+                //@Year INT = NULL
+
+
+                command.Parameters.Add(new SqlParameter("@CourseID", System.Data.SqlDbType.Int));
+                command.Parameters["@CourseID"].Value = (object)CIDText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@InstructorId", System.Data.SqlDbType.Int));
+                command.Parameters["@InstructorId"].Value = (object)InstIDText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@StudentId", System.Data.SqlDbType.Int));
+                command.Parameters["@StudentId"].Value = (object)SIDText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@DateId", System.Data.SqlDbType.NVarChar, 8));
+                command.Parameters["@DateId"].Value = (object)DateText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@Grade", System.Data.SqlDbType.NVarChar, 2));
+                command.Parameters["@Grade"].Value = (object)GradeText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@Department", System.Data.SqlDbType.NVarChar, 50));
+                command.Parameters["Department"].Value = (object)DeptText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@CourseFaculty", System.Data.SqlDbType.NVarChar, 50));
+                command.Parameters["@CourseFaculty"].Value = (object)FacText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@CourseUniversity", System.Data.SqlDbType.NVarChar, 50));
+                command.Parameters["@CourseUniversity"].Value = (object)UniText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@InstructorFaculty", System.Data.SqlDbType.NVarChar, 50));
+                command.Parameters["@InstructorFaculty"].Value = (object)InstFacText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@InstructorRank", System.Data.SqlDbType.NVarChar, 50));
+                command.Parameters["@InstructorRank"].Value = (object)InstRankText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@InstructorUniversity", System.Data.SqlDbType.NVarChar, 50));
+                command.Parameters["@InstructorUniversity"].Value = (object)InstUniText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@Major", System.Data.SqlDbType.NVarChar, 50));
+                command.Parameters["@Major"].Value = (object)MajText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@Gender", System.Data.SqlDbType.NVarChar, 10));
+                command.Parameters["@Gender"].Value = (object)GendText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 20));
+                command.Parameters["@Semester"].Value = (object)SemText ?? DBNull.Value;
+
+                command.Parameters.Add(new SqlParameter("@Year", System.Data.SqlDbType.Int));
+                command.Parameters["@Year"].Value = (object)YearText ?? DBNull.Value;
+
+                myDataReader = command.ExecuteReader();
+
+            }
+        }
+
+        //public void FillSearch(String semester, String dept, String CID) {
+        //    if (dept.Length == 0) { dept = null; }
+        //    if (CID.Length == 0) { CID = null; }
+        //    using (SqlCommand command = new SqlCommand("FillSearch", myConnection)) {
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
                 
-                // Semester (Required)
-                command.Parameters.Add(new SqlParameter("@Semester",System.Data.SqlDbType.NVarChar,15){Value = semester});
-                // Dept ID (Optional)
-                command.Parameters.Add(new SqlParameter("@DepartmentID", System.Data.SqlDbType.NVarChar, 4));
-                command.Parameters["@DepartmentID"].Value = (object)dept ?? DBNull.Value;
-                // Course ID (Optional)
-                command.Parameters.Add(new SqlParameter("@CID", System.Data.SqlDbType.NVarChar, 8));
-                command.Parameters["@CID"].Value = (object)CID ?? DBNull.Value;
+        //        // Semester (Required)
+        //        command.Parameters.Add(new SqlParameter("@Semester",System.Data.SqlDbType.NVarChar,15){Value = semester});
+        //        // Dept ID (Optional)
+        //        command.Parameters.Add(new SqlParameter("@DepartmentID", System.Data.SqlDbType.NVarChar, 4));
+        //        command.Parameters["@DepartmentID"].Value = (object)dept ?? DBNull.Value;
+        //        // Course ID (Optional)
+        //        command.Parameters.Add(new SqlParameter("@CID", System.Data.SqlDbType.NVarChar, 8));
+        //        command.Parameters["@CID"].Value = (object)CID ?? DBNull.Value;
 
-                myDataReader = command.ExecuteReader();
-            }
-        }
+        //        myDataReader = command.ExecuteReader();
+        //    }
+        //}
 
-        public void AddToCart(int SID, int SecID) {
-            using (SqlCommand command = new SqlCommand("addToCart", myConnection))
-            {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+        //public void AddToCart(int SID, int SecID) {
+        //    using (SqlCommand command = new SqlCommand("addToCart", myConnection))
+        //    {
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                // Student Id (Required)
-                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
-                // Course ID (Required)
-                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+        //        // Student Id (Required)
+        //        command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+        //        // Course ID (Required)
+        //        command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
 
-                myDataReader = command.ExecuteReader();
-                myDataReader.Close();
-            }
-        }
+        //        myDataReader = command.ExecuteReader();
+        //        myDataReader.Close();
+        //    }
+        //}
 
-        public void DeleteFromCart(int SID, int SecID) {
-            using (SqlCommand command = new SqlCommand("deleteFromCart", myConnection))
-            {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+        //public void DeleteFromCart(int SID, int SecID) {
+        //    using (SqlCommand command = new SqlCommand("deleteFromCart", myConnection))
+        //    {
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                // Student Id (Required)
-                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
-                // Section ID (Required)
-                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+        //        // Student Id (Required)
+        //        command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+        //        // Section ID (Required)
+        //        command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
 
-                myDataReader = command.ExecuteReader();
-                myDataReader.Close();
-            }
-        }
+        //        myDataReader = command.ExecuteReader();
+        //        myDataReader.Close();
+        //    }
+        //}
 
-        public void CheckPrereq(int SID, string CID, string Semester) {
-            using (SqlCommand command = new SqlCommand("checkPrereq", myConnection))
-            {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+        //public void CheckPrereq(int SID, string CID, string Semester) {
+        //    using (SqlCommand command = new SqlCommand("checkPrereq", myConnection))
+        //    {
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                // Student Id (Required)
-                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
-                // Course ID (Required)
-                command.Parameters.Add(new SqlParameter("@CID", System.Data.SqlDbType.NVarChar,8) { Value = CID });
-                // Semester (Required)
-                command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
+        //        // Student Id (Required)
+        //        command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+        //        // Course ID (Required)
+        //        command.Parameters.Add(new SqlParameter("@CID", System.Data.SqlDbType.NVarChar,8) { Value = CID });
+        //        // Semester (Required)
+        //        command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
 
-                myDataReader = command.ExecuteReader();
-            }
-        }
+        //        myDataReader = command.ExecuteReader();
+        //    }
+        //}
 
-        public void FillStudentEnrollment(int SID) {
-            using (SqlCommand command = new SqlCommand("FillStudentEnrollment", myConnection))
-            {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+        //public void FillStudentEnrollment(int SID) {
+        //    using (SqlCommand command = new SqlCommand("FillStudentEnrollment", myConnection))
+        //    {
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
              
-                // Student Id (Required)
-                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+        //        // Student Id (Required)
+        //        command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
                
-                myDataReader = command.ExecuteReader();
-            }
-        }
+        //        myDataReader = command.ExecuteReader();
+        //    }
+        //}
 
-        public void CheckTimeConflict(int SID, int SecID, string TimeBlock, string Semester) {
-            using (SqlCommand command = new SqlCommand("checkTimeConflict", myConnection))
-            {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+        //public void CheckTimeConflict(int SID, int SecID, string TimeBlock, string Semester) {
+        //    using (SqlCommand command = new SqlCommand("checkTimeConflict", myConnection))
+        //    {
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                // Student Id (Required)
-                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
-                // Section ID (Required)
-                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
-                //  TimeBlock (Required)
-                command.Parameters.Add(new SqlParameter("@TimeBlock", System.Data.SqlDbType.NVarChar, 15) { Value = TimeBlock });
-                // Semester ID (Required)
-                command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
+        //        // Student Id (Required)
+        //        command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+        //        // Section ID (Required)
+        //        command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+        //        //  TimeBlock (Required)
+        //        command.Parameters.Add(new SqlParameter("@TimeBlock", System.Data.SqlDbType.NVarChar, 15) { Value = TimeBlock });
+        //        // Semester ID (Required)
+        //        command.Parameters.Add(new SqlParameter("@Semester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
 
-                myDataReader = command.ExecuteReader();
-            }
-        }
+        //        myDataReader = command.ExecuteReader();
+        //    }
+        //}
 
-        public void Enroll(int SecID, string Semester, int SID) {
-            using (SqlCommand command = new SqlCommand("EnrolFromCart", myConnection))
-            {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+        //public void Enroll(int SecID, string Semester, int SID) {
+        //    using (SqlCommand command = new SqlCommand("EnrolFromCart", myConnection))
+        //    {
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                // Section ID (Required)
-                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
-                // Semester ID (Required)
-                command.Parameters.Add(new SqlParameter("@CurrentSemester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
-                // Student Id (Required)
-                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+        //        // Section ID (Required)
+        //        command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+        //        // Semester ID (Required)
+        //        command.Parameters.Add(new SqlParameter("@CurrentSemester", System.Data.SqlDbType.NVarChar, 15) { Value = Semester });
+        //        // Student Id (Required)
+        //        command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
 
-                myDataReader = command.ExecuteReader();
-            }
-        }
+        //        myDataReader = command.ExecuteReader();
+        //    }
+        //}
 
-        public void Unenroll(int SecID, int SID) {
-            using (SqlCommand command = new SqlCommand("Unenroll", myConnection))
-            {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+        //public void Unenroll(int SecID, int SID) {
+        //    using (SqlCommand command = new SqlCommand("Unenroll", myConnection))
+        //    {
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                // Student Id (Required)
-                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
-                // Section ID (Required)
-                command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
+        //        // Student Id (Required)
+        //        command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+        //        // Section ID (Required)
+        //        command.Parameters.Add(new SqlParameter("@SecID", System.Data.SqlDbType.Int) { Value = SecID });
 
-                myDataReader = command.ExecuteReader();
-                myDataReader.Close();
-            }
-        }
+        //        myDataReader = command.ExecuteReader();
+        //        myDataReader.Close();
+        //    }
+        //}
 
-        public void FillStudentCart(int SID) {
-            using (SqlCommand command = new SqlCommand("FillStudentCart", myConnection))
-            {
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+        //public void FillStudentCart(int SID) {
+        //    using (SqlCommand command = new SqlCommand("FillStudentCart", myConnection))
+        //    {
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                // Student Id (Required)
-                command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
+        //        // Student Id (Required)
+        //        command.Parameters.Add(new SqlParameter("@SID", System.Data.SqlDbType.Int) { Value = SID });
 
-                myDataReader = command.ExecuteReader();
-            }
-        }
+        //        myDataReader = command.ExecuteReader();
+        //    }
+        //}
     }
 }
