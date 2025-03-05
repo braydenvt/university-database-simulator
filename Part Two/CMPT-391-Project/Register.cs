@@ -19,16 +19,24 @@ namespace CMPT_391_Project
             InitializeComponent();
             CourseSelect.Size = new Size(885, 500);
             dbHelper = new DatabaseHelper();
-            QueryButton_Click(null, EventArgs.Empty);
+            // QueryButton_Click(null, EventArgs.Empty);
+            SelectEnrollment.Select();
+            SelectDistinct.Select();
         }
 
         private void QueryButton_Click(object sender, EventArgs e)
         {
 
             // Entered fields to narrow the search results for the aggregates
-            // There are 15 fields overall (4 - instructors, 3 - students, 4 - courses, 3 - dates, 1 - grade)
+            // There are 16 fields overall (4 - instructors, 3 - students, 4 - courses, 3 - dates, 1 - grade)
 
-            var InstIDText = InstID.Text;
+            var CountType = GetSelectedRadioButton(SelectCountType);
+            if (CountType.Equals("Distinct Occurrences")){
+                CountType = "Distinct";
+            }           
+            var CountBy = GetSelectedRadioButton(SelectCount);
+            
+            var InstIDText = InstID.Text; 
             var InstRankText = InstRank.Text;
             var InstFacText = InstFac.Text;
             var InstUniText = InstUni.Text;
@@ -49,7 +57,7 @@ namespace CMPT_391_Project
             var GradeText = Grade.Text;
 
             
-            if (InstIDText.Length == 0 && InstRankText.Length == 0 && InstFacText.Length == 0 && InstUniText.Length == 0
+            /*if (InstIDText.Length == 0 && InstRankText.Length == 0 && InstFacText.Length == 0 && InstUniText.Length == 0
                 && SIDText.Length == 0 && MajText.Length == 0 && GendText.Length == 0 && CIDText.Length == 0
                 && DeptText.Length == 0 && FacText.Length == 0 && UniText.Length == 0 && DateText.Length == 0
                 && YearText.Length == 0 && SemText.Length == 0 && GradeText.Length == 0)
@@ -59,391 +67,74 @@ namespace CMPT_391_Project
 
             } 
             else 
-            { 
+            { */
                 // Enters the attributes to search by
-                dbHelper.WarehouseSearch(InstIDText, InstRankText, InstFacText, InstUniText, SIDText,
+                dbHelper.WarehouseSearch(CountType, CountBy, InstIDText, InstRankText, InstFacText, InstUniText, SIDText,
             MajText, GendText, CIDText, DeptText, FacText, UniText, DateText, YearText, SemText, GradeText);
 
                 while (dbHelper.myDataReader.Read())
                 {
-                    Occurence.Text = dbHelper.myDataReader["Occurences"].ToString();
+                    Occurence.Text = dbHelper.myDataReader["Occurrences"].ToString();
                 }
                 dbHelper.myDataReader.Close();
-            }
-            // Read in Data
-            //dbHelper.FillSearch(SemText,DeptText,IDText);
-            //while (dbHelper.myDataReader.Read()) 
-            //{
-            //    CourseSearchGrid.Rows.Add(dbHelper.myDataReader["TimeBlock"].ToString(), dbHelper.myDataReader["CID"].ToString(), dbHelper.myDataReader["Title"], dbHelper.myDataReader["SecID"].ToString(),
-            //    dbHelper.myDataReader["Semester"].ToString());
             //}
-            //dbHelper.myDataReader.Close();
         }
 
-        //private void VerifyButton_Click(object sender, EventArgs e)
-        //{
-        //    // Checks if the student exists in the database and can therefore add the courses to their cart.
-        //    // First we reset the data entered.
+        private string GetSelectedRadioButton(GroupBox groupBox)
+        {
+            foreach (Control control in groupBox.Controls)
+            {
+                if (control is RadioButton radioButton && radioButton.Checked)
+                {
+                    return radioButton.Text; // Returns the text of the selected radio button
+                }
+            }
+            return null; // No selection
+        }
 
-        //    SIDText = "";
-        //    LNameText = "";
-        //    Verified = "Y";     // Need to change to N if verify is to be an added feature.
+        private void Grade_TextChanged(object sender, EventArgs e)
+        {
 
-        //    SIDText = SID.Text;
-        //    LNameText = LName.Text;
+        }
 
-        //    // Cannot access student if either field is blank.
-        //    if (SIDText.Length == 0 || LNameText.Length == 0)
-        //    {
-        //        MessageBox.Show("ID or name is not entered.");
-        //    }
-        //    else
-        //    {
-        //        // Perform queries to verify that the student exists, based on the ID and last name (validity checks).
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
 
-        //        try
-        //        {
+        }
 
-        //            //Verified = "Y";   // Need to change if verify is to be an added feature.
-        //            MessageBox.Show($@"{Environment.NewLine}Student ID: {SIDText}{Environment.NewLine}Last Name: {LNameText}", "Successfully verified!");
-        //        }
-        //        catch (Exception e2)
-        //        {
-        //            MessageBox.Show(e2.ToString(), "Error");
-        //        }
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
 
+        }
 
-        //    }
-        //}
+        private void SelectInstructor_CheckedChanged(object sender, EventArgs e)
+        {
 
-        //private void CourseSearchGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    // To test area of selection
-        //    //MessageBox.Show(String.Format("Row: {0}, Column: {1}",
-        //    //        CourseSearchGrid.CurrentCell.RowIndex,
-        //    //        CourseSearchGrid.CurrentCell.ColumnIndex), "Current Cell");
+        }
 
-        //    // Check what column was clicked to add a course to the cart.
-        //    if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd" && e.RowIndex >= 0)
-        //    {
+        private void CourseSelect_Click(object sender, EventArgs e)
+        {
 
-        //        if (Verified == "N")
-        //        {
-        //            MessageBox.Show("Student is not logged in.", "Error.");
-        //        }
-        //        else
-        //        {
-        //            if (MessageBox.Show("Are you sure want to add this course to your cart ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-        //            {
-        //                // Adds the course to the cart
-        //                try
-        //                {
+        }
 
-        //                    var addedCID = CourseSearchGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
-        //                    var addedTitle = CourseSearchGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
-        //                    var addedSecID = CourseSearchGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
-        //                    var addedSem = CourseSearchGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
-        //                    var addedTimeBlock = CourseSearchGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+        private void InstUniLB_Click(object sender, EventArgs e)
+        {
 
+        }
 
-        //                    if (cartSecIDs.Contains(addedSecID) == false)
-        //                    {
-        //                        // Call database to add class to cart
-        //                        try
-        //                        {
-        //                            dbHelper.AddToCart(Int32.Parse(SID.Text), Int32.Parse(addedSecID));
+        private void InstFacLB_Click(object sender, EventArgs e)
+        {
 
-        //                            CartDataGrid.Rows.Add(addedTimeBlock,addedCID, addedTitle,
-        //                            addedSecID, addedSem, EnrollUnenroll);
+        }
 
-        //                            cartSecIDs.Add(addedSecID);
+        private void groupBox1_Enter_1(object sender, EventArgs e)
+        {
 
-        //                            dbHelper.CheckPrereq(Int32.Parse(SID.Text), addedCID, Sem.Text);
-        //                            while (dbHelper.myDataReader.Read())
-        //                            {
-        //                                if (Int32.Parse(dbHelper.myDataReader["PrereqMet"].ToString()) == 1)
-        //                                {
-        //                                    prereqsMet.Add(1);
+        }
 
-        //                                }
-        //                                else
-        //                                {
-        //                                    CartDataGrid.Rows[cartSecIDs.Count - 1].HeaderCell.Style.BackColor = Color.Red;
-        //                                    CartDataGrid.Rows[cartSecIDs.Count - 1].HeaderCell.ToolTipText = "The Prerequisites for this class are not met";
-        //                                    CartDataGrid.EnableHeadersVisualStyles = false;
-        //                                    prereqsMet.Add(0);
-        //                                }
-        //                            }
-        //                            dbHelper.myDataReader.Close();
+        private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
+        {
 
-        //                        }
-        //                        catch{ MessageBox.Show("Error adding course to cart.");} //+ ex.ToString()); }
-        //                    }
-        //                    else
-        //                    {
-        //                        MessageBox.Show("That course is already in your cart.", "Not Added");
-        //                    }
-                            
-        //                }
-        //                catch (Exception e2)
-        //                {
-        //                    MessageBox.Show(e2.ToString(), "Error");
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //}
-
-        //private void CartDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-
-        //    // Check what column was clicked, to enroll in a course or delete a course from the cart
-        //    if (CartDataGrid.Columns[e.ColumnIndex].Name== "CartEnroll" && e.RowIndex >= 0)
-        //    {
-
-
-        //        if (Verified == "N")
-        //        {
-        //            MessageBox.Show("Student is not logged in.", "Error.");
-        //        }
-        //        else
-        //        {
-        //            if (prereqsMet[e.RowIndex] == 0)
-        //            {
-        //                MessageBox.Show("Course Prerequisites are not met.", "Error");
-        //            }
-        //            else
-        //            {
-        //                // Confirmation to enroll in the course
-        //                if (MessageBox.Show("Are you sure want to enroll in this course ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-        //                {
-        //                    // Enrolls the course into the students' page
-        //                    try
-        //                    {
-        //                        var addedCID = CartDataGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
-        //                        var addedTitle = CartDataGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
-        //                        var addedSecID = CartDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
-        //                        var addedSem = CartDataGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
-        //                        var addedTimeBlock = CartDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
-
-                         
-
-        //                        if (enrollSecIDs.Contains(addedSecID) == false && enrolledCIDs.Contains(addedCID) == false)
-        //                        {
-        //                            try
-        //                            {
-        //                                dbHelper.CheckTimeConflict(Int32.Parse(SID.Text), Int32.Parse(addedSecID), addedTimeBlock, addedSem);
-        //                                while (dbHelper.myDataReader.Read())
-        //                                {
-        //                                    if (dbHelper.myDataReader["ConflictSecID"].ToString() == "0")
-        //                                    {
-        //                                        try {
-        //                                            dbHelper.myDataReader.Close();
-        //                                            dbHelper.Enroll(Int32.Parse(addedSecID), addedSem, Int32.Parse(SID.Text));
-        //                                            while (dbHelper.myDataReader.Read())
-        //                                            {
-        //                                                if (Int32.Parse(dbHelper.myDataReader["Result"].ToString()) == 1) {
-        //                                                    EnrollDataGrid.Rows.Add(addedTimeBlock, addedCID, addedTitle,
-        //                                                    addedSecID, addedSem, EnrollUnenroll);
-
-        //                                                    CartDataGrid.Rows.RemoveAt(e.RowIndex);
-
-        //                                                    cartSecIDs.Remove(addedSecID);
-        //                                                    enrollSecIDs.Add(addedSecID);
-        //                                                    enrolledCIDs.Add(addedCID);
-
-        //                                                    prereqsMet.RemoveAt(e.RowIndex);
-
-        //                                                    MessageBox.Show($@"You have enrolled in: {Environment.NewLine}Course ID: {addedCID}{Environment.NewLine}Section ID: {addedSecID}{Environment.NewLine}Semester: {addedSem}{Environment.NewLine}", "Enrollment Complete");
-        //                                                }
-        //                                                else {
-        //                                                    MessageBox.Show("Enrollment failed, section " + addedSecID + " is full.", "Enrollment Failed");
-        //                                                }
-        //                                                dbHelper.myDataReader.Close();
-        //                                                break;
-        //                                            }
-
-        //                                        }
-        //                                        catch (SqlException ex) {
-        //                                            MessageBox.Show(ex.ToString());
-        //                                        }
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        MessageBox.Show("Can't enroll in " + addedSecID + ", conflicts with section " + dbHelper.myDataReader["ConflictSecID"].ToString() + ".", "Time Conflict");
-        //                                        dbHelper.myDataReader.Close();
-        //                                    }
-        //                                    break;
-        //                                }
-
-        //                            }
-        //                            catch (SqlException ex) {
-        //                                MessageBox.Show(ex.ToString()); }
-        //                        }
-        //                        else
-        //                        {
-        //                            MessageBox.Show("You are already enrolled in that course.", "Not Added");
-        //                        }
-
-        //                    }
-        //                    catch
-        //                    {
-        //                        MessageBox.Show("Error failed to enroll");
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    if (CartDataGrid.Columns[e.ColumnIndex].Name == "CartDelete" && e.RowIndex >= 0)
-        //    {
-        //        if (Verified == "N")
-        //        {
-        //            MessageBox.Show("Student is not logged in.", "Error.");
-        //        }
-        //        else
-        //        {
-        //            // Confirmation to remove the course from the cart
-        //            if (MessageBox.Show("Are you sure want to remove this course from your cart ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-        //            {
-        //                // Removes the course from the cart
-        //                try
-        //                {
-        //                    var removedCID = CartDataGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
-        //                    var removedSecID = CartDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
-        //                    var removedSem = CartDataGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
-        //                    var removedTimeBlock = CartDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
-                          
-
-        //                    dbHelper.DeleteFromCart(Int32.Parse(SID.Text), Int32.Parse(removedSecID));
-
-        //                    MessageBox.Show($@"Removed the following course from your cart: {Environment.NewLine
-        //                        }Course ID: {removedCID}{Environment.NewLine
-        //                        }Section ID: {removedSecID}{Environment.NewLine
-        //                        }Semester: {removedSem}{Environment.NewLine}", 
-        //                        "Successfully removed!");
-
-        //                    prereqsMet.RemoveAt(e.RowIndex);
-
-        //                    CartDataGrid.Rows.RemoveAt(e.RowIndex);
-
-        //                    cartSecIDs.Remove(removedSecID);
-
-        //                }
-        //                catch (Exception e2)
-        //                {
-        //                    MessageBox.Show(e2.ToString(), "Error removing course from cart.");
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private void EnrollDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-
-        //    // Check what column was clicked to unenroll from a course.
-        //    if (CourseSearchGrid.Columns[e.ColumnIndex].Name == "Col_CartAdd" && e.RowIndex >= 0)
-        //    {
-
-        //        if (Verified == "N")
-        //        {
-        //            MessageBox.Show("Student is not logged in.", "Error.");
-        //        }
-        //        else
-        //        {
-        //            // Confirmation to unenroll from the course
-        //            if (MessageBox.Show("Are you sure want to unenroll in this course ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-        //            {
-        //                // Removes the course from the enrolled.
-        //                try
-        //                { 
-
-        //                    var removedCID = EnrollDataGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
-        //                    var removedSecID = EnrollDataGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
-        //                    var removedSem = EnrollDataGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
-        //                    var removedTimeBlock = EnrollDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
-
-        //                    dbHelper.Unenroll(Int32.Parse(removedSecID), Int32.Parse(SID.Text));
-
-        //                    MessageBox.Show($@"Unenrolled from the following course: {Environment.NewLine
-        //                        }Course ID: {removedCID}{Environment.NewLine
-        //                        }Section ID: {removedSecID}{Environment.NewLine
-        //                        }Semester: {removedSem}{Environment.NewLine}", 
-        //                        "Successfully unenrolled!");
-
-        //                    EnrollDataGrid.Rows.RemoveAt(e.RowIndex);
-
-        //                    enrollSecIDs.Remove(removedSecID);
-        //                    enrolledCIDs.Remove(removedCID);
-                          
-        //                }
-        //                catch (Exception e2)
-        //                {
-        //                    MessageBox.Show(e2.ToString(), "Error");
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-        //public void FillStudentEnrollment() {
-        //    try
-        //    {
-        //        dbHelper.FillStudentEnrollment(Int32.Parse(SID.Text));
-        //        while (dbHelper.myDataReader.Read())
-        //        {
-        //            enrolledCIDs.Add(dbHelper.myDataReader["CID"].ToString());
-        //            EnrollDataGrid.Rows.Add(dbHelper.myDataReader["TimeBlock"].ToString(), dbHelper.myDataReader["CID"].ToString(), dbHelper.myDataReader["Title"], dbHelper.myDataReader["SecID"].ToString(),
-        //            dbHelper.myDataReader["Semester"].ToString());
-        //        }
-        //        dbHelper.myDataReader.Close();
-
-        //    }
-        //    catch(SqlException ex) { MessageBox.Show(ex.ToString());}
-        //}
-
-        //public void FillStudentCart() {
-        //    try
-        //    {
-        //        dbHelper.FillStudentCart(Int32.Parse(SID.Text));
-        //        while (dbHelper.myDataReader.Read())
-        //        {
-        //            CartDataGrid.Rows.Add(dbHelper.myDataReader["TimeBlock"].ToString(), dbHelper.myDataReader["CID"].ToString(), dbHelper.myDataReader["Title"], dbHelper.myDataReader["SecID"].ToString(),
-        //            dbHelper.myDataReader["Semester"].ToString());
-
-        //            cartSecIDs.Add(dbHelper.myDataReader["SecID"].ToString());
-
-        //        }
-        //        dbHelper.myDataReader.Close();
-        //    }
-        //    catch (SqlException ex) {  MessageBox.Show(ex.ToString()); }
-        //    for (int i = 0; i < CartDataGrid.Rows.Count; i++)
-        //    {
-        //        try
-        //        {
-        //            dbHelper.CheckPrereq(Int32.Parse(SID.Text), CartDataGrid.Rows[i].Cells[1].Value.ToString(), Sem.Text);
-        //            while (dbHelper.myDataReader.Read())
-        //            {
-        //                if (Int32.Parse(dbHelper.myDataReader["PrereqMet"].ToString()) == 1)
-        //                {
-        //                    prereqsMet.Add(1);
-
-        //                }
-        //                else
-        //                {
-        //                    CartDataGrid.Rows[cartSecIDs.Count - 1].HeaderCell.Style.BackColor = Color.Red;
-        //                    CartDataGrid.Rows[cartSecIDs.Count - 1].HeaderCell.ToolTipText = "The Prerequisites for this class are not met";
-        //                    CartDataGrid.EnableHeadersVisualStyles = false;
-        //                    prereqsMet.Add(0);
-        //                }
-        //            }
-        //            dbHelper.myDataReader.Close();
-
-        //        }
-        //        catch (SqlException ex) { MessageBox.Show("Error adding course to cart." + ex); }
-        //    }
-        //}
+        }
     }
 }
