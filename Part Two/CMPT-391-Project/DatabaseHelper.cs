@@ -53,13 +53,15 @@ namespace CMPT_391_Project
         //    myDataReader = myCommand.ExecuteReader();
         //}
 
-        public void loadXML (String filename)
+        public void UploadXML (String filename)
         {
             using (SqlCommand command = new SqlCommand("LoadXMLData", myConnection))
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.Add(new SqlParameter("@FilePath", System.Data.SqlDbType.NVarChar, 255) { Value = filename });
                 myDataReader =  command.ExecuteReader();
+
+                myDataReader.Close();
             }
         }
 
