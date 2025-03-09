@@ -128,7 +128,6 @@
             this.CourseSelect.Size = new System.Drawing.Size(1826, 1069);
             this.CourseSelect.TabIndex = 0;
             this.CourseSelect.Text = "Data Warehouse Entry";
-            this.CourseSelect.Click += new System.EventHandler(this.CourseSelect_Click);
             // 
             // SelectCountType
             // 
@@ -142,7 +141,6 @@
             this.SelectCountType.TabIndex = 44;
             this.SelectCountType.TabStop = false;
             this.SelectCountType.Text = "Count";
-            this.SelectCountType.Enter += new System.EventHandler(this.groupBox1_Enter_1);
             // 
             // SelectAll
             // 
@@ -167,7 +165,6 @@
             this.SelectDistinct.TabStop = true;
             this.SelectDistinct.Text = "Distinct Occurrences";
             this.SelectDistinct.UseVisualStyleBackColor = true;
-            this.SelectDistinct.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged_1);
             // 
             // SelectCount
             // 
@@ -184,7 +181,6 @@
             this.SelectCount.TabIndex = 43;
             this.SelectCount.TabStop = false;
             this.SelectCount.Text = "Count By";
-            this.SelectCount.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // SelectInstructor
             // 
@@ -197,7 +193,6 @@
             this.SelectInstructor.TabStop = true;
             this.SelectInstructor.Text = "Instructor";
             this.SelectInstructor.UseVisualStyleBackColor = true;
-            this.SelectInstructor.CheckedChanged += new System.EventHandler(this.SelectInstructor_CheckedChanged);
             // 
             // SelectDate
             // 
@@ -222,7 +217,6 @@
             this.SelectEnrollment.TabStop = true;
             this.SelectEnrollment.Text = "Enrollment";
             this.SelectEnrollment.UseVisualStyleBackColor = true;
-            this.SelectEnrollment.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // SelectStudent
             // 
@@ -287,7 +281,6 @@
             this.Grade.Name = "Grade";
             this.Grade.Size = new System.Drawing.Size(222, 50);
             this.Grade.TabIndex = 34;
-            this.Grade.TextChanged += new System.EventHandler(this.Grade_TextChanged);
             // 
             // InstUni
             // 
@@ -411,7 +404,6 @@
             this.InstUniLB.Size = new System.Drawing.Size(80, 45);
             this.InstUniLB.TabIndex = 33;
             this.InstUniLB.Text = "Uni:";
-            this.InstUniLB.Click += new System.EventHandler(this.InstUniLB_Click);
             // 
             // InstFacLB
             // 
@@ -423,7 +415,6 @@
             this.InstFacLB.Size = new System.Drawing.Size(134, 45);
             this.InstFacLB.TabIndex = 30;
             this.InstFacLB.Text = "Faculty:";
-            this.InstFacLB.Click += new System.EventHandler(this.InstFacLB_Click);
             // 
             // InstIDLB
             // 

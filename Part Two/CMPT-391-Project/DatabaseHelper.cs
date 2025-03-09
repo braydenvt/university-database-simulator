@@ -32,7 +32,7 @@ namespace CMPT_391_Project
                 "Server = TABLET-PUDR0N7I\\MSSQLSERVER01; Database = 391Project2; Trusted_Connection = yes;" // Stu - 6
             };
         
-            myConnection = new SqlConnection(connectionStrings[6]);
+            myConnection = new SqlConnection(connectionStrings[1]);
 
             try {
                 myConnection.Open();
@@ -46,11 +46,11 @@ namespace CMPT_391_Project
             }
         }
 
-        public void query(String query_string)
-        {
-            myCommand.CommandText = query_string;
-            myDataReader = myCommand.ExecuteReader();
-        }
+        //public void query(String query_string)
+        //{
+        //    myCommand.CommandText = query_string;
+        //    myDataReader = myCommand.ExecuteReader();
+        //}
 
         public void WarehouseSearch(String CountType, String CountBy, String InstIDText, String InstRankText, String InstFacText, String InstUniText, String SIDText,
             String MajText, String GendText, String CIDText, String DeptText, String FacText, String UniText, String DateText,
