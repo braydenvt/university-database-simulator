@@ -82,10 +82,11 @@ BEGIN
                 AND e.StudentId = CAST(x.query('StudentId').value('.','NVARCHAR(50)') AS INT)
                 AND e.DateId = d.DateId
             );
-
+			SELECT 1 AS Result
         COMMIT TRANSACTION
     END TRY
     BEGIN CATCH
+		Select 0 AS Result
         ROLLBACK TRANSACTION
     END CATCH
 END

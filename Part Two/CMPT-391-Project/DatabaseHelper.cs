@@ -9,6 +9,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Security.Cryptography;
 using System.Runtime.Remoting.Contexts;
 using System.Diagnostics;
+using System.Diagnostics.PerformanceData;
 
 namespace CMPT_391_Project
 {
@@ -32,7 +33,7 @@ namespace CMPT_391_Project
                 "Server = TABLET-PUDR0N7I\\MSSQLSERVER01; Database = 391Project2; Trusted_Connection = yes;" // Stu - 6
             };
         
-            myConnection = new SqlConnection(connectionStrings[6]);
+            myConnection = new SqlConnection(connectionStrings[0]);
 
             try {
                 myConnection.Open();
@@ -50,6 +51,16 @@ namespace CMPT_391_Project
         {
             myCommand.CommandText = query_string;
             myDataReader = myCommand.ExecuteReader();
+        }
+
+        public void loadXML (String filename)
+        {
+            using (SqlCommand command = new SqlCommand("LoadXMLData", myConnection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@FilePath", System.Data.SqlDbType.NVarChar, 255) { Value = filename });
+                myDataReader =  command.ExecuteReader();
+            }
         }
 
         public void WarehouseSearch(String CountType, String CountBy, String InstIDText, String InstRankText, String InstFacText, String InstUniText, String SIDText,
@@ -149,7 +160,6 @@ namespace CMPT_391_Project
                 command.Parameters["@Year"].Value = (object)YearText ?? DBNull.Value;
 
                 myDataReader = command.ExecuteReader();
-
             }
         }
     }

@@ -137,6 +137,33 @@ namespace CMPT_391_Project
 
         }
 
+        private void UploadXML(String filepath)
+        {
+
+            // Show a non-blocking message box (use a label instead for better UX)
+            Task.Run(() => MessageBox.Show("Uploading XML to data warehouse...", "Please Wait"));
+
+            // Wait for the stored procedure to complete
+            dbHelper.loadXML(filepath);
+
+            // Process the results after the stored procedure finishes
+            while (dbHelper.myDataReader.Read()) // Async Read
+            {
+                string result = dbHelper.myDataReader["Result"].ToString();
+                SendKeys.SendWait("{ENTER}");
+                if (result.Equals("1"))
+                {
+                    MessageBox.Show("Upload Complete", "Success");
+                }
+                else
+                {
+                    MessageBox.Show("Upload failed. Please try again.", "Failed");
+                }
+            }
+
+            dbHelper.myDataReader.Close();
+        }
+
         private void Browse_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -146,8 +173,8 @@ namespace CMPT_391_Project
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string selectedFilePath = openFileDialog.FileName;
+                UploadXML(selectedFilePath);
             }
-
         }
     }
 }
