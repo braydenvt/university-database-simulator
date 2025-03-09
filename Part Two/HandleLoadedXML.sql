@@ -50,10 +50,6 @@ FROM
 ) AS S(MY_XML)
 CROSS APPLY MY_XML.nodes('dataset/Instructor') AS Dat(Instructor);
 
-StudentId INT PRIMARY KEY,
-    Major VARCHAR(20),
-    Gender VARCHAR(20)
-
 INSERT INTO Student (StudentId, Major, Gender)
 SELECT 
     Dat.Student.query('StudentId').value('.', 'INT') as StudentId,
