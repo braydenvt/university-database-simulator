@@ -1,3 +1,4 @@
+-- usage: EXEC LoadXMLData 'C:\filepath\file.xml'
 USE [391Project2]
 GO
 DROP PROCEDURE IF EXISTS LoadXMLData
@@ -13,14 +14,11 @@ BEGIN
             DECLARE @XMLData NVARCHAR(MAX);
             DECLARE @SQL NVARCHAR(MAX);
 
-            -- Load XML from file using dynamic SQL
+            -- have to extract dynamically here, openrowset doesn't support variables
             SET @SQL = 'SELECT @XMLData = BulkColumn FROM OPENROWSET(BULK ''' + @FilePath + ''', SINGLE_CLOB) AS x';
             EXEC sp_executesql @SQL, N'@XMLData NVARCHAR(MAX) OUTPUT', @XMLData OUTPUT;
-
-            -- Convert to XML
             SET @XML = CAST(@XMLData AS XML);
 
-            -- Insert data into Date table
             INSERT INTO Date (Semester, Year)
             SELECT DISTINCT
                 x.value('(Semester/text())[1]', 'VARCHAR(20)') AS Semester,
@@ -32,7 +30,6 @@ BEGIN
                 AND d.Year = x.value('(Year/text())[1]', 'INT')
             );
 
-            -- Insert data into Instructor table
             INSERT INTO Instructor (InstructorId, Faculty, Rank, University)
             SELECT DISTINCT
                 CAST(x.query('InstructorId').value('.','NVARCHAR(50)') AS INT),
@@ -45,7 +42,6 @@ BEGIN
                 WHERE i.InstructorId = CAST(x.query('InstructorId').value('.','NVARCHAR(50)') AS INT)
             );
 
-            -- Insert data into Course table
             INSERT INTO Course (CourseId, Department, Faculty, University)
             SELECT DISTINCT
                 CAST(x.query('CourseId').value('.','NVARCHAR(50)') AS INT),
@@ -58,7 +54,6 @@ BEGIN
                 WHERE c.CourseId = CAST(x.query('CourseId').value('.','NVARCHAR(50)') AS INT)
             );
 
-            -- Insert data into Student table
             INSERT INTO Student (StudentId, Major, Gender)
             SELECT DISTINCT
                 CAST(x.query('StudentId').value('.','NVARCHAR(50)') AS INT),
@@ -70,7 +65,6 @@ BEGIN
                 WHERE s.StudentId = CAST(x.query('StudentId').value('.','NVARCHAR(50)') AS INT)
             );
 
-            -- Insert data into Enrollment table with dynamically retrieved DateId
             INSERT INTO Enrollment (CourseId, InstructorId, StudentId, DateId, Grade)
             SELECT DISTINCT
                 CAST(x.query('CourseId').value('.','NVARCHAR(50)') AS INT),
