@@ -92,6 +92,51 @@ namespace CMPT_391_Project
             return null; // No selection
         }
 
+        private void Grade_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SelectInstructor_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CourseSelect_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InstUniLB_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InstFacLB_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
         private void Browse_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -101,8 +146,8 @@ namespace CMPT_391_Project
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string selectedFilePath = openFileDialog.FileName;
+                UploadXML(selectedFilePath);
             }
-
         }
     }
 }
