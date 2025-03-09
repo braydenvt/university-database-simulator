@@ -1,3 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dataset>
 <Date>
   <Semester>Fall</Semester>
   <Year>2025</Year>
@@ -8167,11 +8169,6 @@
   <Gender>Female</Gender>
 </Student>
 <Student>
-  <StudentId>StudentId</StudentId>
-  <Major>Major</Major>
-  <Gender>Gender</Gender>
-</Student>
-<Student>
   <StudentId>202000</StudentId>
   <Major>Drama</Major>
   <Gender>Female</Gender>
@@ -13170,11 +13167,6 @@
   <StudentId>202999</StudentId>
   <Major>Film</Major>
   <Gender>Female</Gender>
-</Student>
-<Student>
-  <StudentId>StudentId</StudentId>
-  <Major>Major</Major>
-  <Gender>Gender</Gender>
 </Student>
 <Student>
   <StudentId>203000</StudentId>
@@ -23732,13 +23724,6 @@
   <Grade>C-</Grade>
 </Enrollment>
 <Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
-</Enrollment>
-<Enrollment>
   <CourseId>10098</CourseId>
   <InstructorId>1039</InstructorId>
   <StudentId>201211</StudentId>
@@ -30737,13 +30722,6 @@
   <StudentId>201396</StudentId>
   <DateId>49</DateId>
   <Grade>B</Grade>
-</Enrollment>
-<Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
 </Enrollment>
 <Enrollment>
   <CourseId>10057</CourseId>
@@ -37746,13 +37724,6 @@
   <Grade>B</Grade>
 </Enrollment>
 <Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
-</Enrollment>
-<Enrollment>
   <CourseId>10099</CourseId>
   <InstructorId>1007</InstructorId>
   <StudentId>201612</StudentId>
@@ -44751,13 +44722,6 @@
   <StudentId>201828</StudentId>
   <DateId>49</DateId>
   <Grade>B-</Grade>
-</Enrollment>
-<Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
 </Enrollment>
 <Enrollment>
   <CourseId>10414</CourseId>
@@ -51760,13 +51724,6 @@
   <Grade>C-</Grade>
 </Enrollment>
 <Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
-</Enrollment>
-<Enrollment>
   <CourseId>10252</CourseId>
   <InstructorId>1011</InstructorId>
   <StudentId>201998</StudentId>
@@ -58765,13 +58722,6 @@
   <StudentId>202172</StudentId>
   <DateId>50</DateId>
   <Grade>A+</Grade>
-</Enrollment>
-<Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
 </Enrollment>
 <Enrollment>
   <CourseId>10010</CourseId>
@@ -65774,13 +65724,6 @@
   <Grade>C-</Grade>
 </Enrollment>
 <Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
-</Enrollment>
-<Enrollment>
   <CourseId>10175</CourseId>
   <InstructorId>1022</InstructorId>
   <StudentId>202380</StudentId>
@@ -72779,13 +72722,6 @@
   <StudentId>202589</StudentId>
   <DateId>50</DateId>
   <Grade>C-</Grade>
-</Enrollment>
-<Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
 </Enrollment>
 <Enrollment>
   <CourseId>10384</CourseId>
@@ -79788,13 +79724,6 @@
   <Grade>B</Grade>
 </Enrollment>
 <Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
-</Enrollment>
-<Enrollment>
   <CourseId>10083</CourseId>
   <InstructorId>1004</InstructorId>
   <StudentId>202796</StudentId>
@@ -86793,13 +86722,6 @@
   <StudentId>202980</StudentId>
   <DateId>51</DateId>
   <Grade>A-</Grade>
-</Enrollment>
-<Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
 </Enrollment>
 <Enrollment>
   <CourseId>10390</CourseId>
@@ -93802,13 +93724,6 @@
   <Grade>C-</Grade>
 </Enrollment>
 <Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
-</Enrollment>
-<Enrollment>
   <CourseId>10071</CourseId>
   <InstructorId>1022</InstructorId>
   <StudentId>203176</StudentId>
@@ -100807,13 +100722,6 @@
   <StudentId>203400</StudentId>
   <DateId>51</DateId>
   <Grade>B</Grade>
-</Enrollment>
-<Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
 </Enrollment>
 <Enrollment>
   <CourseId>10389</CourseId>
@@ -107816,13 +107724,6 @@
   <Grade>B-</Grade>
 </Enrollment>
 <Enrollment>
-  <CourseId>CourseId</CourseId>
-  <InstructorId>InstructorId</InstructorId>
-  <StudentId>StudentId</StudentId>
-  <DateId>DateId</DateId>
-  <Grade>Grade</Grade>
-</Enrollment>
-<Enrollment>
   <CourseId>10047</CourseId>
   <InstructorId>1003</InstructorId>
   <StudentId>203608</StudentId>
@@ -111056,3 +110957,4 @@
   <DateId>50</DateId>
   <Grade>B</Grade>
 </Enrollment>
+</dataset>
