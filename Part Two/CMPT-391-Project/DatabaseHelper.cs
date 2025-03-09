@@ -28,10 +28,11 @@ namespace CMPT_391_Project
                 "Server = ; Database = 391Project2; Trusted_Connection = yes;",
                 "Server = ; Database = 391Project2; Trusted_Connection = yes;",
                 "Server = LAPTOP-ORGILO7V; Database = 391Project2; Trusted_Connection = yes;", // Cole - 4
-                "Server = ; Database = 391Project2; Trusted_Connection = yes;"
+                "Server = ; Database = 391Project2; Trusted_Connection = yes;",
+                "Server = TABLET-PUDR0N7I\\MSSQLSERVER01; Database = 391Project2; Trusted_Connection = yes;" // Stu - 6
             };
         
-            myConnection = new SqlConnection(connectionStrings[0]);
+            myConnection = new SqlConnection(connectionStrings[6]);
 
             try {
                 myConnection.Open();

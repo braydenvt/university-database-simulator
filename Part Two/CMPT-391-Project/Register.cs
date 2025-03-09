@@ -136,5 +136,18 @@ namespace CMPT_391_Project
         {
 
         }
+
+        private void Browse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "XML Files|*.xml";  // Restrict to XML files
+            openFileDialog.Title = "Select an XML file";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFilePath = openFileDialog.FileName;
+            }
+
+        }
     }
 }
